@@ -1,0 +1,227 @@
+[
+  {
+    "situation": "salutations",
+    "francais": "Bonjour / Comment allez-vous ?",
+    "moore": "Laafi bala ?",
+    "romanisation": "La-a-fi ba-la",
+    "reponse": "Laafi (ça va bien)",
+    "contexte": "Salutation universelle mooré, utilisée à toute heure"
+  },
+  {
+    "situation": "salutations",
+    "francais": "Ça va bien, merci.",
+    "moore": "Laafi, bark y wẽnam.",
+    "romanisation": "La-a-fi, bark i wê-nam",
+    "contexte": "Réponse à la salutation"
+  },
+  {
+    "situation": "salutations",
+    "francais": "Bienvenue !",
+    "moore": "Wend na kõ f yãmb zugu.",
+    "romanisation": "Wend na kõ f yãmb zu-gu",
+    "contexte": "Accueillir quelqu'un chez soi ou dans le pays"
+  },
+  {
+    "situation": "salutations",
+    "francais": "Au revoir.",
+    "moore": "Fo wa ye.",
+    "romanisation": "Fo wa ye",
+    "contexte": "Formule de départ"
+  },
+  {
+    "situation": "salutations",
+    "francais": "Merci beaucoup.",
+    "moore": "Bark y wẽnam wʋsgo.",
+    "romanisation": "Bark i wê-nam wùs-go",
+    "contexte": "Exprimer sa gratitude"
+  },
+  {
+    "situation": "salutations",
+    "francais": "Je m'appelle [prénom].",
+    "moore": "Mam yʋʋre la [prénom].",
+    "romanisation": "Mam yùu-re la...",
+    "contexte": "Se présenter"
+  },
+  {
+    "situation": "marche",
+    "francais": "Combien ça coûte ?",
+    "moore": "A wõnd la a yãnd bõe ?",
+    "romanisation": "A wõnd la a yãnd bõ-e",
+    "contexte": "Demander le prix au marché"
+  },
+  {
+    "situation": "marche",
+    "francais": "C'est trop cher.",
+    "moore": "A yaa noog wʋsgo.",
+    "romanisation": "A yaa noog wùs-go",
+    "contexte": "Négocier au marché"
+  },
+  {
+    "situation": "marche",
+    "francais": "Pouvez-vous baisser le prix ?",
+    "moore": "Y tõe n nams a noog ?",
+    "romanisation": "I tõe n nams a noog",
+    "contexte": "Marchander poliment"
+  },
+  {
+    "situation": "marche",
+    "francais": "Je prends celui-ci.",
+    "moore": "M na rɩ kãnga.",
+    "romanisation": "M na ri kã-nga",
+    "contexte": "Conclure un achat"
+  },
+  {
+    "situation": "marche",
+    "francais": "Où est le marché ?",
+    "moore": "Luuma bee yɛ ?",
+    "romanisation": "Luu-ma bee yè",
+    "contexte": "Trouver son chemin vers le marché"
+  },
+  {
+    "situation": "transport",
+    "francais": "Où est la gare des bus ?",
+    "moore": "Wagẽ yaa wẽgã bee yɛ ?",
+    "romanisation": "Wa-gê yaa wê-gã bee yè",
+    "contexte": "Trouver une gare routière"
+  },
+  {
+    "situation": "transport",
+    "francais": "Je veux aller à [ville].",
+    "moore": "M rat n kẽng [tẽnga].",
+    "romanisation": "M rat n kêng...",
+    "contexte": "Indiquer sa destination"
+  },
+  {
+    "situation": "transport",
+    "francais": "À quelle heure part le bus ?",
+    "moore": "Wagẽ yika wakat bʋg ?",
+    "romanisation": "Wa-gê yi-ka wa-kat bùg",
+    "contexte": "Se renseigner sur les horaires"
+  },
+  {
+    "situation": "transport",
+    "francais": "Arrêtez ici, s'il vous plaît.",
+    "moore": "Kõ f wa n sig ka.",
+    "romanisation": "Kõ f wa n sig ka",
+    "contexte": "Demander l'arrêt dans un taxi"
+  },
+  {
+    "situation": "hotel",
+    "francais": "Avez-vous une chambre disponible ?",
+    "moore": "Y tara kaangã sẽn ka sak ye ?",
+    "romanisation": "I ta-ra kaan-gã sên ka sak ye",
+    "contexte": "Chercher une chambre d'hôtel"
+  },
+  {
+    "situation": "hotel",
+    "francais": "Quel est le prix par nuit ?",
+    "moore": "Yʋnga wẽ kaangã noog bee bõe ?",
+    "romanisation": "Yùn-ga wê kaan-gã noog bee bõe",
+    "contexte": "Connaître le tarif"
+  },
+  {
+    "situation": "hotel",
+    "francais": "Où sont les toilettes ?",
+    "moore": "Zĩig sẽn yiis yũ bee yɛ ?",
+    "romanisation": "Zîig sên yiis yũ bee yè",
+    "contexte": "Trouver les sanitaires"
+  },
+  {
+    "situation": "nourriture",
+    "francais": "J'ai faim.",
+    "moore": "M tar kom.",
+    "romanisation": "M tar kom",
+    "contexte": "Exprimer la faim"
+  },
+  {
+    "situation": "nourriture",
+    "francais": "J'ai soif.",
+    "moore": "M tar yũ-kom.",
+    "romanisation": "M tar yũ-kom",
+    "contexte": "Exprimer la soif"
+  },
+  {
+    "situation": "nourriture",
+    "francais": "L'eau, s'il vous plaît.",
+    "moore": "Koom, y sak la.",
+    "romanisation": "Koom, i sak la",
+    "contexte": "Commander de l'eau"
+  },
+  {
+    "situation": "nourriture",
+    "francais": "C'est délicieux !",
+    "moore": "A nooma wʋsgo !",
+    "romanisation": "A noo-ma wùs-go",
+    "contexte": "Complimenter la nourriture"
+  },
+  {
+    "situation": "nourriture",
+    "francais": "Je voudrais du tô, s'il vous plaît.",
+    "moore": "M dat tõ, y sak la.",
+    "romanisation": "M dat tõ, i sak la",
+    "contexte": "Commander le plat national"
+  },
+  {
+    "situation": "urgence",
+    "francais": "Au secours !",
+    "moore": "M sõnga !",
+    "romanisation": "M sõn-ga",
+    "contexte": "Appel à l'aide"
+  },
+  {
+    "situation": "urgence",
+    "francais": "Appelez un médecin !",
+    "moore": "Bool dɔkiti !",
+    "romanisation": "Bool dòk-ti",
+    "contexte": "Urgence médicale"
+  },
+  {
+    "situation": "urgence",
+    "francais": "J'ai perdu mon passeport.",
+    "moore": "M paasepoor fag rãmba.",
+    "romanisation": "M paas-poor fag rãm-ba",
+    "contexte": "Perte de document"
+  },
+  {
+    "situation": "politesse",
+    "francais": "S'il vous plaît.",
+    "moore": "Y sak la.",
+    "romanisation": "I sak la",
+    "contexte": "Formule de politesse universelle"
+  },
+  {
+    "situation": "politesse",
+    "francais": "Excusez-moi.",
+    "moore": "M sõaaga.",
+    "romanisation": "M sõa-ga",
+    "contexte": "Demander pardon ou attirer l'attention poliment"
+  },
+  {
+    "situation": "politesse",
+    "francais": "Je ne comprends pas.",
+    "moore": "M pa wʋmd ye.",
+    "romanisation": "M pa wùmd ye",
+    "contexte": "Exprimer l'incompréhension"
+  },
+  {
+    "situation": "politesse",
+    "francais": "Parlez plus lentement, s'il vous plaît.",
+    "moore": "Gom neng bilf bilf, y sak la.",
+    "romanisation": "Gom neng bilf bilf, i sak la",
+    "contexte": "Demander à quelqu'un de ralentir"
+  },
+  {
+    "situation": "fetes",
+    "francais": "Bonne fête !",
+    "moore": "Fɛɛt nooma !",
+    "romanisation": "Fêt noo-ma",
+    "contexte": "Voeux pendant les fêtes"
+  },
+  {
+    "situation": "fetes",
+    "francais": "Félicitations !",
+    "moore": "Bark y wẽnam !",
+    "romanisation": "Bark i wê-nam",
+    "contexte": "Féliciter quelqu'un"
+  }
+]

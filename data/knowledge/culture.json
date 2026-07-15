@@ -1,0 +1,40 @@
+[
+  {
+    "id": "ethnies",
+    "titre": "Un pays, 60 langues",
+    "resume": "Le Burkina Faso est l'un des pays les plus ethniquement divers d'Afrique. Les principales ethnies sont les Mossi (50%), les Gourmantché, les Bobo, les Sénoufo, les Peul (Fula), les Touareg, les Lobi, les Dagara, les Nuna et les Bwa.",
+    "detail": "Malgré cette diversité, le Burkina Faso est reconnu pour sa cohésion sociale et sa tolérance interreligieuse. Les Mossi, peuple du plateau central, parlent le mooré. Les Dioula (langue du commerce) est comprise dans tout l'Ouest-africain.",
+    "tags": ["ethnies", "diversité", "langues", "cohésion"]
+  },
+  {
+    "id": "mogho-naaba",
+    "titre": "La Cérémonie du Mogho Naaba",
+    "resume": "Chaque vendredi matin, le Mogho Naaba — roi des Mossi et chef traditionnel de Ouagadougou — préside une cérémonie de fausse fuite (Wemba) au palais royal. Cette tradition centenaire symbolise la résistance mossi à la colonisation.",
+    "detail": "La cérémonie commence à 7h. Le Naaba sort habillé pour la guerre sur son cheval blanc, comme pour fuir. Ses ministres traditionnels le supplient de rester. Il rentre, se change en habits pacifiques et reçoit ses sujets. Ce rituel est ouvert au public.",
+    "lieu": "Palais du Mogho Naaba, Ouagadougou",
+    "horaire": "Chaque vendredi, 7h00",
+    "tags": ["tradition", "Mogho Naaba", "cérémonie", "mossi", "royauté"]
+  },
+  {
+    "id": "bogolan",
+    "titre": "Le Bogolan — Tissu de la Terre",
+    "resume": "Le bogolan (ou 'bogolanfini') est un tissu traditionnel en coton teint à la boue fermentée, produisant des motifs géométriques brun-noirs sur fond ocre. Originaire du Mali, il est aujourd'hui largement porté et produit au Burkina Faso.",
+    "detail": "Les artisanes fabriquent le bogolan en enduisant le tissu de feuilles de N'galama bouillies, puis en appliquant de la boue de rivière fermentée. Les motifs, tous symboliques, racontent des histoires de vie, de guerre, de fertilité.",
+    "tags": ["tissu", "artisanat", "bogolan", "symboles", "mode"]
+  },
+  {
+    "id": "musique",
+    "titre": "Musique et Instruments Traditionnels",
+    "resume": "Le Burkina Faso est le berceau du balafon (xylophone africain), de la kora (harpe-luth à 21 cordes), du djembé et des luths traditionnels. Victor Démé, Farafina et Issouf Diabaté sont ses ambassadeurs mondiaux.",
+    "detail": "Le balafon Bobo, classé au patrimoine immatériel de l'UNESCO, est le plus vénéré. Il n'est fabriqué et joué que par les griots (djeli) — gardiens de la mémoire orale de la société.",
+    "instruments": ["Balafon", "Kora", "Djembé", "Luths traditionnels", "Flûtes Peul"],
+    "tags": ["musique", "balafon", "kora", "griots", "UNESCO"]
+  },
+  {
+    "id": "masques",
+    "titre": "Les Masques du Burkina Faso",
+    "resume": "Le Burkina Faso possède l'une des plus riches traditions de masques d'Afrique. Chaque ethnie a ses propres masques : masques Bobo à fibres végétales, masques Nuna aux couleurs vives, masques Gurunsi aux formes géométriques.",
+    "detail": "Les masques ne sont pas de simples objets décoratifs — ce sont des entités spirituelles habitées par les ancêtres. Les cérémonies de masques marquent les funérailles, les récoltes et les initiations. Certains masques sont secrets et ne peuvent être vus que par les initiés.",
+    "tags": ["masques", "spiritualité", "Bobo", "Nuna", "Gurunsi"]
+  }
+]

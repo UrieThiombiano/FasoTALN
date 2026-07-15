@@ -1,0 +1,45 @@
+[
+  {
+    "id": "fespaco",
+    "nom": "FESPACO — Festival Panafricain du Cinéma",
+    "type": "cinéma",
+    "frequence": "Biennal (années impaires)",
+    "periode": "Fin février – début mars",
+    "lieu": "Ouagadougou",
+    "description": "Le plus grand festival de cinéma africain au monde, créé en 1969. L'Étalon d'Or de Yennenga — du nom de la princesse fondatrice de l'Empire Mossi — est son trophée suprême. Le FESPACO attire 500 000 spectateurs et des films de 50 pays africains.",
+    "pourquoi_y_aller": "Voir du cinéma africain en plein air, rencontrer des réalisateurs de tout le continent, sentir l'énergie d'une capitale culturelle en fête.",
+    "tags": ["cinéma", "culture", "panafricanisme", "festival", "international"]
+  },
+  {
+    "id": "siao",
+    "nom": "SIAO — Salon International de l'Artisanat de Ouagadougou",
+    "type": "artisanat",
+    "frequence": "Biennal (années paires)",
+    "periode": "Octobre – Novembre",
+    "lieu": "Ouagadougou",
+    "description": "Le plus grand salon d'artisanat africain. 90 pays exposants, 600 000 visiteurs, des milliers d'artisans — bronziers, tisserands, bijoutiers, sculpteurs. Un voyage sensoriel unique.",
+    "pourquoi_y_aller": "Acheter directement aux artisans, voir des démonstrations de techniques traditionnelles, goûter la gastronomie de tout le continent.",
+    "tags": ["artisanat", "commerce", "culture", "international", "festival"]
+  },
+  {
+    "id": "snc",
+    "nom": "Semaine Nationale de la Culture (SNC)",
+    "type": "culturel",
+    "frequence": "Biennal (années paires)",
+    "periode": "Mars",
+    "lieu": "Bobo-Dioulasso",
+    "description": "La plus grande fête culturelle nationale du Burkina Faso. Danses masquées, musique traditionnelle, contes, expositions artistiques — toutes les régions envoient leurs représentants à Bobo-Dioulasso pour une semaine de célébration de la diversité burkinabè.",
+    "tags": ["danse", "musique", "masques", "tradition", "diversité"]
+  },
+  {
+    "id": "festima",
+    "nom": "FESTIMA — Festival International des Masques et des Arts",
+    "type": "masques",
+    "frequence": "Biennal",
+    "periode": "Mars",
+    "lieu": "Dédougou",
+    "description": "Le festival des masques africains par excellence. Des masques des traditions Bobo, Bwa, Nuna, Gurunsi et d'autres pays d'Afrique de l'Ouest se réunissent à Dédougou pour des cérémonies spectaculaires.",
+    "pourquoi_y_aller": "Voir des masques sacrés en danse — une expérience spirituelle et visuelle unique.",
+    "tags": ["masques", "tradition", "spiritualité", "danse", "Bobo"]
+  }
+]

@@ -1,0 +1,191 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Design Tokens FasoXplore ────────────────────────────────────────────── */
+:root {
+  /* Palette — inspirée des matériaux du Burkina Faso */
+  --indigo:       #1A1230;
+  --indigo-light: #2D1F4A;
+  --indigo-faint: #3D2E5C;
+  --or:           #F0A500;
+  --or-light:     #F5C040;
+  --or-dark:      #C8820A;
+  --argile:       #B8411A;
+  --argile-light: #D05028;
+  --mil:          #1E6B4A;
+  --mil-light:    #2A8B62;
+  --sable:        #FAF3E0;
+  --sable-dark:   #F0E4C4;
+  --blanc:        #FEFCF7;
+  --text-primary: #1A1230;
+  --text-muted:   #6B5F7A;
+  --border:       rgba(26, 18, 48, 0.12);
+
+  /* Typographies */
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-body:    "Inter", system-ui, sans-serif;
+  --font-ui:      "Space Grotesk", system-ui, sans-serif;
+
+  /* Espacements */
+  --section-y:    clamp(4rem, 8vw, 8rem);
+  --container:    min(1200px, 100% - 2rem);
+}
+
+/* ── Base ─────────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--text-primary);
+  background: var(--blanc);
+  line-height: 1.6;
+}
+
+/* ── Typographie ──────────────────────────────────────────────────────────── */
+.font-display { font-family: var(--font-display); }
+.font-ui      { font-family: var(--font-ui); }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  line-height: 1.2;
+}
+
+/* ── Conteneur centré ─────────────────────────────────────────────────────── */
+.container-fx {
+  width: var(--container);
+  margin-inline: auto;
+}
+
+/* ── Motif Bogolan (signature visuelle) ───────────────────────────────────── */
+.bogolan-divider {
+  width: 100%;
+  height: 24px;
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      var(--or)   0px, var(--or)   8px,
+      var(--argile) 8px, var(--argile) 16px,
+      var(--mil)  16px, var(--mil)  24px,
+      var(--indigo) 24px, var(--indigo) 32px
+    );
+  opacity: 0.18;
+}
+
+/* Variante fine */
+.bogolan-divider-sm {
+  height: 4px;
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      var(--or)   0px, var(--or)   6px,
+      var(--argile) 6px, var(--argile) 12px,
+      var(--mil)  12px, var(--mil)  18px,
+      transparent 18px, transparent 24px
+    );
+}
+
+/* ── Gradient hero ────────────────────────────────────────────────────────── */
+.hero-gradient {
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, #3D2E5C 0%, #1A1230 60%),
+    linear-gradient(180deg, #1A1230 0%, #0E0A1E 100%);
+}
+
+/* ── Texte dégradé or ─────────────────────────────────────────────────────── */
+.text-gradient-or {
+  background: linear-gradient(135deg, var(--or-light), var(--or), var(--argile-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Carte ────────────────────────────────────────────────────────────────── */
+.card-fx {
+  background: var(--blanc);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.card-fx:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(26, 18, 48, 0.12);
+}
+
+/* ── Bouton primaire ──────────────────────────────────────────────────────── */
+.btn-or {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.75rem;
+  background: var(--or);
+  color: var(--indigo);
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+  white-space: nowrap;
+}
+.btn-or:hover {
+  background: var(--or-light);
+  transform: translateY(-1px);
+}
+.btn-or:active { transform: translateY(0); }
+
+/* ── Bouton secondaire ────────────────────────────────────────────────────── */
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.75rem;
+  background: transparent;
+  color: var(--or);
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  border-radius: 50px;
+  border: 1.5px solid var(--or);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.btn-outline:hover {
+  background: var(--or);
+  color: var(--indigo);
+}
+
+/* ── Badge ────────────────────────────────────────────────────────────────── */
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 50px;
+}
+.badge-or    { background: rgba(240,165,0,0.15); color: var(--or-dark); }
+.badge-mil   { background: rgba(30,107,74,0.12); color: var(--mil); }
+.badge-argile { background: rgba(184,65,26,0.12); color: var(--argile); }
+
+/* ── Scrollbar discrète ────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--sable); }
+::-webkit-scrollbar-thumb { background: rgba(26,18,48,0.2); border-radius: 3px; }
+
+/* ── Reduced motion ───────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,48 @@
+[
+  {
+    "id": "to",
+    "nom": "Tô",
+    "type": "plat principal",
+    "description": "Le plat national burkinabè. Pâte épaisse de farine de mil ou de sorgho, servie avec une sauce à base de feuilles de baobab, de légumes ou de viande. Mangé avec les doigts, en famille, autour d'un plat commun.",
+    "accompagnement": ["Sauce de feuilles de baobab", "Sauce gombo", "Sauce d'arachide"],
+    "conseil": "Le tô se mange traditionnellement avec les doigts de la main droite — former une petite boule, faire un creux, plonger dans la sauce.",
+    "tags": ["plat national", "mil", "sorgho", "tradition"]
+  },
+  {
+    "id": "riz-gras",
+    "nom": "Riz Gras",
+    "type": "plat principal",
+    "description": "Riz cuit dans une sauce tomate épicée avec de la viande (bœuf, poulet) et des légumes. Incontournable dans les cérémonies et les restaurants de rue.",
+    "tags": ["riz", "fête", "restaurant", "quotidien"]
+  },
+  {
+    "id": "poulet-bicyclette",
+    "nom": "Poulet Bicyclette",
+    "type": "plat principal",
+    "description": "Poulet fermier grillé au charbon de bois, mariné aux épices locales. Appelé 'bicyclette' car les vendeurs ambulants le transportaient sur leurs vélos. Servi avec du fonio ou du riz.",
+    "conseil": "Le meilleur se mange le soir, dans les maquis (restaurants populaires en plein air) de Ouagadougou.",
+    "tags": ["grillades", "poulet", "maquis", "incontournable"]
+  },
+  {
+    "id": "dolo",
+    "nom": "Dolo (Bière de Mil)",
+    "type": "boisson",
+    "description": "Bière traditionnelle fermentée à base de mil ou de sorgho. Brassée et vendue par les femmes (les 'dolobrèmes') dans les cabarets traditionnels. Légèrement alcoolisée, acide et désaltérante.",
+    "conseil": "Se boit dans des calebasses collectivement — un rituel social autant qu'une boisson.",
+    "tags": ["boisson", "tradition", "mil", "calebasse"]
+  },
+  {
+    "id": "dègué",
+    "nom": "Dègué",
+    "type": "dessert / boisson",
+    "description": "Boisson-dessert à base de couscous de mil, de yaourt et de lait concentré sucré. Fraîche, crémeuse et légèrement acidulée. Servie dans les cérémonies et au quotidien.",
+    "tags": ["dessert", "yaourt", "mil", "frais"]
+  },
+  {
+    "id": "soumbala",
+    "nom": "Soumbala",
+    "type": "condiment",
+    "description": "Condiment fermenté à base de graines de néré, avec une odeur puissante mais une saveur umami incomparable. Le 'miso africain', utilisé dans presque toutes les sauces burkinabè.",
+    "tags": ["condiment", "fermenté", "cuisine", "umami"]
+  }
+]

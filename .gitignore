@@ -1,0 +1,24 @@
+# Secrets — ne jamais committer
+.env
+backend/.env
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Node / frontend
+node_modules/
+frontend/dist/
+
+# Caches modèles / index
+.cache/
+data/index/
+
+# OS / IDE
+desktop.ini
+Thumbs.db
+.DS_Store
+.vscode/
+.idea/
