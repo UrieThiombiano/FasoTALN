@@ -31,13 +31,13 @@ tout en produisant un artefact utilisable par quiconque veut connaître le Burki
 - `backend/src/asr_engine.py` — ASR mooré (MMS fine-tuné, local).
 - `backend/src/citadel_api.py` — wrappers pour APIs MT et TTS CITADEL.
 - `backend/src/agent.py` — agent FasoGuide (Claude API + tools).
-- `backend/src/sukre/` — code de recherche sémantique SUKRE réutilisé.
 - Variables d'environnement dans `.env` (voir `.env.example`).
 
 ### Données
 - `data/knowledge/*.json` — base de connaissance éditoriale (histoire, lieux,
   culture, gastronomie, festivals, phrasebook). À enrichir progressivement.
-- `data/audio/` — corpus audio mooré pour SUKRE (fichiers .wav).
+- Aucun fichier audio n'est stocké dans le projet ni écrit sur disque par le
+  backend (ASR : fichiers temporaires supprimés ; TTS : servi depuis la mémoire).
 
 ---
 
@@ -110,7 +110,6 @@ Chargement dans `backend/src/asr_engine.py` :
 /decouvrir         — Histoire, Lieux, Culture, Gastronomie, Festivals
 /communiquer       — Traduction vocale, Phrasebook, Immersion
 /fasoquide         — Agent IA conversationnel (questions libres)
-/archives          — Recherche sémantique SUKRE dans audio mooré
 ```
 
 ---
@@ -139,7 +138,6 @@ Le frontend appelle le backend via le proxy Vite configuré dans `vite.config.js
 
 ### Déjà fait (réutiliser sans modifier)
 - `backend/src/asr_engine.py` — ASR complet
-- `backend/src/sukre/` — pipeline SUKRE (FAISS + NLLB)
 - `data/knowledge/*.json` — contenu éditorial de départ (à enrichir)
 - Design tokens CSS dans `frontend/src/index.css`
 
@@ -152,7 +150,6 @@ Le frontend appelle le backend via le proxy Vite configuré dans `vite.config.js
 6. Frontend : page Découvrir
 7. Frontend : page Communiquer (traduction + phrasebook)
 8. Frontend : page FasoGuide (chat agent)
-9. Frontend : page Archives (SUKRE)
 
 ---
 

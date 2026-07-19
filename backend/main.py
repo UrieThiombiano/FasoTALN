@@ -1,7 +1,7 @@
 """
 FasoXplore — Backend FastAPI
 Orchestre les agents NLP : ASR mooré (local), MT/TTS CITADEL (API),
-recherche sémantique SUKRE, agent conversationnel FasoGuide.
+agent conversationnel FasoGuide.
 
 Lancement : uvicorn main:app --reload --port 8000
 """
@@ -13,9 +13,9 @@ import uuid
 from pathlib import Path
 
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException
-from fastapi.responses import JSONResponse, FileResponse
-from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse, Response, FileResponse
 from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from dotenv import load_dotenv
 
@@ -43,12 +43,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-# Servir les fichiers audio du corpus
-audio_dir = Path("../data/audio")
-if audio_dir.exists():
-    app.mount("/audio", StaticFiles(directory=str(audio_dir)), name="audio")
-
 
 # ── ffmpeg ────────────────────────────────────────────────────────────────
 def _ffmpeg_exe() -> str:
@@ -148,15 +142,11 @@ class TTSRequest(BaseModel):
 async def tts(req: TTSRequest):
     """
     Génère l'audio d'un texte mooré via l'API TTS CITADEL.
-    Retourne : fichier audio WAV en streaming.
+    Retourne : audio WAV servi depuis la mémoire, rien n'est écrit sur disque.
     """
     audio_bytes = citadel.tts(req.text)
-    uid = uuid.uuid4().hex
-    out_path = os.path.join(tempfile.gettempdir(), f"faso_tts_{uid}.wav")
-    with open(out_path, "wb") as f:
-        f.write(audio_bytes)
-    return FileResponse(
-        out_path,
+    return Response(
+        content=audio_bytes,
         media_type="audio/wav",
         headers={"Content-Disposition": "inline"},
     )
@@ -187,70 +177,6 @@ def knowledge(category: str):
     return JSONResponse(data)
 
 
-# ── Recherche sémantique SUKRE ────────────────────────────────────────────
-class SearchTextRequest(BaseModel):
-    query: str
-
-@app.post("/api/search/text")
-async def search_text(req: SearchTextRequest):
-    """
-    Recherche sémantique dans le corpus audio mooré à partir d'une requête texte française.
-    Retourne : {"results": [{filename, score, transcription, criticite_top, ...}]}
-    """
-    # Import ici pour éviter de charger FAISS si non utilisé
-    from src.sukre.pipeline import SukrePipeline
-    pipeline = _get_sukre()
-    results = pipeline.search_text(req.query)
-    return JSONResponse({"results": results})
-
-
-@app.post("/api/search/audio")
-async def search_audio(audio: UploadFile = File(...)):
-    """
-    Recherche sémantique dans le corpus audio mooré à partir d'une requête vocale.
-    Retourne : {"transcription": "...", "results": [...]}
-    """
-    from src.sukre.pipeline import SukrePipeline
-    suffix = Path(audio.filename or "audio.wav").suffix or ".wav"
-    uid = uuid.uuid4().hex
-    raw = os.path.join(tempfile.gettempdir(), f"faso_q_{uid}_raw{suffix}")
-    wav = os.path.join(tempfile.gettempdir(), f"faso_q_{uid}.wav")
-
-    with open(raw, "wb") as f:
-        f.write(await audio.read())
-
-    try:
-        _convert_to_wav16k(raw, wav)
-    finally:
-        if os.path.exists(raw):
-            os.remove(raw)
-
-    try:
-        pipeline = _get_sukre()
-        results, transcription = pipeline.search_audio(wav)
-    finally:
-        if os.path.exists(wav):
-            os.remove(wav)
-
-    return JSONResponse({"transcription": transcription, "results": results})
-
-
-@app.post("/api/build-index")
-def build_index():
-    """
-    (Re)construit l'index FAISS depuis data/audio/.
-    À appeler après ajout de nouveaux fichiers audio.
-    """
-    from src.sukre.pipeline import SukrePipeline
-    pipeline = _get_sukre(force_rebuild=True)
-    try:
-        n = pipeline.build_from_folder()
-        pipeline.save_index()
-        return JSONResponse({"message": f"{n} fichier(s) indexé(s)."})
-    except FileNotFoundError as e:
-        raise HTTPException(400, str(e))
-
-
 # ── Agent FasoGuide ───────────────────────────────────────────────────────
 class AgentRequest(BaseModel):
     message: str
@@ -268,17 +194,20 @@ async def agent_chat(req: AgentRequest):
     return JSONResponse(result)
 
 
-# ── Cache SUKRE (singleton paresseux) ────────────────────────────────────
-_sukre_instance = None
+# ── Frontend statique (production) ────────────────────────────────────────
+# En production (Docker/HF Spaces), le build Vite est servi par FastAPI :
+# même origine, donc ni proxy ni CORS nécessaires. En dev, le dossier
+# n'existe pas forcément et le proxy Vite fait le travail.
+_dist = Path(__file__).resolve().parent.parent / "frontend" / "dist"
+if _dist.is_dir():
+    app.mount("/assets", StaticFiles(directory=str(_dist / "assets")), name="spa-assets")
 
-def _get_sukre(force_rebuild: bool = False):
-    global _sukre_instance
-    if _sukre_instance is None or force_rebuild:
-        from src.sukre.pipeline import SukrePipeline
-        _sukre_instance = SukrePipeline()
-        index_dir = Path("../data")
-        faiss_path = index_dir / "index" / "segments.faiss"
-        meta_path  = index_dir / "index" / "segments_metadata.json"
-        if faiss_path.exists() and meta_path.exists():
-            _sukre_instance.load_index()
-    return _sukre_instance
+    @app.get("/{full_path:path}", include_in_schema=False)
+    async def spa_fallback(full_path: str):
+        if full_path.startswith("api/"):
+            raise HTTPException(404, "Route API inconnue.")
+        candidate = _dist / full_path
+        if full_path and candidate.is_file():
+            return FileResponse(candidate)
+        # React Router gère le routage côté client
+        return FileResponse(_dist / "index.html")

@@ -19,7 +19,6 @@ FasoXplore
     ├── ASR mooré      MMS-1B fine-tuné (WER 13.7%) — LOCAL
     ├── MT fr↔mos      APIs NLP CITADEL (promotion précédente)
     ├── TTS mooré      APIs NLP CITADEL (promotion précédente)
-    ├── Retrieval      SUKRE (FAISS + NLLB-200) — LOCAL
     └── Agent IA       Mistral (function calling, 2 outils) + fallback Gemini
 ```
 

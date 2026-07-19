@@ -16,6 +16,13 @@ frontend/dist/
 .cache/
 data/index/
 
+# Audio — aucun fichier audio ne doit être versionné
+*.wav
+*.mp3
+*.ogg
+*.m4a
+*.flac
+
 # OS / IDE
 desktop.ini
 Thumbs.db

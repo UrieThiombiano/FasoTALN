@@ -141,7 +141,6 @@ graph LR
 | Réf. | Besoin | Détail |
 |------|--------|--------|
 | BF-14 | API de santé | `GET /api/health` expose l'état du service |
-| BF-15 | Recherche sémantique audio (backend) | Endpoints SUKRE (`/api/search/text`, `/api/search/audio`, `/api/build-index`) conservés côté API ; le module Archives a été retiré de l'interface |
 
 ---
 
@@ -151,7 +150,7 @@ graph LR
 |------|-----------|----------|-------------|
 | BNF-01 | **Souveraineté** | Le traitement de la parole mooré ne dépend d'aucun service étranger | ASR exécuté localement (modèle MMS fine-tuné maison) ; traduction et TTS fournis par CITADEL (Burkina Faso) |
 | BNF-02 | **Disponibilité** | Aucune panne d'un service externe ne doit rendre la plateforme muette | Agent à double modèle (Mistral → Gemini) ; phrasebook avec valeurs de repli ; TTS en échec = texte affiché quand même |
-| BNF-03 | **Performance** | Navigation fluide, modèles chargés une seule fois | Modèle ASR et clients API instanciés au démarrage du serveur ; cache frontend des catégories éditoriales ; index SUKRE en chargement paresseux |
+| BNF-03 | **Performance** | Navigation fluide, modèles chargés une seule fois | Modèle ASR et clients API instanciés au démarrage du serveur ; cache frontend des catégories éditoriales |
 | BNF-04 | **Confidentialité** | Aucune donnée utilisateur persistante | Pas de base de données, pas de comptes ; fichiers audio traités dans des fichiers temporaires supprimés après usage |
 | BNF-05 | **Sécurité** | Les secrets ne sont jamais dans le code | Clés et identifiants dans `.env` (gabarit `.env.example`) ; CORS restreint aux origines du frontend |
 | BNF-06 | **Utilisabilité** | Interface en français, sans jargon technique visible | Textes 100 % français ; aucun terme technique (WER, ASR, modèles) exposé à l'utilisateur final |
@@ -189,12 +188,10 @@ graph TB
         CIT["citadel_api.py<br/>client MT + TTS"]
         AG["agent.py<br/>agent FasoGuide"]
         KB["knowledge_base.py<br/>base éditoriale"]
-        SUKRE["sukre/<br/>recherche sémantique audio"]
     end
 
     subgraph T3["Tier 3 — Données & services"]
         JSON[("data/knowledge/*.json")]
-        AUDIO[("data/audio/*.wav")]
         MT["API MT CITADEL<br/>(JWT)"]
         TTS["API TTS CITADEL"]
         MIS["Mistral AI"]
@@ -207,9 +204,7 @@ graph TB
     API --> CIT
     API --> AG
     API --> KB
-    API --> SUKRE
     KB --> JSON
-    SUKRE --> AUDIO
     CIT --> MT
     CIT --> TTS
     AG --> MIS
@@ -239,12 +234,11 @@ graph TB
 
 | Module | Responsabilité | Points de conception |
 |--------|----------------|----------------------|
-| `main.py` | Routes REST, conversion audio (ffmpeg → WAV mono 16 kHz), cycle de vie des modèles | Modèles chargés une fois au démarrage ; fichiers temporaires nettoyés en `finally` ; SUKRE en singleton paresseux |
+| `main.py` | Routes REST, conversion audio (ffmpeg → WAV mono 16 kHz), cycle de vie des modèles | Modèles chargés une fois au démarrage ; fichiers temporaires nettoyés en `finally` |
 | `src/asr_engine.py` | Transcription parole → texte (mooré et français) | `facebook/mms-1b-all` + surcharge des poids par l'adaptateur fine-tuné `Uriath/mms-mos-finetuned` ; bascule d'adaptateur selon la langue |
 | `src/citadel_api.py` | Client des API CITADEL | Gestion du token JWT (login + renouvellement automatique) ; URL TTS configurable (`CITADEL_TTS_URL`) |
 | `src/agent.py` | Agent FasoGuide | Boucle agentique à function calling (détail §8.2) |
 | `src/knowledge_base.py` | Chargement et interrogation des JSON éditoriaux | Recherche par sous-chaîne, filtrage du phrasebook par situation |
-| `src/sukre/` | Pipeline de recherche sémantique dans le corpus audio mooré | Index FAISS + embeddings ; chargé uniquement si un endpoint SUKRE est appelé |
 
 ### 6.2 API REST
 
@@ -257,9 +251,6 @@ graph TB
 | GET | `/api/phrasebook?situation=…` | Paramètre `situation` | `{situation, phrases[]}` |
 | GET | `/api/knowledge/{categorie}` | Catégorie dans l'URL | Liste d'entrées éditoriales |
 | POST | `/api/agent/chat` | `{message, history[]}` | `{text, audio_path}` |
-| POST | `/api/search/text` | `{query}` | Résultats SUKRE (non exposé dans l'UI) |
-| POST | `/api/search/audio` | `multipart` : audio | Résultats SUKRE (non exposé dans l'UI) |
-| POST | `/api/build-index` | — | Reconstruction de l'index FAISS |
 
 ### 6.3 Frontend — structure
 
@@ -401,7 +392,6 @@ sequenceDiagram
 | **FastAPI + Uvicorn** | API async performante, validation Pydantic, upload multipart natif, documentation OpenAPI automatique |
 | **PyTorch + Transformers** | Exécution locale du modèle MMS ; `load_adapter` natif pour les adaptateurs de langue |
 | **imageio-ffmpeg** | Binaire ffmpeg embarqué : conversion audio sans dépendance système |
-| **FAISS (cpu)** | Index vectoriel de la recherche sémantique SUKRE |
 | **python-dotenv** | Secrets hors du code |
 
 ### 7.3 Modèles et services d'IA
@@ -572,8 +562,8 @@ modules à responsabilité unique rend cette extraction peu coûteuse.
 | Limite actuelle | Perspective |
 |-----------------|-------------|
 | TTS dépendant d'une URL ngrok temporaire | Hébergement stable du service TTS chez CITADEL |
-| Recherche éditoriale par sous-chaîne | Recherche sémantique (embeddings) sur la base de connaissance, en réutilisant l'infrastructure SUKRE |
-| Module Archives (recherche sémantique audio) retiré de l'interface | Réintégration après enrichissement du corpus audio mooré |
+| Recherche éditoriale par sous-chaîne | Recherche sémantique (embeddings) sur la base de connaissance |
+| Recherche sémantique audio (SUKRE) supprimée | Réintroduction possible après enrichissement du corpus audio mooré |
 | Mooré uniquement | Extension au dioula et au fulfuldé (MMS couvre ces langues, la méthode d'adaptation est reproductible) |
 | Contenu éditorial statique | Interface d'administration légère pour les éditeurs de contenu |
 | Package `google-generativeai` déprécié | Migration du fallback vers `google-genai` |

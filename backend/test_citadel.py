@@ -7,7 +7,8 @@ Usage :
 
 Teste :
   1. Authentification + traduction français -> mooré
-  2. Synthèse vocale (TTS) du texte mooré obtenu, sauvegardée en WAV
+  2. Synthèse vocale (TTS) du texte mooré obtenu (validation en mémoire,
+     aucun fichier audio n'est écrit)
 """
 import os
 import sys
@@ -24,7 +25,6 @@ load_dotenv()
 from citadel_api import CitadelAPI
 
 TEXTE_FR = "Bonjour, comment allez-vous ?"
-SORTIE_WAV = os.path.join(os.path.dirname(__file__), "test_output.wav")
 
 
 def main():
@@ -59,17 +59,14 @@ def main():
         print("[ECHEC] Le TTS a renvoyé une réponse vide.")
         sys.exit(1)
 
-    with open(SORTIE_WAV, "wb") as f:
-        f.write(audio_bytes)
-
     taille_ko = len(audio_bytes) / 1024
-    print(f"[OK] Audio WAV reçu ({taille_ko:.1f} Ko), sauvegardé dans : {SORTIE_WAV}\n")
+    print(f"[OK] Audio WAV reçu ({taille_ko:.1f} Ko).\n")
 
     print("=" * 60)
     print("RESUME")
     print("=" * 60)
     print(f"MT  : OK — {TEXTE_FR!r} -> {traduction!r}")
-    print(f"TTS : OK — {taille_ko:.1f} Ko écrits dans {SORTIE_WAV}")
+    print(f"TTS : OK — {taille_ko:.1f} Ko reçus")
     print("Les deux APIs CITADEL répondent correctement.")
 
 

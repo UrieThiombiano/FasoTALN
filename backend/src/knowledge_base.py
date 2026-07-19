@@ -45,7 +45,6 @@ class KnowledgeBase:
     def search(self, query: str, category: str = "general") -> list:
         """
         Recherche simple par mots-clés dans les JSONs éditoriaux.
-        Pour une recherche sémantique, utiliser SUKRE (pipeline.py).
         """
         query_lower = query.lower()
         results = []
