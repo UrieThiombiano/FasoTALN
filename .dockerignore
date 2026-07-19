@@ -1,0 +1,10 @@
+venv_fasoxplore/
+frontend/node_modules/
+frontend/dist/
+**/__pycache__/
+.env
+backend/.env
+.git/
+docs/
+*.wav
+*.mp3
