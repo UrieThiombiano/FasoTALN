@@ -8,7 +8,7 @@ import {
 import BogolonDivider from '../components/ui/BogolonDivider'
 import RevealOnScroll from '../components/ui/RevealOnScroll'
 import VirtualVisit from '../components/ui/VirtualVisit'
-import { lieuxImages } from '../assets/index.js'
+import { lieuxImages, histoireImages, cultureImages, gastronomieImages, festivalsImages } from '../assets/index.js'
 
 const tabs = [
   { id: 'histoire',    label: 'Histoire',     icon: Clock },
@@ -101,7 +101,12 @@ function KnowledgeCard({ item, category, index, onVisit }) {
   const highlights  = getHighlights(item)
   const tip         = getTip(item, category)
   const tags        = item.tags || []
-  const image       = category === 'lieux' ? lieuxImages[item.id] : undefined
+  const image       = category === 'lieux' ? lieuxImages[item.id]
+                    : category === 'histoire' ? histoireImages[item.id]
+                    : category === 'culture' ? cultureImages[item.id]
+                    : category === 'gastronomie' ? gastronomieImages[item.id]
+                    : category === 'festivals' ? festivalsImages[item.id]
+                    : undefined
 
   return (
     <motion.article
