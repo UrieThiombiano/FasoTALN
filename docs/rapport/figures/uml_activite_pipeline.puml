@@ -1,0 +1,40 @@
+@startuml uml_activite_pipeline
+' Diagramme d'activités — pipeline de classification
+skinparam monochrome true
+skinparam shadowing false
+skinparam defaultFontName Sans
+skinparam defaultFontSize 18
+
+start
+:recevoir {texte, langue};
+
+if (texte non vide et langue couverte ?) then (non)
+  :renvoyer une erreur 400;
+  stop
+else (oui)
+endif
+
+:découper le texte en mots;
+:borner à 200 mots;
+
+while (mot suivant ?) is (oui)
+  :mettre en minuscules;
+  :préfixer par le code de langue;
+  :générer la transcription (num_beams = 4);
+endwhile (non)
+
+:joindre les transcriptions (séparateur « | »);
+
+if (langue = dyu ou bam ?) then (oui)
+  :appliquer le post-traitement phonologique;
+else (non)
+endif
+
+:encoder le texte (sans tokens spéciaux, MAX_LEN/2);
+:encoder l'IPA (sans tokens spéciaux, MAX_LEN/2);
+:assembler [CLS] texte [SEP] IPA [SEP];
+:exécuter le classifieur;
+:appliquer softmax sur les logits;
+:renvoyer IPA, séquence hybride, classe et probabilités;
+stop
+@enduml

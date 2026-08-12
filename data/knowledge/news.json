@@ -1,0 +1,132 @@
+[
+  {
+    "id": "north-africa-s-missing-framework-nlp-driven-mental-healthcar",
+    "titre": "North Africa's Missing Framework: NLP-Driven Mental Healthcare in Algeria and Implications for Low-resource Settings",
+    "resume": "Cet article propose un cadre conceptuel pour l'utilisation du TALN dans le système de santé mentale en Algérie, identifiant quatre obstacles structurels : l'écart linguistique, les inégalités géographiques, la stigmatisation et le manque d'infrastructures numériques. Il souligne l'absence de ressources pour les langues africaines à faibles ressources et propose une feuille de route pour le développement de technologies linguistiques multilingues adaptées aux contextes postcoloniaux.",
+    "categorie": "Recherche",
+    "date": "2026-08-09",
+    "source_nom": "arXiv",
+    "source_lien": "https://arxiv.org/abs/2608.08607",
+    "ajoute_le": "2026-08-12T09:54:36.283086+00:00"
+  },
+  {
+    "id": "decolonizing-linguistic-policies-in-automated-speech-recogni",
+    "titre": "Decolonizing Linguistic Policies in Automated Speech Recognition: A Framework for Cross-Culturally Competent Speech AI",
+    "resume": "Cet article propose un cadre théorique pour rendre les systèmes de reconnaissance automatique de la parole (ASR) plus adaptés aux langues africaines à faibles ressources. Il introduit une taxonomie des dommages (Misrecognition, Misalignment, Mistrust) et un modèle en sept couches pour évaluer la diversité linguistique dans l'ASR. L'étude souligne que les métriques actuelles, comme le WER, sous-estiment les erreurs spécifiques aux langues tonales africaines, et propose des mesures adaptées comme le Tone Error Rate (TER).",
+    "categorie": "Recherche",
+    "date": "2026-08-06",
+    "source_nom": "arXiv",
+    "source_lien": "https://arxiv.org/html/2608.06141",
+    "ajoute_le": "2026-08-10T21:36:38.240147+00:00"
+  },
+  {
+    "id": "deep-learning-indaba-2026-focus-sur-l-intelligence-souverain",
+    "titre": "Deep Learning Indaba 2026 : Focus sur l'intelligence souveraine africaine",
+    "resume": "La Deep Learning Indaba 2026 se tiendra du 2 au 7 août 2026 à l'Université Pan-Atlantique de Lagos, au Nigeria. L'événement mettra l'accent sur l'intelligence souveraine, c'est-à-dire la capacité de l'Afrique à construire, gérer et comprendre ses propres systèmes, données et orientations scientifiques. Le programme inclura des conférences, des ateliers, des sessions pratiques et des discussions communautaires pour renforcer la communauté africaine de l'IA et du TALN.",
+    "categorie": "Conférence",
+    "date": "2026-08-02",
+    "source_nom": "Deep Learning Indaba",
+    "source_lien": "https://deeplearningindaba.com/2026/",
+    "ajoute_le": "2026-07-29T16:27:54.379355+00:00"
+  },
+  {
+    "id": "le-burkina-faso-pose-les-bases-de-l-identit-num-rique-nation",
+    "titre": "Le Burkina Faso pose les bases de l'identité numérique nationale",
+    "resume": "Le gouvernement burkinabè a adopté un décret le 30 juillet 2026 pour lancer une campagne nationale d'attribution d'un identifiant électronique unique à chaque citoyen, dans le cadre du projet WURI (Banque mondiale). Cet identifiant vise à faciliter l'accès aux services administratifs, sociaux, de santé, d'éducation et financiers, tout en renforçant l'interopérabilité des systèmes d'information et en réduisant les risques de fraude. Le déploiement sera assuré par des structures publiques pour garantir la maîtrise des données biométriques.",
+    "categorie": "Financement",
+    "date": "2026-07-31",
+    "source_nom": "We Are Tech Africa",
+    "source_lien": "https://www.wearetech.africa/fr/fils/actualites/tech/le-burkina-faso-pose-les-bases-de-lidentite-numerique-nationale",
+    "ajoute_le": "2026-08-12T09:54:36.283086+00:00"
+  },
+  {
+    "id": "language-diversity-evaluating-language-usage-and-ai-performa",
+    "titre": "Language Diversity: Evaluating Language Usage and AI Performance on African Languages in Digital Spaces",
+    "resume": "Cette étude acceptée à Deep Learning Indaba 2026 évalue la représentation numérique des langues africaines (Yoruba, Kinyarwanda, Amharic) et les défis pour les outils de détection de langue. Les données des médias locaux (BBC Yoruba, Fana Broadcasting, Rwanda Broadcasting Agency) offrent une source fiable de texte monolingue et propre, contrairement aux plateformes conversationnelles comme Reddit, où le code-switching avec l'anglais domine. Les modèles de détection de langue (GlotLID, AfroLID, Llama 3.3 70B) atteignent une précision quasi parfaite sur les données de médias, mais échouent sur les données conversationnelles en raison du mélange linguistique.",
+    "categorie": "Recherche",
+    "date": "2026-07-30",
+    "source_nom": "arXiv",
+    "source_lien": "https://arxiv.org/html/2512.01557v3",
+    "ajoute_le": "2026-08-12T09:54:36.283086+00:00"
+  },
+  {
+    "id": "valuation-de-l-effet-de-la-parent-linguistique-sur-le-transf",
+    "titre": "Évaluation de l'effet de la parenté linguistique sur le transfert translingue en ASR multilingue pour l'Afrique",
+    "resume": "Une étude récente sur arXiv évalue si la parenté linguistique améliore le transfert translingue dans les grands modèles ASR multilingues pour des langues africaines à faibles ressources. Les résultats montrent que la pré-adaptation sur une langue auxiliaire apparentée ne garantit pas de gains pratiques significatifs une fois qu'une seule heure de données de la langue cible est disponible, remettant en question l'efficacité de cette stratégie pour étendre les modèles ASR aux langues africaines sous-représentées.",
+    "categorie": "Recherche",
+    "date": "2026-07-27",
+    "source_nom": "arXiv",
+    "source_lien": "https://arxiv.org/html/2607.04814v2",
+    "ajoute_le": "2026-08-11T13:01:54.529930+00:00"
+  },
+  {
+    "id": "dondo-mod-les-de-reconnaissance-vocale-ouverts-pour-27-langu",
+    "titre": "DONDO : modèles de reconnaissance vocale ouverts pour 27 langues africaines",
+    "resume": "DONDO est une famille de 21 modèles monolingues et 5 multilingues de reconnaissance automatique de la parole (ASR) pour 27 langues africaines, construites sur l'encodeur auto-supervisé w2v-BERT 2.0. Les modèles, fine-tunés principalement sur des textes religieux, sont publiés sous licence Apache-2.0 sur Hugging Face (KhayaAI) pour une réutilisation libre, y compris commerciale. Ils couvrent des langues parlées par environ 115 millions de locuteurs natifs en Afrique de l'Ouest et de l'Est.",
+    "categorie": "Modèle",
+    "date": "2026-07-24",
+    "source_nom": "arXiv",
+    "source_lien": "https://arxiv.org/html/2607.21540",
+    "ajoute_le": "2026-08-11T13:01:54.529930+00:00"
+  },
+  {
+    "id": "dondo-nouveaux-mod-les-de-reconnaissance-vocale-automatis-e-",
+    "titre": "DONDO : Nouveaux modèles de reconnaissance vocale automatisée pour les langues africaines",
+    "resume": "Présentation de DONDO, une famille de modèles ouverts de reconnaissance automatique de la parole (ASR) pour 27 langues africaines, construites sur l'encodeur auto-supervisé w2v-BERT 2.0. Ces modèles, disponibles sous licence Apache-2.0, couvrent des langues du Ghana, du Sierra Leone, du Nigeria, du Sénégal, du Kenya et du Zimbabwe. Ils sont affinés principalement sur des discours religieux, offrant une couverture large et cohérente pour des langues souvent sous-représentées. Les modèles multilingues atteignent des taux d'erreur de mot (WER) de 10-13%, comblant une grande partie de l'écart avec les modèles monolingues. Tous les modèles sont publiés sur Hugging Face sous l'organisation KhayaAI.",
+    "categorie": "Modèle",
+    "date": "2026-07-23",
+    "source_nom": "arXiv",
+    "source_lien": "https://arxiv.org/abs/2607.21540",
+    "ajoute_le": "2026-07-29T16:27:54.379355+00:00"
+  },
+  {
+    "id": "formation-des-d-put-s-burkinab-l-ia-pour-mieux-l-gif-rer-sur",
+    "titre": "Formation des députés burkinabè à l’IA pour mieux légiférer sur le numérique",
+    "resume": "Le Burkina Faso organise des sessions de formation à l’IA pour ses députés, afin de renforcer leurs compétences en matière de gouvernance, protection des données et souveraineté numérique. Ces initiatives s’inscrivent dans la mise en œuvre de la feuille de route nationale sur l’IA 2026-2030 et visent à adapter le cadre juridique aux enjeux technologiques.",
+    "categorie": "Financement",
+    "date": "2026-07-21",
+    "source_nom": "We Are Tech Africa",
+    "source_lien": "https://www.wearetech.africa/fr/fils/actualites/tech/au-burkina-faso-les-deputes-se-forment-a-l-ia-pour-mieux-legiferer-sur-le-numerique",
+    "ajoute_le": "2026-07-29T15:46:49.578178+00:00"
+  },
+  {
+    "id": "formation-des-l-gislateurs-burkinab-l-ia-pour-renforcer-la-g",
+    "titre": "Formation des législateurs burkinabè à l'IA pour renforcer la gouvernance numérique",
+    "resume": "Le Burkina Faso a formé environ 30 législateurs à l'intelligence artificielle pour renforcer leur capacité à élaborer des législations et des cadres de gouvernance numérique. Cette initiative s'inscrit dans le cadre de l'adoption par le pays d'une feuille de route nationale en matière d'IA et vise à construire une expertise institutionnelle en IA. Les autorités considèrent la souveraineté numérique, la gouvernance des données, la cybersécurité et l'IA éthique comme des priorités clés pour les futures réglementations.",
+    "categorie": "Financement",
+    "date": "2026-07-15",
+    "source_nom": "We Are Tech Africa",
+    "source_lien": "https://www.wearetech.africa/en/fils-uk/news/tech/burkina-faso-trains-lawmakers-on-ai-to-strengthen-digital-governance",
+    "ajoute_le": "2026-07-29T16:27:54.379355+00:00"
+  },
+  {
+    "id": "translation-as-a-computationally-efficient-bridge-feasibilit",
+    "titre": "Translation as a Computationally Efficient Bridge: Feasibility of English BERT for Low-Resource Languages",
+    "resume": "Cette étude montre que le fine-tuning basé sur la traduction de données non-anglaises vers l'anglais permet d'étendre le TALN aux langues à faibles ressources de manière économe. L'approche est particulièrement efficace pour les tâches reposant sur des motifs syntaxiques ou structurels, et pour les langues typologiquement proches de l'anglais. Elle offre une solution scalable pour les langues africaines où les données annotées manquent.",
+    "categorie": "Recherche",
+    "date": "2026-07-14",
+    "source_nom": "arXiv",
+    "source_lien": "https://arxiv.org/abs/2607.12612",
+    "ajoute_le": "2026-08-12T09:54:36.283086+00:00"
+  },
+  {
+    "id": "prix-deep-learning-indaba-2026-reconnaissance-de-travaux-en-",
+    "titre": "Prix Deep Learning Indaba 2026 : reconnaissance de travaux en TALN pour les langues africaines",
+    "resume": "Les prix 2026 du Deep Learning Indaba ont récompensé des chercheurs africains pour leurs contributions en TALN, notamment le Wangari Maathai Impact Award à Dr Hellina Hailu Nigatu pour son travail sur la détection des biais de genre dans la traduction automatique pour l'amharique, l'oromo et le tigrinya, et la création du jeu de données Yeswa Stories. Abdel-aziz Harane Abounounou (Chad AI Network) a été finaliste pour le développement des premiers outils de TALN pour les langues indigènes du Tchad, incluant la collecte de 68 000 enregistrements audio et 72 000 textes alignés pour 16 dialectes de la famille Sara.",
+    "categorie": "Conférence",
+    "date": "2026-07-14",
+    "source_nom": "Deep Learning Indaba",
+    "source_lien": "https://deeplearningindaba.com/blog/2026/07/2026-awards-announcement/",
+    "ajoute_le": "2026-08-11T13:01:54.529930+00:00"
+  },
+  {
+    "id": "six-pays-d-afrique-de-l-ouest-adoptent-des-lignes-directrice",
+    "titre": "Six pays d’Afrique de l’Ouest adoptent des lignes directrices communes sur l’IA",
+    "resume": "Le Burkina Faso, le Sénégal, la Côte d'Ivoire, le Mali, la Guinée et le Bénin ont adopté des lignes directrices communes pour une IA éthique, inclusive et responsable, portées par l’organisation Niyel. Ces lignes visent à renforcer la coopération régionale et à adapter les politiques d'IA aux réalités africaines, en mettant l'accent sur la souveraineté numérique et la protection des droits.",
+    "categorie": "Financement",
+    "date": "2026-07-09",
+    "source_nom": "We Are Tech Africa",
+    "source_lien": "https://www.wearetech.africa/fr/fils/actualites/gestion-publique/six-pays-d-afrique-de-l-ouest-adoptent-des-lignes-directrices-communes-sur-l-ia",
+    "ajoute_le": "2026-07-29T15:46:49.578178+00:00"
+  }
+]

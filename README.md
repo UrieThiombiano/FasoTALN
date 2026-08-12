@@ -1,9 +1,12 @@
-# FasoXplore — Plateforme de Découverte du Burkina Faso
+# FasoTALN — Le TALN des langues africaines
 
-> *"Découvrez le Burkina Faso — son histoire, sa culture, ses langues"*
+> *"Le TALN au service des langues africaines"*
 
-Plateforme multilingue (français ↔ mooré) combinant contenu éditorial riche,
-outils NLP souverains et agent IA conversationnel.
+Portail scientifique, pédagogique et technologique de référence sur le
+Traitement Automatique des Langues Naturelles (TALN) appliqué aux langues
+africaines — né à CITADEL (Burkina Faso) autour du mooré, du dioula, du
+fulfuldé, du gourmantché et du bambara, et conçu pour s'élargir
+progressivement à d'autres langues du continent.
 
 **PFE Double Diplôme — Ingénierie IA & M.Sc. Data Science**
 ENSI Université de la Manouba / CITADEL Ouagadougou, 2026
@@ -13,21 +16,18 @@ ENSI Université de la Manouba / CITADEL Ouagadougou, 2026
 ## Architecture
 
 ```
-FasoXplore
+FasoTALN
 ├── frontend/          React + Vite + Tailwind + Framer Motion
 └── backend/           FastAPI Python
-    ├── ASR mooré      MMS-1B fine-tuné (WER 13.7%) — LOCAL
-    ├── MT fr↔mos      APIs NLP CITADEL (promotion précédente)
-    ├── TTS mooré      APIs NLP CITADEL (promotion précédente)
-    └── Agent IA       Mistral (function calling, 2 outils) + fallback Gemini
+    ├── G2P             ByT5 fine-tuné (texte → IPA) — LOCAL
+    └── Classification  AfroXLMR hybride (texte + IPA) — LOCAL
 ```
 
 ## Installation rapide
 
 ```bash
-# 1. Variables d'environnement
+# 1. Variables d'environnement (optionnel, HF_TOKEN uniquement)
 cp .env.example .env
-# Remplir MISTRAL_API_KEY / GEMINI_API_KEY et vérifier les credentials CITADEL
 
 # 2. Backend
 cd backend
@@ -41,19 +41,36 @@ npm run dev
 # → http://localhost:5173
 ```
 
-## Contribution ASR originale
+## Notre contribution
+
+**Leveraging Phonemic Features for Cross-lingual NLP in African Languages**
+
+Un pipeline en deux modèles enchaînés :
+
+```
+Texte → ByT5 fine-tuné → IPA → [CLS] texte [SEP] IPA [SEP] → AfroXLMR → Classe
+```
+
+- [Uriath/byt5-small-g2p-african](https://huggingface.co/Uriath/byt5-small-g2p-african)
+  — ByT5-small fine-tuné pour la transcription graphème → phonème (mooré,
+  dioula, bambara).
+- [Uriath/afro-xlmr-hybrid-sib200-masakhanews-5class-byt5](https://huggingface.co/Uriath/afro-xlmr-hybrid-sib200-masakhanews-5class-byt5)
+  — classifieur AfroXLMR (5 classes) entraîné sur une entrée hybride
+  texte + IPA, sur SIB-200 et MasakhaNEWS.
+
+Testez ce pipeline en direct sur les pages **Démonstration G2P** et
+**Pipeline complète** de la plateforme.
+
+## Contribution ASR précédente
 
 Modèle publié : [Uriath/mms-mos-finetuned](https://huggingface.co/Uriath/mms-mos-finetuned)
-- Base : `facebook/mms-1b-all`
-- Méthode : PEFT — adaptateur natif MMS, ~2M paramètres entraînés sur 1B
-- Corpus : 10 000 exemples CITADEL-BF-Center/moore_audio_data
-- WER : **13.7%** sur validation (vs baseline générique)
+— ASR mooré, base `facebook/mms-1b-all`, adaptateur PEFT (~2M paramètres
+entraînés sur 1B), WER 13,7% — cataloguée comme ressource sur la plateforme.
 
 ## Documentation
 
-La documentation complète (objectifs, besoins fonctionnels et non
-fonctionnels, acteurs, architecture, conception détaillée, déploiement)
-est dans [`docs/documentation.md`](docs/documentation.md).
+La documentation technique du produit précédent (FasoXplore) est conservée
+à titre historique dans [`docs/documentation.md`](docs/documentation.md).
 
 ---
 

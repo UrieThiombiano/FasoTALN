@@ -1,0 +1,16 @@
+{
+  "a_confirmer": false,
+  "note": "Résultats de la contribution FasoTALN : classification thématique 5 classes, comparaison entre un classifieur AfroXLMR entraîné sur le texte orthographique seul (« Ortho ») et la même architecture entraînée sur l'entrée hybride texte + transcription IPA (« Hybride »).",
+  "metrique": "F1 (macro)",
+  "global": {
+    "label": "Résultat global (toutes langues confondues)",
+    "hybride_f1": 0.7557,
+    "ortho_f1": 0.7345,
+    "gain_pp": 2.13
+  },
+  "par_langue": [
+    { "langue": "Mooré", "code": "mos_Latn", "hybride_f1": 0.5995, "ortho_f1": 0.5538, "gain_pp": 4.57 },
+    { "langue": "Bambara", "code": "bam_Latn", "hybride_f1": 0.6601, "ortho_f1": 0.5629, "gain_pp": 9.73 },
+    { "langue": "Dioula", "code": "dyu_Latn", "hybride_f1": 0.5913, "ortho_f1": 0.5945, "gain_pp": -0.32 }
+  ]
+}

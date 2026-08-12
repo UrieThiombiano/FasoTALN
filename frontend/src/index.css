@@ -2,30 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── Design Tokens FasoXplore ────────────────────────────────────────────── */
+/* ── Design Tokens FasoTALN — inspirés d'un SaaS éducatif clair (OpenClassrooms) ── */
 :root {
-  /* Palette — inspirée des matériaux du Burkina Faso */
-  --indigo:       #1A1230;
-  --indigo-light: #2D1F4A;
-  --indigo-faint: #3D2E5C;
-  --or:           #F0A500;
-  --or-light:     #F5C040;
-  --or-dark:      #C8820A;
-  --argile:       #B8411A;
-  --argile-light: #D05028;
-  --mil:          #1E6B4A;
-  --mil-light:    #2A8B62;
-  --sable:        #FAF3E0;
-  --sable-dark:   #F0E4C4;
-  --blanc:        #FEFCF7;
-  --text-primary: #1A1230;
-  --text-muted:   #6B5F7A;
-  --border:       rgba(26, 18, 48, 0.12);
+  /* Palette — violet de marque sur fond clair, accents sémantiques */
+  --indigo:       #1F2129;
+  --indigo-light: #3A3C4A;
+  --indigo-faint: #9CA3AF;
+  --or:           #6D5BD0;
+  --or-light:     #8B7ADC;
+  --or-dark:      #4F46E5;
+  --argile:       #EA580C;
+  --argile-light: #FB923C;
+  --mil:          #16A34A;
+  --mil-light:    #22C55E;
+  --sable:        #F7F7FB;
+  --sable-dark:   #ECECF2;
+  --blanc:        #FFFFFF;
+  --text-primary: #1F2129;
+  --text-muted:   #4B5563;
+  --border:       rgba(31, 33, 41, 0.10);
 
   /* Typographies */
   --font-display: "Playfair Display", Georgia, serif;
   --font-body:    "Inter", system-ui, sans-serif;
   --font-ui:      "Space Grotesk", system-ui, sans-serif;
+  --font-mono:    "JetBrains Mono", ui-monospace, monospace;
 
   /* Espacements */
   --section-y:    clamp(4rem, 8vw, 8rem);
@@ -51,6 +52,7 @@ body {
 /* ── Typographie ──────────────────────────────────────────────────────────── */
 .font-display { font-family: var(--font-display); }
 .font-ui      { font-family: var(--font-ui); }
+.font-mono    { font-family: var(--font-mono); }
 
 h1, h2, h3, h4 {
   font-family: var(--font-display);
@@ -91,16 +93,16 @@ h1, h2, h3, h4 {
     );
 }
 
-/* ── Gradient hero ────────────────────────────────────────────────────────── */
+/* ── Gradient hero (clair) ────────────────────────────────────────────────── */
 .hero-gradient {
   background:
-    radial-gradient(ellipse 80% 60% at 50% 0%, #3D2E5C 0%, #1A1230 60%),
-    linear-gradient(180deg, #1A1230 0%, #0E0A1E 100%);
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(109,91,208,0.10) 0%, transparent 60%),
+    linear-gradient(180deg, #FFFFFF 0%, #F7F7FB 100%);
 }
 
-/* ── Texte dégradé or ─────────────────────────────────────────────────────── */
+/* ── Texte dégradé violet ─────────────────────────────────────────────────── */
 .text-gradient-or {
-  background: linear-gradient(135deg, var(--or-light), var(--or), var(--argile-light));
+  background: linear-gradient(135deg, var(--or-light), var(--or), var(--or-dark));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -115,7 +117,7 @@ h1, h2, h3, h4 {
 }
 .card-fx:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(26, 18, 48, 0.12);
+  box-shadow: 0 12px 32px rgba(31, 33, 41, 0.10);
 }
 
 /* ── Bouton primaire ──────────────────────────────────────────────────────── */
@@ -125,7 +127,7 @@ h1, h2, h3, h4 {
   gap: 0.5rem;
   padding: 0.75rem 1.75rem;
   background: var(--or);
-  color: var(--indigo);
+  color: #FFFFFF;
   font-family: var(--font-ui);
   font-weight: 600;
   font-size: 0.9375rem;
@@ -136,7 +138,7 @@ h1, h2, h3, h4 {
   white-space: nowrap;
 }
 .btn-or:hover {
-  background: var(--or-light);
+  background: var(--or-dark);
   transform: translateY(-1px);
 }
 .btn-or:active { transform: translateY(0); }
@@ -159,7 +161,7 @@ h1, h2, h3, h4 {
 }
 .btn-outline:hover {
   background: var(--or);
-  color: var(--indigo);
+  color: #FFFFFF;
 }
 
 /* ── Badge ────────────────────────────────────────────────────────────────── */
@@ -173,14 +175,136 @@ h1, h2, h3, h4 {
   text-transform: uppercase;
   border-radius: 50px;
 }
-.badge-or    { background: rgba(240,165,0,0.15); color: var(--or-dark); }
-.badge-mil   { background: rgba(30,107,74,0.12); color: var(--mil); }
-.badge-argile { background: rgba(184,65,26,0.12); color: var(--argile); }
+.badge-or    { background: rgba(109,91,208,0.12); color: var(--or-dark); }
+.badge-mil   { background: rgba(22,163,74,0.12); color: var(--mil); }
+.badge-argile { background: rgba(234,88,12,0.12); color: var(--argile); }
 
 /* ── Scrollbar discrète ────────────────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--sable); }
-::-webkit-scrollbar-thumb { background: rgba(26,18,48,0.2); border-radius: 3px; }
+::-webkit-scrollbar-thumb { background: rgba(31,33,41,0.18); border-radius: 3px; }
+
+/* ── Page header (pages de contenu / documentation) ─────────────────────── */
+.page-header {
+  background: var(--sable);
+  border-bottom: 1px solid var(--border);
+}
+
+/* ── Grille documentation : sidebar / contenu / sommaire ─────────────────── */
+.docs-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+}
+@media (min-width: 1280px) {
+  .docs-grid {
+    grid-template-columns: 240px minmax(0, 1fr) 220px;
+    align-items: start;
+  }
+}
+
+.docs-sidebar,
+.docs-toc {
+  position: sticky;
+  top: calc(5rem + 1.5rem);
+  max-height: calc(100vh - 5rem - 3rem);
+  overflow-y: auto;
+}
+
+/* ── Prose des pages de type leçon (Approches, Contribution) ─────────────── */
+.lesson-content h2 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--indigo);
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+.lesson-content h2:first-child { margin-top: 0; }
+.lesson-content h3 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--indigo);
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+}
+.lesson-content p {
+  line-height: 1.8;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+.lesson-content ul {
+  margin: 1rem 0 1.5rem;
+  padding-left: 0;
+  list-style: none;
+}
+.lesson-content ul li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.6rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+.lesson-content ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--mil);
+}
+.lesson-content blockquote {
+  border-left: 3px solid var(--or);
+  padding-left: 1.25rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+  color: var(--text-primary);
+}
+.lesson-content code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: var(--sable);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.1em 0.4em;
+  color: var(--indigo);
+}
+
+/* ── Callouts (définition / exemple / attention / note) ───────────────────── */
+.callout {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  border-radius: 12px;
+  border-left: 3px solid transparent;
+  padding: 1rem 1.25rem;
+  font-size: 0.875rem;
+  line-height: 1.7;
+  margin: 1.5rem 0;
+}
+.callout-definition { background: rgba(109,91,208,0.08); border-left-color: var(--or); }
+.callout-example     { background: rgba(22,163,74,0.08); border-left-color: var(--mil); }
+.callout-attention    { background: rgba(234,88,12,0.08); border-left-color: var(--argile); }
+.callout-note         { background: rgba(31,33,41,0.05); border-left-color: var(--indigo); }
+
+/* ── Assistant : rendu markdown compact dans la bulle de chat ────────────── */
+.chat-markdown p { margin: 0; }
+.chat-markdown p + p { margin-top: 0.5rem; }
+.chat-markdown ul,
+.chat-markdown ol { margin: 0.5rem 0 0; padding-left: 1.1rem; }
+.chat-markdown li + li { margin-top: 0.2rem; }
+.chat-markdown a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.chat-markdown code {
+  background: rgba(31,33,41,0.06);
+  border-radius: 4px;
+  padding: 0.1rem 0.3rem;
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+}
+.chat-markdown strong { font-weight: 700; }
 
 /* ── Reduced motion ───────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {

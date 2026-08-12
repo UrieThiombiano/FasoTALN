@@ -1,19 +1,18 @@
 """
-FasoXplore — Backend FastAPI
-Orchestre les agents NLP : ASR mooré (local), MT/TTS CITADEL (API),
-agent conversationnel FasoGuide.
+FasoTALN — Backend FastAPI
+Sert le contenu éditorial du portail TALN et les deux modèles de recherche :
+ByT5 G2P (texte → IPA) et AfroXLMR hybride (classification texte+IPA).
 
 Lancement : uvicorn main:app --reload --port 8000
 """
-import os
-import shutil
-import subprocess
-import tempfile
-import uuid
+import asyncio
+import time
+from collections import defaultdict, deque
+from contextlib import asynccontextmanager
 from pathlib import Path
 
-from fastapi import FastAPI, UploadFile, File, Form, HTTPException
-from fastapi.responses import JSONResponse, Response, FileResponse
+from fastapi import FastAPI, HTTPException, Request
+from fastapi.responses import JSONResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -21,20 +20,76 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from src.asr_engine import MooreASR
-from src.citadel_api import CitadelAPI
+# ── Limite de débit basique (en mémoire, par IP) ─────────────────────────
+# Protège /api/chat contre le spam/l'abus (coût API Mistral) : pas de
+# persistance, remise à zéro au redémarrage — suffisant pour ce volume.
+_RATE_LIMIT_WINDOW_S = 300
+_RATE_LIMIT_MAX_REQUESTS = 15
+_rate_limit_buckets: dict[str, deque] = defaultdict(deque)
+
+
+def _check_rate_limit(client_ip: str):
+    now = time.time()
+    bucket = _rate_limit_buckets[client_ip]
+    while bucket and now - bucket[0] > _RATE_LIMIT_WINDOW_S:
+        bucket.popleft()
+    if len(bucket) >= _RATE_LIMIT_MAX_REQUESTS:
+        raise HTTPException(429, "Trop de messages envoyés à l'assistant. Réessayez dans quelques minutes.")
+    bucket.append(now)
+
+# Utilise le magasin de certificats du système (nécessaire derrière une
+# inspection TLS d'entreprise/antivirus) avant tout téléchargement HF.
+try:
+    import truststore
+    truststore.inject_into_ssl()
+except ImportError:
+    pass
+
 from src.knowledge_base import KnowledgeBase
-from src.agent import run_agent
+from src.g2p_engine import G2PEngine
+from src.classifier_engine import TopicClassifier
+from src.chat_engine import ChatEngine
+from src.translate_engine import TranslateEngine
+from src.news_agent import NewsAgent
+
+DATA_DIR = Path("../data/knowledge")
+SUPPORTED_LANGS = ("mos", "dyu", "bam")
+NEWS_REFRESH_INTERVAL_S = 24 * 60 * 60
 
 # ── Initialisation (une seule fois au démarrage) ──────────────────────────
-print("[FasoXplore] Chargement des modèles...")
-asr = MooreASR()
-citadel = CitadelAPI()
-kb = KnowledgeBase(Path("../data/knowledge"))
-print("[FasoXplore] Prêt.")
+print("[FasoTALN] Chargement des modèles...")
+kb = KnowledgeBase(DATA_DIR)
+g2p = G2PEngine()
+classifier = TopicClassifier()
+chat_engine = ChatEngine(kb, DATA_DIR)
+translate_engine = TranslateEngine()
+news_agent = NewsAgent(DATA_DIR / "news.json")
+print("[FasoTALN] Prêt.")
+
+
+async def _news_refresh_loop():
+    """Rafraîchit les actualités au démarrage puis toutes les 24h.
+    Best-effort : un HF Space en veille ne fera pas tourner cette boucle
+    en continu — voir POST /api/news/refresh pour un déclenchement externe
+    (ex. cron GitHub Actions)."""
+    while True:
+        try:
+            news_agent.refresh()
+            print("[NewsAgent] Actualités rafraîchies.")
+        except Exception as e:
+            print(f"[NewsAgent] Échec du rafraîchissement : {e}")
+        await asyncio.sleep(NEWS_REFRESH_INTERVAL_S)
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    task = asyncio.create_task(_news_refresh_loop())
+    yield
+    task.cancel()
+
 
 # ── App ───────────────────────────────────────────────────────────────────
-app = FastAPI(title="FasoXplore API", version="0.1.0")
+app = FastAPI(title="FasoTALN API", version="0.1.0", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
@@ -44,34 +99,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ── ffmpeg ────────────────────────────────────────────────────────────────
-def _ffmpeg_exe() -> str:
-    """
-    Localise ffmpeg : d'abord dans le PATH, sinon via le binaire embarqué
-    du package imageio-ffmpeg (aucune installation système requise).
-    """
-    exe = shutil.which("ffmpeg")
-    if exe:
-        return exe
-    try:
-        import imageio_ffmpeg
-        return imageio_ffmpeg.get_ffmpeg_exe()
-    except ImportError:
-        raise HTTPException(
-            500,
-            "ffmpeg introuvable. Installez-le, ou exécutez : pip install imageio-ffmpeg",
-        )
 
-
-def _convert_to_wav16k(raw_path: str, wav_path: str):
-    """Convertit un fichier audio quelconque en WAV mono 16 kHz."""
-    try:
-        subprocess.run(
-            [_ffmpeg_exe(), "-y", "-i", raw_path, "-ar", "16000", "-ac", "1", wav_path],
-            check=True, capture_output=True
-        )
-    except subprocess.CalledProcessError as e:
-        raise HTTPException(400, f"Conversion audio échouée : {e.stderr.decode()[:200]}")
+def _check_lang(lang: str):
+    if lang not in SUPPORTED_LANGS:
+        raise HTTPException(400, f"Langue non supportée : {lang} (attendu : {', '.join(SUPPORTED_LANGS)})")
 
 
 # ── Health ────────────────────────────────────────────────────────────────
@@ -79,97 +110,132 @@ def _convert_to_wav16k(raw_path: str, wav_path: str):
 def health():
     return {
         "status": "ok",
-        "asr": "MMS-1B fine-tuné (WER 13.7%)",
-        "model": "Uriath/mms-mos-finetuned",
+        "g2p_model": "Uriath/byt5-small-g2p-african",
+        "classifier_model": "Uriath/afro-xlmr-hybrid-sib200-masakhanews-5class-byt5",
     }
 
 
-# ── ASR : parole mooré ou française → texte ────────────────────────────────
-@app.post("/api/asr")
-async def asr_endpoint(audio: UploadFile = File(...), lang: str = Form("mos")):
+# ── G2P : texte → IPA ────────────────────────────────────────────────────
+class G2PRequest(BaseModel):
+    text: str
+    lang: str = "mos"
+
+@app.post("/api/g2p")
+def g2p_endpoint(req: G2PRequest):
     """
-    Transcrit un fichier audio en texte.
-    lang : "mos" (mooré, modèle fine-tuné) ou "fra" (français, adaptateur MMS)
-    Retourne : {"transcription": "texte", "lang": "mos|fra"}
+    Transcrit un texte en API (Alphabet Phonétique International).
+    lang : "mos" (mooré) | "dyu" (dioula) | "bam" (bambara)
     """
-    if lang not in ("mos", "fra"):
-        raise HTTPException(400, f"Langue non supportée : {lang} (attendu : mos ou fra)")
-
-    suffix = Path(audio.filename or "audio.wav").suffix or ".wav"
-    uid = uuid.uuid4().hex
-    raw = os.path.join(tempfile.gettempdir(), f"faso_{uid}_raw{suffix}")
-    wav = os.path.join(tempfile.gettempdir(), f"faso_{uid}.wav")
-
-    with open(raw, "wb") as f:
-        f.write(await audio.read())
-
-    try:
-        _convert_to_wav16k(raw, wav)
-    finally:
-        if os.path.exists(raw):
-            os.remove(raw)
-
-    try:
-        transcription = asr.transcribe(wav, lang=lang)
-    finally:
-        if os.path.exists(wav):
-            os.remove(wav)
-
-    return JSONResponse({"transcription": transcription, "lang": lang})
+    if not req.text.strip():
+        raise HTTPException(400, "Texte vide.")
+    _check_lang(req.lang)
+    ipa = g2p.transcribe(req.text, req.lang)
+    return JSONResponse({"text": req.text, "lang": req.lang, "ipa": ipa})
 
 
-# ── MT : traduction texte ─────────────────────────────────────────────────
+# ── Pipeline complète : texte → IPA → AfroXLMR → classe ──────────────────
+class PipelineRequest(BaseModel):
+    text: str
+    lang: str = "mos"
+
+@app.post("/api/pipeline/classify")
+def pipeline_classify(req: PipelineRequest):
+    """
+    Exécute le pipeline complet de la contribution :
+    texte → ByT5 (IPA) → construction [CLS] texte [SEP] IPA [SEP] → AfroXLMR → classe.
+    """
+    if not req.text.strip():
+        raise HTTPException(400, "Texte vide.")
+    _check_lang(req.lang)
+    ipa = g2p.transcribe(req.text, req.lang)
+    result = classifier.classify(req.text, ipa)
+    sequence = f"[CLS] {req.text} [SEP] {ipa} [SEP]"
+    return JSONResponse({
+        "text": req.text,
+        "lang": req.lang,
+        "ipa": ipa,
+        "sequence": sequence,
+        **result,
+    })
+
+
+# ── Traduction français -> mooré (API CITADEL) ───────────────────────────
 class TranslateRequest(BaseModel):
     text: str
-    source_lang: str = "french"   # "french" ou "moore"
-    target_lang: str = "moore"    # "french" ou "moore"
 
 @app.post("/api/translate")
-async def translate(req: TranslateRequest):
+def translate_endpoint(req: TranslateRequest):
     """
-    Traduit un texte entre le français et le mooré via l'API CITADEL.
-    Retourne : {"translation": "texte traduit", "source": "...", "target": "..."}
+    Traduit un texte français en mooré (API CITADEL, NLLB).
+    Pensé pour préparer un texte à tester dans le pipeline de classification
+    quand on ne lit pas le mooré. Dioula/bambara non supportés par l'API.
     """
-    result = citadel.translate(req.text, req.source_lang, req.target_lang)
+    text = req.text.strip()
+    if not text:
+        raise HTTPException(400, "Texte vide.")
+    try:
+        translation = translate_engine.translate_to_moore(text)
+    except RuntimeError as e:
+        raise HTTPException(503, str(e))
+    return JSONResponse({"text": text, "lang": "mos", "translation": translation})
+
+
+# ── Nouvelles du jour (agent Mistral, connecteur web_search) ────────────
+@app.get("/api/news")
+def news():
+    """Sert data/knowledge/news.json (lu à chaque requête, pas de cache)."""
+    path = DATA_DIR / "news.json"
+    if not path.is_file():
+        return JSONResponse([])
+    return FileResponse(path, media_type="application/json")
+
+
+@app.post("/api/news/refresh")
+def news_refresh():
+    """
+    Déclenche une recherche + résumé immédiat (agent unique, sans validation
+    humaine). Utile en local, ou depuis un déclencheur externe (cron) pour
+    les déploiements où le Space n'est pas toujours actif.
+    """
+    try:
+        result = news_agent.refresh()
+    except RuntimeError as e:
+        raise HTTPException(503, str(e))
     return JSONResponse(result)
 
 
-# ── TTS : texte mooré → audio ─────────────────────────────────────────────
-class TTSRequest(BaseModel):
-    text: str
+# ── Assistant conversationnel (RAG sur la base éditoriale) ───────────────
+class ChatRequest(BaseModel):
+    message: str
+    history: list[dict] = []
 
-@app.post("/api/tts")
-async def tts(req: TTSRequest):
+@app.post("/api/chat")
+def chat_endpoint(req: ChatRequest, request: Request):
     """
-    Génère l'audio d'un texte mooré via l'API TTS CITADEL.
-    Retourne : audio WAV servi depuis la mémoire, rien n'est écrit sur disque.
+    Assistant Q&A ancré sur data/knowledge/*.json (mistral-small-latest),
+    avec repli web_search (domaines de confiance uniquement, source toujours
+    citée) si l'information demandée n'est pas dans la base éditoriale.
+    Ne répond que sur le TALN, les langues africaines et la contribution
+    FasoTALN — hors périmètre, il refuse plutôt que d'inventer.
     """
-    audio_bytes = citadel.tts(req.text)
-    return Response(
-        content=audio_bytes,
-        media_type="audio/wav",
-        headers={"Content-Disposition": "inline"},
-    )
+    _check_rate_limit(request.client.host if request.client else "unknown")
+    message = req.message.strip()
+    if not message:
+        raise HTTPException(400, "Message vide.")
+    if len(message) > 2000:
+        raise HTTPException(400, "Message trop long (2000 caractères max).")
+    try:
+        reply = chat_engine.ask(message, req.history)
+    except RuntimeError as e:
+        raise HTTPException(503, str(e))
+    return JSONResponse({"reply": reply})
 
 
-# ── Phrasebook ────────────────────────────────────────────────────────────
-@app.get("/api/phrasebook")
-def phrasebook(situation: str = "salutations"):
-    """
-    Retourne les phrases utiles pour une situation donnée.
-    situations : salutations | marche | transport | hotel |
-                 nourriture | urgence | politesse | fetes
-    """
-    phrases = kb.get_phrasebook(situation)
-    return JSONResponse({"situation": situation, "phrases": phrases})
-
-
-# ── Knowledge base ────────────────────────────────────────────────────────
+# ── Contenu éditorial ─────────────────────────────────────────────────────
 @app.get("/api/knowledge/{category}")
 def knowledge(category: str):
     """
-    Retourne le contenu éditorial d'une catégorie.
-    categories : histoire | lieux | culture | gastronomie | festivals
+    categories : languages | challenges | resources | approaches | perspectives
     """
     data = kb.get_category(category)
     if data is None:
@@ -177,21 +243,12 @@ def knowledge(category: str):
     return JSONResponse(data)
 
 
-# ── Agent FasoGuide ───────────────────────────────────────────────────────
-class AgentRequest(BaseModel):
-    message: str
-    history: list = []
-
-@app.post("/api/agent/chat")
-async def agent_chat(req: AgentRequest):
-    """
-    Point d'entrée de l'agent FasoGuide.
-    Retourne : {"text": "réponse", "audio_path": "optionnel"}
-    """
-    if not req.message.strip():
-        raise HTTPException(400, "Message vide.")
-    result = run_agent(req.message, req.history, citadel=citadel, kb=kb)
-    return JSONResponse(result)
+@app.get("/api/results")
+def results():
+    path = DATA_DIR / "results.json"
+    if not path.is_file():
+        raise HTTPException(404, "Résultats introuvables.")
+    return FileResponse(path, media_type="application/json")
 
 
 # ── Frontend statique (production) ────────────────────────────────────────

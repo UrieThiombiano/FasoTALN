@@ -1,0 +1,48 @@
+@startuml uml_activite_news
+' Diagramme d'activités — mise à jour de la veille d'actualité
+skinparam monochrome true
+skinparam shadowing false
+skinparam defaultFontName Sans
+skinparam defaultFontSize 18
+
+start
+:déclenchement (boucle 24 h ou appel externe);
+
+if (clé d'API disponible ?) then (non)
+  :signaler l'indisponibilité (503);
+  stop
+else (oui)
+endif
+
+:interroger l'agent de recherche et de synthèse;
+note right
+  Instructions strictes :
+  sources de confiance, pas de date
+  ni de chiffre inventés, sortie JSON
+end note
+
+if (réponse exploitable en JSON ?) then (non)
+  :conserver le contenu existant;
+  stop
+else (oui)
+endif
+
+while (élément suivant ?) is (oui)
+  if (domaine de la source autorisé ?) then (non)
+    :rejeter l'élément;
+  else (oui)
+    if (titre et résumé présents ?) then (non)
+      :rejeter l'élément;
+    else (oui)
+      :normaliser et conserver;
+    endif
+  endif
+endwhile (non)
+
+:lire l'historique existant;
+:fusionner par déduplication sur le lien source;
+:trier par date décroissante;
+:plafonner le nombre d'éléments conservés;
+:écrire le fichier de veille;
+stop
+@enduml

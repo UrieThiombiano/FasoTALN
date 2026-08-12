@@ -1,0 +1,170 @@
+[
+  {
+    "id": "faibles-ressources",
+    "titre": "Langues à faibles ressources",
+    "categorie": "Ressources",
+    "description": "Joshi et al. (2020) ont proposé une taxonomie des langues du monde selon leur dotation en ressources numériques et leur représentation dans la recherche en TALN, des classes 0-1 (« Left-Behinds », « Scraping-Bys ») à la classe 5 (langues comme l'anglais). La quasi-totalité des langues nationales du Burkina Faso, comme la grande majorité des langues africaines, se situe dans les classes les plus basses : très peu de texte numérisé, très peu de données annotées, quasi-absence dans les grandes conférences de TALN.",
+    "exemple": "Sur les plus de 7 000 langues du monde recensées par l'étude, seule une poignée dispose d'une dotation comparable à l'anglais ou au français ; les langues nationales burkinabè n'apparaissent pratiquement jamais dans les jeux de données ou les publications de référence du domaine.",
+    "impact": "Les modèles de langue nécessitent de grandes quantités de données pour apprendre des représentations robustes ; cette rareté limite directement la qualité de tous les systèmes en aval (traduction, reconnaissance vocale, classification).",
+    "sources": [
+      {
+        "titre": "The State and Fate of Linguistic Diversity and Inclusion in the NLP World",
+        "auteurs": "Joshi, Santy, Budhiraja, Bali, Choudhury",
+        "annee": 2020,
+        "venue": "ACL 2020",
+        "lien": "https://arxiv.org/abs/2004.09095"
+      }
+    ]
+  },
+  {
+    "id": "qualite-corpus",
+    "titre": "Corpus rares, peu représentatifs, souvent d'origine religieuse",
+    "categorie": "Données",
+    "description": "Les corpus disponibles pour les langues à faibles ressources sont souvent petits et de qualité inégale. Un audit manuel de cinq grands jeux de données multilingues extraits du web (CCAligned, ParaCrawl, WikiMatrix, OSCAR, mC4) a montré qu'au moins 15 corpus de langues à faibles ressources ne contenaient aucun texte exploitable, et qu'une fraction importante des autres contenait moins de 50 % de phrases de qualité acceptable. Par ailleurs, la Bible reste souvent le seul grand corpus parallèle disponible pour ces langues — un texte religieux, traduit, dont le registre et le vocabulaire ne sont pas représentatifs de l'usage courant.",
+    "exemple": "Pour de nombreuses langues à faibles ressources, le corpus parallèle biblique (JHU/eBible, plus de 1 600 langues) reste la seule ressource parallèle disponible à grande échelle.",
+    "impact": "Sans corpus représentatifs de l'usage courant et de domaines variés (santé, actualité, technologie), les modèles généralisent mal en dehors du registre étroit sur lequel ils ont été entraînés.",
+    "sources": [
+      {
+        "titre": "Quality at a Glance: An Audit of Web-Crawled Multilingual Datasets",
+        "auteurs": "Kreutzer, Caswell, Wang, et al.",
+        "annee": 2022,
+        "venue": "TACL",
+        "lien": "https://arxiv.org/abs/2103.12028"
+      },
+      {
+        "titre": "The eBible Corpus: Data and Model Benchmarks for Bible Translation for Low-Resource Languages",
+        "auteurs": "Akerman et al.",
+        "annee": 2023,
+        "venue": "arXiv",
+        "lien": "https://arxiv.org/pdf/2304.09919"
+      }
+    ]
+  },
+  {
+    "id": "manque-datasets",
+    "titre": "Manque de jeux de données annotés pour des tâches précises",
+    "categorie": "Données",
+    "description": "Au-delà des corpus bruts, il manque des jeux de données annotés pour des tâches précises (classification, reconnaissance d'entités nommées, traduction évaluée). Le mouvement communautaire Masakhane a produit plusieurs benchmarks de référence — MasakhaNER (10 puis 20 langues africaines), MasakhaNEWS (16 langues) et SIB-200 (200+ langues, dérivé des traductions professionnelles FLORES-200) — mais leur couverture reste partielle : la construction de ces jeux de données repose largement sur des traductions produites pour l'occasion plutôt que sur des textes rédigés nativement, et aucun ne couvre directement le mooré, le dioula ou le fulfuldé du Burkina Faso.",
+    "exemple": "SIB-200, utilisé pour entraîner le classifieur de la contribution FasoTALN, est construit à partir de phrases de FLORES-200 traduites professionnellement — une ressource précieuse, mais qui reste un texte traduit, pas un corpus de production native.",
+    "impact": "Sans données annotées représentatives, il est difficile d'entraîner des modèles supervisés performants ou d'évaluer objectivement les progrès réalisés pour une langue donnée.",
+    "sources": [
+      {
+        "titre": "MasakhaNER: Named Entity Recognition for African Languages",
+        "auteurs": "Adelani et al.",
+        "annee": 2021,
+        "venue": "TACL",
+        "lien": "https://arxiv.org/abs/2103.11811"
+      },
+      {
+        "titre": "MasakhaNER 2.0: Africa-centric Transfer Learning for Named Entity Recognition",
+        "auteurs": "Adelani et al.",
+        "annee": 2022,
+        "venue": "EMNLP",
+        "lien": "https://arxiv.org/abs/2210.12391"
+      },
+      {
+        "titre": "SIB-200: A Simple, Inclusive, and Big Evaluation Dataset for Topic Classification in 200+ Languages and Dialects",
+        "auteurs": "Adelani, Liu, Shen, et al.",
+        "annee": 2024,
+        "venue": "EACL",
+        "lien": "https://arxiv.org/abs/2309.07445"
+      },
+      {
+        "titre": "MasakhaNEWS: News Topic Classification for African languages",
+        "auteurs": "Adelani et al.",
+        "annee": 2023,
+        "venue": "IJCNLP-AACL",
+        "lien": "https://arxiv.org/abs/2304.09972"
+      }
+    ]
+  },
+  {
+    "id": "tons",
+    "titre": "Langues tonales : ambiguïté et échec des systèmes vocaux",
+    "categorie": "Phonologie",
+    "description": "Le mooré, le dioula et le bambara sont des langues tonales : la hauteur mélodique d'une syllabe peut changer le sens d'un mot. Les tons sont rarement marqués à l'écrit dans l'usage courant, et leur absence dans le signal ou le texte dégrade fortement les systèmes de reconnaissance vocale (ASR) et de synthèse. Un benchmark ASR récent pour le bambara illustre l'ampleur du problème : le meilleur système testé atteint un taux d'erreur mot (WER) de 46,76 %, et plusieurs modèles multilingues commerciaux de grande taille dépassent 100 % de WER, produisant des hallucinations pures plutôt qu'une transcription dégradée.",
+    "exemple": "Deux mots mooré ou bambara qui s'écrivent de façon identique sans marquage tonal peuvent avoir des sens totalement différents à l'oral — une ambiguïté que les modèles doivent résoudre à partir du seul contexte.",
+    "impact": "Ce résultat montre que la taille et le multilinguisme d'un modèle ne suffisent pas : sans données et sans traitement dédiés au signal tonal, l'augmentation d'échelle seule ne comble pas l'écart pour les langues tonales à faibles ressources.",
+    "sources": [
+      {
+        "titre": "Where Are We at with Automatic Speech Recognition for the Bambara Language?",
+        "auteurs": "Actes AfricaNLP 2026",
+        "annee": 2026,
+        "venue": "AfricaNLP Workshop (ACL Anthology)",
+        "lien": "https://aclanthology.org/2026.africanlp-main.26/"
+      },
+      {
+        "titre": "Tone in Perspective: A Computational Typological Analysis of Tone Function in ASR",
+        "auteurs": "Actes SIGTYP 2025",
+        "annee": 2025,
+        "venue": "SIGTYP Workshop (ACL Anthology)",
+        "lien": "https://aclanthology.org/2025.sigtyp-1.11/"
+      }
+    ]
+  },
+  {
+    "id": "orthographes-variables",
+    "titre": "Orthographes variables, même quand elles sont officiellement standardisées",
+    "categorie": "Écriture",
+    "description": "Beaucoup de langues nationales ont des orthographes officielles récentes ou peu enseignées à grande échelle, ce qui entraîne une forte variation dans la façon dont les locuteurs écrivent leur propre langue. Le cas du bambara est bien documenté : une orthographe standardisée existe (Konta & Vydrin, 2014 ; portée par l'Académie Malienne des Langues, AMALAN), mais elle n'est pas universellement adoptée, et la variation dialectale et orthographique persiste dans les textes disponibles en ligne — fragmentant un peu plus un réservoir de données déjà limité.",
+    "exemple": "Un même mot peut être orthographié de plusieurs façons différentes selon les locuteurs, avec ou sans diacritiques tonaux ou nasaux, y compris dans des langues dotées d'une orthographe officielle.",
+    "impact": "Cette variabilité complique la tokenisation, l'alignement de corpus et la constitution de vocabulaires stables ; des travaux récents montrent cependant qu'un modèle explicite de cette variation peut restaurer une partie des performances perdues.",
+    "sources": [
+      {
+        "titre": "Bayelemabaga: Creating Resources for Bambara NLP",
+        "auteurs": "Actes NAACL 2025",
+        "annee": 2025,
+        "venue": "NAACL (ACL Anthology)",
+        "lien": "https://aclanthology.org/2025.naacl-long.602/"
+      },
+      {
+        "titre": "Modeling Orthographic Variation Improves NLP Performance for Nigerian Pidgin",
+        "auteurs": "Muhammad et al.",
+        "annee": 2024,
+        "venue": "arXiv",
+        "lien": "https://arxiv.org/abs/2404.18264"
+      }
+    ]
+  },
+  {
+    "id": "surcout-tokenisation",
+    "titre": "Le « surcoût » de tokenisation pour les langues africaines",
+    "categorie": "Modèles",
+    "description": "Les tokenizers des grands modèles de langue actuels segmentent le texte des langues africaines en beaucoup plus de jetons (tokens) que l'anglais pour un même contenu. Une étude mesurant ce phénomène sur 11 tokenizers de pointe trouve une pénalité médiane de 1,88× par rapport à l'anglais pour les langues africaines, atteignant jusqu'à 8,92× pour le N'Ko (l'écriture parfois utilisée pour les langues manding comme le dioula et le bambara) — avec pour conséquence un coût d'inférence et une latence multipliés d'autant, et une fenêtre de contexte effective réduite à 11 % de celle de l'anglais.",
+    "exemple": "Un même texte en N'Ko peut coûter jusqu'à 8,9 fois plus cher à traiter par une API de grand modèle de langue qu'un texte anglais équivalent, tout en occupant une part bien plus grande de la fenêtre de contexte disponible.",
+    "impact": "Ce surcoût touche directement les architectures byte-level comme celle utilisée par le modèle G2P de FasoTALN (ByT5) : les écritures nécessitant plusieurs octets par caractère produisent des séquences plus longues, donc plus coûteuses à traiter, pour un contenu informationnel équivalent.",
+    "sources": [
+      {
+        "titre": "The African Language Tax: Quantifying the Cost, Latency, and Context Penalty of Tokenizing African Languages in Frontier LLMs",
+        "auteurs": "Somide",
+        "annee": 2026,
+        "venue": "arXiv",
+        "lien": "https://arxiv.org/pdf/2606.24460"
+      }
+    ]
+  },
+  {
+    "id": "faible-couverture-llm",
+    "titre": "Faible couverture par les grands modèles de langue généralistes",
+    "categorie": "Modèles",
+    "description": "Les grands modèles de langue généralistes (LLM) restent dominés par l'anglais et un petit nombre de langues à hautes ressources. Une étude récente recense seulement 42 langues africaines effectivement bien prises en charge par les principaux LLM, sur les quelque 2 000 langues du continent, avec quatre langues (amharique, swahili, afrikaans, malgache) concentrant l'essentiel de l'attention. Même le meilleur LLM évalué (GPT-4, score moyen de 59,0) affiche un écart de performance pouvant atteindre 28 % par rapport à l'anglais et 19 % par rapport au français sur les langues africaines couvertes.",
+    "exemple": "Un LLM généraliste peut produire du texte fluide en français ou en anglais mais échoue souvent à comprendre ou générer correctement du mooré, du dioula ou du bambara, langues absentes ou quasi absentes de son corpus d'entraînement.",
+    "impact": "Cela crée une fracture numérique linguistique : les locuteurs de ces langues ne bénéficient pas des mêmes outils d'IA que les locuteurs de langues à hautes ressources, sauf via des adaptations spécifiques comme celles présentées dans nos approches.",
+    "sources": [
+      {
+        "titre": "The State of Large Language Models for African Languages: Progress and Challenges",
+        "auteurs": "Adelani et al.",
+        "annee": 2026,
+        "venue": "arXiv",
+        "lien": "https://arxiv.org/abs/2506.02280"
+      },
+      {
+        "titre": "IrokoBench: A New Benchmark for African Languages in the Age of Large Language Models",
+        "auteurs": "Adelani et al.",
+        "annee": 2024,
+        "venue": "arXiv",
+        "lien": "https://arxiv.org/abs/2406.03368"
+      }
+    ]
+  }
+]

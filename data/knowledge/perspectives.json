@@ -1,0 +1,38 @@
+[
+  {
+    "id": "nouvelles-langues",
+    "titre": "Élargir la couverture à de nouvelles langues nationales",
+    "categorie": "Langues",
+    "description": "Étendre le pipeline G2P + classification hybride, ainsi que le catalogue de ressources, à d'autres langues africaines à faibles ressources — à commencer par d'autres langues du Burkina Faso comme le dagara, le bissa ou le san, point de départ naturel du projet."
+  },
+  {
+    "id": "nouvelles-taches",
+    "titre": "Aborder de nouvelles tâches de TALN",
+    "categorie": "Tâches",
+    "description": "Au-delà de la classification thématique, appliquer l'approche hybride texte+IPA à d'autres tâches : reconnaissance d'entités nommées, analyse de sentiment, résumé automatique, et reconnaissance vocale bout-en-bout."
+  },
+  {
+    "id": "nouveaux-modeles",
+    "titre": "Explorer de nouvelles architectures",
+    "categorie": "Modèles",
+    "description": "Étudier des architectures alternatives pour l'intégration des traits phonémiques (fusion à différents niveaux du réseau, modèles multi-tâches conjoints G2P + classification) et comparer avec des approches purement textuelles ou purement phonémiques."
+  },
+  {
+    "id": "enrichissement-ressources",
+    "titre": "Enrichir le catalogue de ressources",
+    "categorie": "Ressources",
+    "description": "Continuer à recenser et documenter les jeux de données, corpus, dictionnaires, outils et articles scientifiques pertinents pour le TALN des langues africaines, en lien avec la communauté de recherche (Masakhane et autres initiatives)."
+  },
+  {
+    "id": "corpus-communautaire",
+    "titre": "Constituer des corpus communautaires",
+    "categorie": "Données",
+    "description": "Mettre en place des mécanismes de collecte participative de données textuelles et vocales auprès des locuteurs des langues nationales, à l'image de démarches comme Mozilla Common Voice, pour combler durablement le manque de corpus."
+  },
+  {
+    "id": "evaluation-standardisee",
+    "titre": "Construire des benchmarks d'évaluation standardisés",
+    "categorie": "Évaluation",
+    "description": "Développer des jeux de test annotés et des protocoles d'évaluation reproductibles pour les langues africaines à faibles ressources, à commencer par les cinq langues prioritaires de FasoTALN, pour permettre des comparaisons rigoureuses entre approches au fil du temps."
+  }
+]

@@ -1,0 +1,52 @@
+@startuml uml_sequence_chat
+' Diagramme de séquence — assistant conversationnel (ancrage + repli web)
+' Rendu : java -jar plantuml.jar -charset UTF-8 -tpng -Sdpi=150 uml_sequence_chat.puml
+skinparam monochrome true
+skinparam shadowing false
+skinparam defaultFontName Sans
+skinparam defaultFontSize 17
+skinparam maxMessageSize 200
+skinparam wrapWidth 200
+skinparam sequenceMessageAlign center
+skinparam participantPadding 6
+
+actor "Visiteur" as V
+participant "Widget" as UI
+participant "API" as API
+participant "Moteur\nconversationnel" as CE
+participant "API Mistral" as MI
+
+V -> UI : pose une question
+activate UI
+UI -> API : POST /api/chat
+activate API
+API -> API : contrôle de débit\npar adresse IP
+
+alt quota dépassé
+  API --> UI : 429
+else quota disponible
+  API -> CE : ask()
+  activate CE
+  CE -> CE : tronquer\nl'historique
+  CE -> MI : instructions ancrées\n+ outil web_search
+  activate MI
+
+  alt réponse dans la base de connaissance
+    MI --> CE : réponse ancrée
+  else fait récent absent de la base
+    MI -> MI : recherche web\n(domaines de confiance)
+    MI --> CE : réponse + citations
+    CE -> CE : ajouter la source
+  else rien de fiable
+    MI --> CE : déclaration\nd'ignorance
+  end
+  deactivate MI
+
+  CE --> API : réponse
+  deactivate CE
+  API --> UI : réponse
+end
+deactivate API
+UI -> V : affiche la réponse
+deactivate UI
+@enduml

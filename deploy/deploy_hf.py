@@ -1,5 +1,5 @@
 """
-Déploiement de FasoXplore sur Hugging Face Spaces (Docker).
+Déploiement de FasoTALN sur Hugging Face Spaces (Docker).
 
 Usage :
     python deploy/deploy_hf.py
@@ -12,23 +12,15 @@ import os
 import sys
 from pathlib import Path
 
-# Utilise le magasin de certificats Windows (nécessaire derrière une
-# inspection TLS d'entreprise/antivirus)
-try:
-    import truststore
-    truststore.inject_into_ssl()
-except ImportError:
-    pass
-
 from dotenv import dotenv_values
 from huggingface_hub import HfApi
 
 ROOT = Path(__file__).resolve().parent.parent
-SPACE_NAME = "fasoxplore"
-SECRET_KEYS = [
-    "CITADEL_EMAIL", "CITADEL_PASSWORD", "CITADEL_TTS_URL",
-    "MISTRAL_API_KEY", "GEMINI_API_KEY", "ANTHROPIC_API_KEY",
-]
+SPACE_NAME = "fasotaln"
+# Les modèles Uriath/byt5-small-g2p-african et
+# Uriath/afro-xlmr-hybrid-sib200-masakhanews-5class-byt5 sont publics :
+# seul HF_TOKEN est nécessaire, et uniquement s'ils passent en privé.
+SECRET_KEYS = ["HF_TOKEN"]
 
 def main():
     env = dotenv_values(ROOT / ".env")

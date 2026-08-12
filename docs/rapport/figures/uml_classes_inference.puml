@@ -1,0 +1,40 @@
+@startuml uml_classes_inference
+' Diagramme de classes — composants d'inférence
+' Rendu : java -jar plantuml.jar -charset UTF-8 -tpng -Playout=smetana uml_classes_inference.puml
+skinparam monochrome true
+skinparam shadowing false
+skinparam defaultFontName Sans
+skinparam defaultFontSize 14
+skinparam classAttributeIconSize 0
+skinparam nodesep 25
+skinparam ranksep 45
+
+class "API (FastAPI)" as API <<point d'entrée>> {
+  + g2p(texte, langue)
+  + pipeline_classify(texte, langue)
+  - check_lang(langue)
+}
+
+class G2PEngine {
+  - tokenizer
+  - model
+  + transcribe(texte, langue) : str
+  - word_to_ipa(mot, langue) : str
+}
+
+class TopicClassifier {
+  - tokenizer
+  - model
+  - id2label
+  + classify(texte, ipa) : dict
+  - build_hybrid_inputs(texte, ipa)
+}
+
+class "g2p_postprocessing" as PP <<module>> {
+  + apply_postprocessing(ipa, langue) : str
+}
+
+API --> G2PEngine
+API --> TopicClassifier
+G2PEngine ..> PP : utilise
+@enduml

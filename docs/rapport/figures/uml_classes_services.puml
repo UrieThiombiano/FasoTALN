@@ -1,0 +1,55 @@
+@startuml uml_classes_services
+' Diagramme de classes — composants de service et de contenu
+' Rendu : java -jar plantuml.jar -charset UTF-8 -tpng -Playout=smetana uml_classes_services.puml
+skinparam monochrome true
+skinparam shadowing false
+skinparam defaultFontName Sans
+skinparam defaultFontSize 14
+skinparam classAttributeIconSize 0
+skinparam nodesep 25
+skinparam ranksep 45
+
+class "API (FastAPI)" as API <<point d'entrée>> {
+  + chat(message, historique)
+  + translate(texte)
+  + knowledge(categorie)
+  + news() / news_refresh()
+  - check_rate_limit(ip)
+}
+
+class ChatEngine {
+  - system_prompt
+  + ask(message, historique) : str
+}
+
+class NewsAgent {
+  - path
+  + refresh() : list
+}
+
+class TranslateEngine {
+  - token
+  + translate_to_moore(texte) : str
+  - get_token() : str
+}
+
+class KnowledgeBase {
+  - data_dir
+  + get_category(cat) : dict | list
+}
+
+class "mistral_utils" as MU <<module>> {
+  + extract_text_and_citations()
+  + domain(url) : str
+}
+
+API --> ChatEngine
+API --> NewsAgent
+API --> TranslateEngine
+API --> KnowledgeBase
+
+ChatEngine ..> KnowledgeBase : ancrage
+ChatEngine ..> NewsAgent : domaines\nde confiance
+ChatEngine ..> MU
+NewsAgent ..> MU
+@enduml

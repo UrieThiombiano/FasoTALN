@@ -1,0 +1,161 @@
+[
+  {
+    "categorie": "Notions générales",
+    "termes": [
+      {
+        "terme": "TALN / NLP",
+        "definition": "Traitement Automatique des Langues Naturelles (Natural Language Processing en anglais) : le domaine de l'informatique qui conçoit des systèmes capables de traiter, comprendre ou générer du langage humain (texte ou parole)."
+      },
+      {
+        "terme": "Corpus",
+        "definition": "Un ensemble structuré de textes (ou d'enregistrements audio) rassemblés pour l'étude d'une langue ou l'entraînement d'un modèle. Un « petit corpus » pour une langue à faibles ressources peut compter quelques milliers ou millions de mots, contre des centaines de milliards pour l'anglais.",
+        "voir": "/defis"
+      },
+      {
+        "terme": "Corpus parallèle",
+        "definition": "Un corpus où chaque texte existe dans au moins deux langues, phrase par phrase alignées — la ressource de base pour entraîner un système de traduction automatique."
+      },
+      {
+        "terme": "Langue à faibles ressources",
+        "definition": "Une langue disposant de peu de données numériques (texte, audio, annotations) et peu représentée dans la recherche en TALN — c'est le cas de la quasi-totalité des langues nationales du Burkina Faso.",
+        "voir": "/defis"
+      },
+      {
+        "terme": "Langue véhiculaire",
+        "definition": "Une langue utilisée comme moyen de communication commun entre locuteurs de langues maternelles différentes, au-delà de son groupe ethnique d'origine — au Burkina Faso, le mooré, le dioula et le fulfuldé jouent ce rôle.",
+        "voir": "/langues"
+      },
+      {
+        "terme": "Benchmark",
+        "definition": "Un jeu de données et un protocole d'évaluation standardisés qui permettent de comparer objectivement les performances de différents modèles sur une même tâche."
+      }
+    ]
+  },
+  {
+    "categorie": "Modèles et architectures",
+    "termes": [
+      {
+        "terme": "Modèle de langue",
+        "definition": "Un modèle statistique ou neuronal entraîné à prédire ou représenter le langage, généralement en apprenant à deviner les mots manquants ou suivants dans un texte."
+      },
+      {
+        "terme": "Pré-entraînement",
+        "definition": "La phase initiale d'entraînement d'un modèle sur de grandes quantités de texte non annoté, avant qu'il ne soit spécialisé pour une tâche précise."
+      },
+      {
+        "terme": "Fine-tuning",
+        "definition": "L'étape qui poursuit l'entraînement d'un modèle déjà pré-entraîné sur des données plus ciblées (une langue, une tâche) pour spécialiser ses performances.",
+        "voir": "/approches"
+      },
+      {
+        "terme": "Transfert cross-lingue",
+        "definition": "La capacité d'un modèle entraîné sur une ou plusieurs langues à réutiliser ce qu'il a appris pour bien fonctionner sur une autre langue, même avec peu ou pas de données dans cette dernière.",
+        "voir": "/approches"
+      },
+      {
+        "terme": "Modèle multilingue",
+        "definition": "Un modèle pré-entraîné simultanément sur des dizaines à centaines de langues (ex. mBERT, XLM-RoBERTa), qui apprend des représentations partagées permettant un certain transfert entre elles.",
+        "voir": "/approches"
+      },
+      {
+        "terme": "Transformer",
+        "definition": "L'architecture de réseau de neurones (fondée sur le mécanisme d'attention) qui sous-tend la quasi-totalité des modèles de langue modernes, dont BERT, GPT et T5."
+      },
+      {
+        "terme": "LLM",
+        "definition": "Grand modèle de langue (Large Language Model) : un modèle de langue de très grande taille (souvent des milliards de paramètres), typiquement capable de générer du texte fluide et de répondre à des instructions en langage naturel — par exemple GPT-4.",
+        "voir": "/defis"
+      },
+      {
+        "terme": "PEFT / LoRA",
+        "definition": "Parameter-Efficient Fine-Tuning : des méthodes de spécialisation d'un modèle qui n'entraînent qu'une petite fraction de ses paramètres (des « adaptateurs »), pour un coût de calcul très réduit. LoRA (Low-Rank Adaptation) en est l'exemple le plus répandu.",
+        "voir": "/approches"
+      },
+      {
+        "terme": "Tokenisation",
+        "definition": "L'étape qui découpe un texte en unités traitables par un modèle (mots, sous-mots ou octets). Le choix du tokenizer a un impact direct sur le coût et la qualité du traitement d'une langue.",
+        "voir": "/defis"
+      },
+      {
+        "terme": "Byte-level",
+        "definition": "Une approche de tokenisation qui traite le texte octet par octet (au sens de l'encodage UTF-8) plutôt que mot par mot ou sous-mot par sous-mot — utilisée par ByT5, le modèle G2P de FasoTALN.",
+        "voir": "/contribution"
+      },
+      {
+        "terme": "Plongement lexical (embedding)",
+        "definition": "Une représentation numérique (un vecteur) d'un mot, d'un sous-mot ou d'une phrase, construite de façon à ce que des éléments proches en sens ou en usage aient des représentations proches dans cet espace vectoriel."
+      },
+      {
+        "terme": "Few-shot / Zero-shot",
+        "definition": "Deux façons d'utiliser un modèle sur une tâche sans l'entraîner spécifiquement pour elle : zero-shot signifie sans aucun exemple fourni, few-shot signifie avec seulement quelques exemples donnés directement dans la requête (prompting).",
+        "voir": "/approches"
+      }
+    ]
+  },
+  {
+    "categorie": "Spécifique aux langues africaines et tonales",
+    "termes": [
+      {
+        "terme": "IPA / API",
+        "definition": "L'Alphabet Phonétique International : un système d'écriture standardisé qui note la prononciation réelle d'un mot indépendamment de son orthographe. Utilisé par FasoTALN comme signal complémentaire au texte pour la classification.",
+        "voir": "/demo-g2p"
+      },
+      {
+        "terme": "G2P",
+        "definition": "Graphème-vers-Phonème (Grapheme-to-Phoneme) : la tâche qui consiste à transcrire un texte écrit en sa prononciation, généralement représentée en IPA.",
+        "voir": "/demo-g2p"
+      },
+      {
+        "terme": "Langue tonale",
+        "definition": "Une langue où la hauteur mélodique (le ton) d'une syllabe peut à elle seule changer le sens d'un mot. Le mooré, le dioula et le bambara sont des langues tonales ; les tons y sont rarement marqués à l'écrit courant.",
+        "voir": "/defis"
+      },
+      {
+        "terme": "Diacritique",
+        "definition": "Un signe graphique ajouté à une lettre pour en modifier la prononciation (accent, tréma...). Les langues nationales burkinabè utilisent des diacritiques tonaux et nasaux souvent absents des claviers standards."
+      },
+      {
+        "terme": "Orthographe standardisée",
+        "definition": "Un ensemble de règles d'écriture officiellement fixées pour une langue. Même quand elle existe, une orthographe standardisée n'est pas toujours universellement adoptée par les locuteurs, ce qui crée une variabilité que les modèles doivent gérer.",
+        "voir": "/defis"
+      }
+    ]
+  },
+  {
+    "categorie": "Données et évaluation",
+    "termes": [
+      {
+        "terme": "Accuracy",
+        "definition": "La proportion de prédictions correctes sur l'ensemble des prédictions faites par un modèle — la métrique d'évaluation la plus simple, mais trompeuse quand les classes sont déséquilibrées."
+      },
+      {
+        "terme": "F1-score",
+        "definition": "Une métrique d'évaluation qui combine précision (proportion de prédictions positives correctes) et rappel (proportion de cas positifs correctement détectés) en une seule valeur. Le « F1 macro » moyenne le F1 calculé indépendamment pour chaque classe, ce qui le rend plus robuste que l'accuracy face à des classes déséquilibrées.",
+        "voir": "/resultats"
+      },
+      {
+        "terme": "WER",
+        "definition": "Word Error Rate (taux d'erreur mot) : la métrique standard d'évaluation d'un système de reconnaissance vocale (ASR), qui mesure la proportion de mots incorrects dans une transcription automatique par rapport à une transcription de référence.",
+        "voir": "/defis"
+      },
+      {
+        "terme": "NER",
+        "definition": "Named Entity Recognition (reconnaissance d'entités nommées) : la tâche qui consiste à repérer et catégoriser dans un texte les mentions de personnes, lieux, organisations, etc."
+      },
+      {
+        "terme": "POS tagging",
+        "definition": "Part-of-Speech tagging (étiquetage morphosyntaxique) : la tâche qui consiste à attribuer à chaque mot d'une phrase sa catégorie grammaticale (nom, verbe, adjectif...)."
+      },
+      {
+        "terme": "ASR",
+        "definition": "Automatic Speech Recognition (reconnaissance vocale automatique) : la conversion d'un signal audio parlé en texte écrit.",
+        "voir": "/ressources"
+      },
+      {
+        "terme": "Rétro-traduction",
+        "definition": "Back-translation : une technique d'augmentation de données qui traduit automatiquement un texte monolingue vers une autre langue puis le retraduit, pour créer des données d'entraînement synthétiques supplémentaires.",
+        "voir": "/approches"
+      }
+    ]
+  }
+]

@@ -10,9 +10,9 @@ RUN npm run build
 FROM python:3.11-slim
 WORKDIR /app
 
-# torch/torchaudio CPU-only d'abord : évite les roues CUDA (~5 Go inutiles)
+# torch CPU-only d'abord : évite les roues CUDA (~5 Go inutiles)
 COPY backend/requirements.txt backend/requirements.txt
-RUN pip install --no-cache-dir torch torchaudio --index-url https://download.pytorch.org/whl/cpu \
+RUN pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu \
  && pip install --no-cache-dir -r backend/requirements.txt
 
 COPY backend/ backend/

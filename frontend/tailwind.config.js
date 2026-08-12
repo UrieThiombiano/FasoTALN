@@ -4,18 +4,19 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Palette FasoXplore — inspirée des matériaux du Burkina Faso
-        indigo:   { DEFAULT: '#1A1230', light: '#2D1F4A', faint: '#3D2E5C' },
-        or:       { DEFAULT: '#F0A500', light: '#F5C040', dark: '#C8820A' },
-        argile:   { DEFAULT: '#B8411A', light: '#D05028', dark: '#8C2E10' },
-        mil:      { DEFAULT: '#1E6B4A', light: '#2A8B62', dark: '#154D36' },
-        sable:    { DEFAULT: '#FAF3E0', dark: '#F0E4C4' },
-        blanc:    { DEFAULT: '#FEFCF7' },
+        // Palette FasoTALN — violet de marque sur fond clair, accents sémantiques
+        indigo:   { DEFAULT: '#1F2129', light: '#3A3C4A', faint: '#9CA3AF' },
+        or:       { DEFAULT: '#6D5BD0', light: '#8B7ADC', dark: '#4F46E5' },
+        argile:   { DEFAULT: '#EA580C', light: '#FB923C', dark: '#C2410C' },
+        mil:      { DEFAULT: '#16A34A', light: '#22C55E', dark: '#15803D' },
+        sable:    { DEFAULT: '#F7F7FB', dark: '#ECECF2' },
+        blanc:    { DEFAULT: '#FFFFFF' },
       },
       fontFamily: {
         display: ['"Playfair Display"', 'Georgia', 'serif'],
         body:    ['Inter', 'system-ui', 'sans-serif'],
         ui:      ['"Space Grotesk"', 'system-ui', 'sans-serif'],
+        mono:    ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
       },
       animation: {
         'fade-up':    'fadeUp 0.7s ease-out forwards',

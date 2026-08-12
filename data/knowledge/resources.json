@@ -1,0 +1,245 @@
+[
+  {
+    "id": "mms-mos-finetuned",
+    "nom": "Uriath/mms-mos-finetuned",
+    "type": "modele",
+    "description": "Modèle de reconnaissance vocale (ASR) pour le mooré, obtenu par fine-tuning d'un adaptateur PEFT sur MMS-1B (Massively Multilingual Speech de Meta). WER mesuré de 13,7%.",
+    "langues": ["Mooré"],
+    "lien": "https://huggingface.co/Uriath/mms-mos-finetuned",
+    "licence": "Voir la fiche du modèle"
+  },
+  {
+    "id": "byt5-g2p-african",
+    "nom": "Uriath/byt5-small-g2p-african",
+    "type": "modele",
+    "description": "Modèle ByT5-small fine-tuné pour la conversion graphème-phonème (G2P) : transcription d'un texte en Alphabet Phonétique International (IPA), utilisé dans la démonstration G2P et le pipeline de classification hybride de FasoTALN.",
+    "langues": ["Mooré", "Dioula", "Bambara"],
+    "lien": "https://huggingface.co/Uriath/byt5-small-g2p-african",
+    "licence": "Voir la fiche du modèle"
+  },
+  {
+    "id": "afro-xlmr-hybrid",
+    "nom": "Uriath/afro-xlmr-hybrid-sib200-masakhanews-5class-byt5",
+    "type": "modele",
+    "description": "Modèle de classification thématique (5 classes) fondé sur AfroXLMR, entraîné sur une entrée hybride combinant texte brut et transcription IPA générée par le modèle G2P — la contribution centrale de FasoTALN.",
+    "langues": ["Multilingue (langues africaines couvertes par SIB-200 et MasakhaNEWS)"],
+    "lien": "https://huggingface.co/Uriath/afro-xlmr-hybrid-sib200-masakhanews-5class-byt5",
+    "licence": "Voir la fiche du modèle"
+  },
+  {
+    "id": "afroxlmr",
+    "nom": "AfroXLM-R",
+    "type": "modele",
+    "description": "Adaptation multilingue de XLM-RoBERTa aux langues africaines par fine-tuning adaptatif (MAFT), servant de base à de nombreux travaux de classification et d'étiquetage pour l'Afrique, dont la contribution de FasoTALN.",
+    "langues": ["20+ langues africaines"],
+    "lien": "https://arxiv.org/abs/2204.06487",
+    "licence": "Apache-2.0"
+  },
+  {
+    "id": "serengeti",
+    "nom": "Serengeti",
+    "type": "modele",
+    "description": "Modèle de langue massivement multilingue couvrant 517 langues et variétés africaines (contre une trentaine avant lui), réparties en 14 familles linguistiques et 5 écritures.",
+    "langues": ["517 langues et variétés africaines"],
+    "lien": "https://arxiv.org/abs/2212.10785",
+    "licence": "Recherche académique"
+  },
+  {
+    "id": "afribert-a",
+    "nom": "AfriBERTa",
+    "type": "modele",
+    "description": "Modèle de langue multilingue pré-entraîné sur 11 langues africaines à partir de corpus relativement modestes, démontrant qu'un pré-entraînement efficace est possible même à faibles ressources.",
+    "langues": ["11 langues africaines"],
+    "lien": "https://github.com/keleog/afriberta",
+    "licence": "Recherche académique"
+  },
+  {
+    "id": "afrolid",
+    "nom": "AfroLID",
+    "type": "modele",
+    "description": "Outil neuronal d'identification de langue couvrant 517 langues et variétés africaines dans 5 systèmes d'écriture, entraîné sur 100 millions de phrases. Atteint un F1 de 95,89 % sur son jeu de test.",
+    "langues": ["517 langues africaines"],
+    "lien": "https://arxiv.org/abs/2210.11744",
+    "licence": "Recherche académique"
+  },
+  {
+    "id": "nllb",
+    "nom": "No Language Left Behind (NLLB-200)",
+    "type": "modele",
+    "description": "Modèle de traduction automatique multilingue de Meta AI couvrant 200 langues, dont le mooré, le dioula et le bambara — utilisé notamment par l'API de traduction CITADEL pour le couple français-mooré.",
+    "langues": ["200 langues, dont Mooré, Dioula, Bambara"],
+    "lien": "https://github.com/facebookresearch/fairseq/tree/nllb",
+    "licence": "CC-BY-NC-4.0"
+  },
+  {
+    "id": "sib200",
+    "nom": "SIB-200",
+    "type": "dataset",
+    "description": "Jeu de données de classification thématique dérivé de FLORES-200, couvrant plus de 200 langues dont plusieurs langues africaines à faibles ressources. Utilisé pour entraîner le classifieur hybride de FasoTALN.",
+    "langues": ["200+ langues, dont des langues africaines"],
+    "lien": "https://arxiv.org/abs/2309.07445",
+    "licence": "CC-BY-SA-4.0"
+  },
+  {
+    "id": "masakhanews",
+    "nom": "MasakhaNEWS",
+    "type": "dataset",
+    "description": "Jeu de données de classification d'articles de presse en 5 à 6 catégories (politique, sport, santé, divertissement, technologie, business) pour 16 langues africaines. Utilisé conjointement avec SIB-200 pour entraîner le classifieur hybride de FasoTALN.",
+    "langues": ["16 langues africaines"],
+    "lien": "https://arxiv.org/abs/2304.09972",
+    "licence": "AFL-3.0"
+  },
+  {
+    "id": "masakhaner",
+    "nom": "MasakhaNER / MasakhaNER 2.0",
+    "type": "dataset",
+    "description": "Le plus grand jeu de données de reconnaissance d'entités nommées annoté par des locuteurs natifs pour les langues africaines : 10 langues dans la version initiale (2021), 20 dans MasakhaNER 2.0 (2022).",
+    "langues": ["20 langues africaines"],
+    "lien": "https://arxiv.org/abs/2210.12391",
+    "licence": "CC-BY-4.0-NC"
+  },
+  {
+    "id": "masakhapos",
+    "nom": "MasakhaPOS",
+    "type": "dataset",
+    "description": "Le plus grand jeu de données d'étiquetage morphosyntaxique (POS, guidelines Universal Dependencies) pour 20 langues africaines typologiquement diverses.",
+    "langues": ["20 langues africaines"],
+    "lien": "https://arxiv.org/abs/2305.13989",
+    "licence": "CC-BY-4.0-NC"
+  },
+  {
+    "id": "afrisenti",
+    "nom": "AfriSenti",
+    "type": "dataset",
+    "description": "Benchmark d'analyse de sentiment sur plus de 110 000 tweets annotés par des locuteurs natifs dans 14 langues africaines, utilisé pour la tâche partagée SemEval-2023.",
+    "langues": ["14 langues africaines"],
+    "lien": "https://arxiv.org/abs/2302.08956",
+    "licence": "Recherche académique"
+  },
+  {
+    "id": "bayelemabaga",
+    "nom": "Bayelemabaga",
+    "type": "corpus",
+    "description": "Le plus grand corpus parallèle bambara-français curé pour la traduction automatique : 47 000 phrases issues de 231 sources (nouvelles courtes, documents formels, textes religieux), construit à partir du Corpus Bambara de Référence de l'INALCO/LLACAN.",
+    "langues": ["Bambara"],
+    "lien": "https://aclanthology.org/2025.naacl-long.602/",
+    "licence": "Voir dépôt du projet"
+  },
+  {
+    "id": "flores200",
+    "nom": "FLORES-200",
+    "type": "corpus",
+    "description": "Jeu d'évaluation de traduction automatique many-to-many avec traductions alignées et révisées par des humains pour 204 langues (3001 phrases, 842 articles web) — sert de base à SIB-200 et au projet NLLB-200.",
+    "langues": ["204 langues"],
+    "lien": "https://huggingface.co/datasets/facebook/flores",
+    "licence": "CC-BY-SA-4.0"
+  },
+  {
+    "id": "ebible",
+    "nom": "eBible Corpus (JHU Bible Corpus)",
+    "type": "corpus",
+    "description": "Corpus parallèle biblique couvrant plus de 1 600 langues — souvent la seule ressource parallèle disponible à grande échelle pour les langues les plus faiblement dotées, avec les limites de représentativité de registre que cela implique.",
+    "langues": ["1600+ langues"],
+    "lien": "https://arxiv.org/abs/2304.09919",
+    "licence": "Licences variables selon la traduction"
+  },
+  {
+    "id": "opus",
+    "nom": "OPUS",
+    "type": "corpus",
+    "description": "Plateforme de référence pour les corpus parallèles multilingues depuis près de 20 ans : environ 20 milliards de phrases alignées pour plus de 600 langues et 40 000 paires de langues, issues de sources très variées (administratif, sous-titres, textes religieux, sites multilingues).",
+    "langues": ["600+ langues"],
+    "lien": "https://opus.nlpl.eu/",
+    "licence": "Licences variables selon la source"
+  },
+  {
+    "id": "common-voice",
+    "nom": "Mozilla Common Voice",
+    "type": "dataset",
+    "description": "Plateforme et jeu de données de parole collaboratifs et libres, utilisés comme méthodologie de référence pour la collecte de corpus vocaux dans des langues à faibles ressources.",
+    "langues": ["100+ langues"],
+    "lien": "https://commonvoice.mozilla.org/",
+    "licence": "CC0"
+  },
+  {
+    "id": "masakhane",
+    "nom": "Masakhane",
+    "type": "outil",
+    "description": "Communauté de recherche panafricaine en TALN, à l'origine de nombreux jeux de données, outils et publications de référence pour les langues africaines (MasakhaNER, MasakhaPOS, MasakhaNEWS, MasakhaNMT...), fondée en 2019 lors du Deep Learning Indaba.",
+    "langues": ["Plus de 40 langues africaines"],
+    "lien": "https://www.masakhane.io/",
+    "licence": "Projets individuellement licenciés (majoritairement ouverts)"
+  },
+  {
+    "id": "afrobench",
+    "nom": "AfroBench",
+    "type": "outil",
+    "description": "Le benchmark le plus complet à ce jour pour évaluer les grands modèles de langue sur les langues africaines : 64 langues, 15 tâches, 22 jeux de données couvrant compréhension, génération, connaissances et raisonnement.",
+    "langues": ["64 langues africaines"],
+    "lien": "https://github.com/McGill-NLP/AfroBench",
+    "licence": "Voir dépôt du projet"
+  },
+  {
+    "id": "irokobench",
+    "nom": "IrokoBench",
+    "type": "outil",
+    "description": "Benchmark d'évaluation des grands modèles de langue sur les langues africaines à l'ère des LLM, complémentaire à AfroBench.",
+    "langues": ["Langues africaines"],
+    "lien": "https://arxiv.org/abs/2406.03368",
+    "licence": "Voir dépôt du projet"
+  },
+  {
+    "id": "afri-fertility",
+    "nom": "afri-fertility",
+    "type": "outil",
+    "description": "Outil de mesure du « surcoût » de tokenisation des langues africaines par les tokenizers des grands modèles de langue de pointe (issu de l'étude « The African Language Tax »), avec classement public des tokenizers évalués.",
+    "langues": ["Langues africaines"],
+    "lien": "https://arxiv.org/abs/2606.24460",
+    "licence": "Voir dépôt du projet"
+  },
+  {
+    "id": "glottolog",
+    "nom": "Glottolog",
+    "type": "outil",
+    "description": "Catalogue de référence des langues du monde et de leurs classifications généalogiques, utilisé pour documenter précisément les familles et sous-familles linguistiques présentées sur FasoTALN.",
+    "langues": ["Toutes les langues du monde"],
+    "lien": "https://glottolog.org/",
+    "licence": "CC-BY-4.0"
+  },
+  {
+    "id": "joshi2020",
+    "nom": "The State and Fate of Linguistic Diversity and Inclusion in the NLP World",
+    "type": "article",
+    "description": "Taxonomie de référence des langues du monde selon leur dotation en ressources numériques et leur représentation en TALN (classes 0 à 5). Article fondateur pour comprendre où se situent les langues burkinabè dans le paysage mondial du TALN.",
+    "langues": ["Toutes les langues du monde"],
+    "lien": "https://arxiv.org/abs/2004.09095",
+    "licence": "arXiv (libre accès)"
+  },
+  {
+    "id": "kreutzer2022",
+    "nom": "Quality at a Glance: An Audit of Web-Crawled Multilingual Datasets",
+    "type": "article",
+    "description": "Audit manuel de cinq grands corpus multilingues extraits du web, révélant des problèmes systématiques de qualité pour les langues à faibles ressources.",
+    "langues": ["205 langues auditées"],
+    "lien": "https://arxiv.org/abs/2103.12028",
+    "licence": "arXiv (libre accès)"
+  },
+  {
+    "id": "african-language-tax",
+    "nom": "The African Language Tax",
+    "type": "article",
+    "description": "Étude quantifiant le surcoût de tokenisation, de latence et de fenêtre de contexte imposé aux langues africaines par les tokenizers des LLM de pointe — jusqu'à 8,9× pour le N'Ko.",
+    "langues": ["Langues africaines"],
+    "lien": "https://arxiv.org/abs/2606.24460",
+    "licence": "arXiv (libre accès)"
+  },
+  {
+    "id": "masakhane-participatory",
+    "nom": "Participatory Research for Low-resourced Machine Translation: A Case Study in African Languages",
+    "type": "article",
+    "description": "L'article fondateur du mouvement Masakhane, démontrant la faisabilité d'une recherche participative pour la traduction automatique des langues africaines. Prix Wikimedia Foundation Research Award of the Year 2021.",
+    "langues": ["30+ langues africaines"],
+    "lien": "https://aclanthology.org/2020.findings-emnlp.195/",
+    "licence": "ACL Anthology (libre accès)"
+  }
+]

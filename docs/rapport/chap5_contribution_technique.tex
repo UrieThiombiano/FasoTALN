@@ -1,0 +1,935 @@
+% ============================================================
+%  chapters/chap5_contribution_technique.tex
+%  Contribution technique : la plateforme FasoTALN
+% ============================================================
+
+% ----- Bibliothèque TikZ requise par le diagramme de cas d'utilisation -----
+% (à déplacer dans config/preamble.tex si d'autres chapitres en ont besoin)
+\usetikzlibrary{shapes.geometric}
+
+% ----- Styles TikZ locaux (valables pour tout ce chapitre) -----
+\tikzset{
+	Bn/.style={rectangle, rounded corners=2pt, draw=black!55, fill=gray!7,
+		minimum height=1.0cm, text centered, font=\small},
+	Bh/.style={rectangle, rounded corners=2pt, draw=black!70, fill=gray!20,
+		minimum height=1.0cm, text centered, font=\small},
+	Bf/.style={rectangle, rounded corners=2pt, draw=black!70, fill=gray!14,
+		minimum height=1.1cm, text centered, font=\small},
+	Bl/.style={rectangle, rounded corners=3pt, draw=black!45, fill=gray!3,
+		inner sep=8pt},
+	fl/.style={-{Stealth[length=5pt, width=4pt]}, thick, draw=black!60},
+	fld/.style={-{Stealth[length=5pt, width=4pt]}, thick, draw=black!60, dashed},
+	flb/.style={{Stealth[length=5pt, width=4pt]}-{Stealth[length=5pt, width=4pt]},
+		thick, draw=black!60},
+}
+
+% ----- Emplacement réservé pour une capture d'écran non encore produite -----
+% Permet au document de compiler et aux références croisées de fonctionner
+% avant que la capture ne soit insérée. Remplacer par \figurefull{...} ensuite.
+\newcommand{\captureareserver}[3]{%
+	\begin{figure}[H]
+		\centering
+		\fbox{\parbox[c][3.2cm][c]{0.72\textwidth}{\centering\footnotesize
+				\textit{Capture d'écran à insérer~:} \texttt{#1}}}
+		\caption{#2}
+		\label{fig:#3}
+	\end{figure}
+}
+
+\chapter{Contribution technique~: la plateforme FasoTALN}
+\label{chap:contribution-technique}
+
+\section{Introduction}
+
+Les chapitres~\ref{chap:conception} et~\ref{chap:realisation} ont établi une
+contribution scientifique~: un module G2P pour le \langueafr{Mooré}, le
+\langueafr{Dioula} et le \langueafr{Bambara}, et la mesure de l'apport d'une
+représentation phonémique dans un scénario de transfert cross-lingual zero-shot.
+Cette contribution existe sous la forme de deux modèles publiés sur HuggingFace et
+de notebooks d'expérimentation. Sous cette forme, elle reste inaccessible à qui ne
+sait pas exécuter un notebook, et invisible pour la communauté qu'elle concerne au
+premier chef~: les étudiants, enseignants et praticiens burkinabè du TALN.
+
+Ce chapitre présente la réponse apportée à ce constat~: \textbf{FasoTALN}, un portail
+scientifique, pédagogique et technologique consacré au traitement automatique des
+langues nationales du Burkina Faso, qui remplit simultanément deux fonctions. Il
+\textbf{industrialise} le pipeline de recherche~--- les deux modèles deviennent un
+service d'inférence interrogeable en ligne, sans installation~--- et il
+\textbf{contextualise} ce pipeline en le replaçant dans un parcours d'apprentissage
+progressif qui va des enjeux linguistiques des langues nationales jusqu'aux
+perspectives de recherche ouvertes.
+
+La frontière avec les chapitres précédents est nette et volontaire~: le
+chapitre~\ref{chap:realisation} répond à la question \og{}le signal phonémique
+améliore-t-il la classification cross-lingue~?\fg{}, ce chapitre-ci répond à la
+question \og{}comment ce résultat devient-il un système utilisable et un objet
+d'enseignement~?\fg{}. Aucune métrique expérimentale n'est donc reprise ici~; en
+revanche, les contraintes d'implémentation qui conditionnent la fidélité du service
+au modèle entraîné y sont détaillées, car elles constituent le c\oe{}ur du travail
+d'ingénierie.
+
+Le chapitre suit la démarche classique de conduite de projet logiciel~: analyse et
+spécification des besoins (section~\ref{sec:ct-besoins}), conception globale et
+détaillée (section~\ref{sec:ct-conception}), puis réalisation
+(section~\ref{sec:ct-realisation}).
+
+\section{Analyse et spécification des besoins}
+\label{sec:ct-besoins}
+
+\subsection{Analyse des besoins}
+
+\subsubsection{Identification des acteurs}
+
+La plateforme est un portail public de consultation~: elle ne comporte ni
+authentification, ni compte utilisateur, ni espace privé. Deux acteurs humains et
+trois acteurs secondaires (systèmes externes) interagissent avec elle~:
+
+\begin{itemize}
+	\item \textbf{Le visiteur-apprenant}~: acteur principal. Il s'agit d'un étudiant,
+	d'un enseignant, d'un chercheur ou d'un curieux qui découvre le TALN appliqué aux
+	langues nationales. Il consulte le contenu pédagogique, exécute les démonstrations
+	interactives et interroge l'assistant conversationnel. Il n'a aucun droit
+	d'écriture sur le contenu.
+
+	\item \textbf{Le mainteneur scientifique}~: l'auteur du projet ou un contributeur
+	ultérieur. Il enrichit la base de connaissance éditoriale (fichiers JSON
+	versionnés), intègre de nouveaux résultats expérimentaux et peut déclencher
+	manuellement la mise à jour de la veille d'actualité. Il agit par le dépôt Git et
+	par un point d'entrée d'administration technique, non par une interface graphique
+	d'administration.
+
+	\item \textbf{L'ordonnanceur}~: acteur secondaire non humain. Il déclenche
+	périodiquement (toutes les 24~heures) la mise à jour de la veille d'actualité,
+	sans intervention humaine.
+
+	\item \textbf{Les services externes}~: l'API Mistral (assistant conversationnel et
+	agent de veille) et l'API CITADEL (traduction français~$\rightarrow$~mooré). Ce
+	sont des acteurs secondaires sollicités par le système.
+\end{itemize}
+
+\subsubsection{Analyse des besoins fonctionnels}
+
+La plateforme doit répondre aux besoins suivants~:
+
+\begin{itemize}
+	\item proposer un \textbf{parcours d'apprentissage ordonné} qui conduit le
+	visiteur, étape par étape, des langues nationales du Burkina Faso jusqu'aux
+	perspectives de recherche, en passant par les défis du domaine, les approches
+	existantes et les ressources disponibles~;
+	\item permettre la \textbf{transcription phonémique interactive} d'un texte saisi
+	par l'utilisateur en \langueafr{Mooré}, \langueafr{Dioula} ou \langueafr{Bambara}~;
+	\item permettre l'\textbf{exécution complète du pipeline de classification}
+	(texte~$\rightarrow$~IPA~$\rightarrow$~séquence hybride~$\rightarrow$~classe
+	thématique) en exposant chaque état intermédiaire, et non seulement le résultat
+	final~;
+	\item \textbf{générer une phrase de test en mooré} à partir d'une phrase française,
+	afin qu'un visiteur ne lisant aucune des langues cibles puisse néanmoins
+	expérimenter le pipeline~;
+	\item \textbf{servir une base de connaissance éditoriale sourcée} couvrant les
+	langues, le glossaire, les défis, les approches, les ressources, l'écosystème
+	institutionnel et les perspectives~;
+	\item offrir une \textbf{recherche transversale} sur l'ensemble du contenu~;
+	\item mettre à disposition un \textbf{assistant conversationnel} capable de
+	répondre aux questions du visiteur en s'appuyant sur cette base de connaissance~;
+	\item entretenir une \textbf{veille d'actualité} sur le TALN africain, mise à jour
+	automatiquement et systématiquement sourcée.
+\end{itemize}
+
+\subsubsection{Analyse des besoins non fonctionnels}
+
+Six exigences non fonctionnelles structurent la solution. Elles ne sont pas
+génériques~: chacune découle d'une contrainte propre au contexte du projet.
+
+\begin{itemize}
+	\item \textbf{Fiabilité scientifique du contenu.} Le portail s'adresse à un public
+	qui découvre le domaine et n'a pas les moyens de vérifier ce qu'il lit. Toute
+	affirmation factuelle externe doit donc être accompagnée d'une source vérifiable,
+	et aucune valeur numérique ne doit être approximée. Cette exigence s'applique
+	aussi bien au contenu rédigé qu'au contenu produit automatiquement, ce qui
+	conditionne toute l'architecture de l'assistant conversationnel et de la veille
+	d'actualité (section~\ref{sec:ct-realisation}).
+
+	\item \textbf{Dégradation gracieuse.} La plateforme dépend de services externes
+	(Mistral, CITADEL) dont la disponibilité n'est pas garantie et dont les clés
+	peuvent être absentes d'un déploiement donné. L'indisponibilité d'un service ne
+	doit jamais empêcher l'accès au reste du portail~: elle doit se traduire par un
+	message ciblé sur la seule fonctionnalité concernée.
+
+	\item \textbf{Évolutivité éditoriale.} Le projet est conçu pour vivre plusieurs
+	années et accueillir de nouvelles langues, de nouvelles tâches et de nouveaux
+	résultats. L'ajout d'une page de contenu ne doit pas exiger la modification de la
+	barre de navigation, du plan du site, du fil d'Ariane, de la navigation
+	séquentielle ni du moteur de recherche.
+
+	\item \textbf{Maîtrise des coûts d'exploitation.} L'assistant conversationnel
+	repose sur une API facturée à l'usage, sur un portail public sans
+	authentification. Une limitation de débit est donc nécessaire pour éviter qu'un
+	usage abusif ne rende le service insoutenable.
+
+	\item \textbf{Sobriété d'exécution.} La cible de déploiement est un hébergement
+	gratuit, sans accélérateur matériel. Les deux modèles (environ 1,5~Go cumulés)
+	doivent donc s'exécuter sur processeur seul, dans une empreinte mémoire
+	compatible avec cette contrainte.
+
+	\item \textbf{Accessibilité et adaptabilité.} Une part importante du public cible
+	consulte le web depuis un téléphone mobile et une connexion contrainte. L'interface
+	est donc conçue selon une approche \textit{mobile-first}, et chaque image
+	illustrative porte une description textuelle alternative.
+\end{itemize}
+
+\subsection{Spécification des besoins}
+
+\subsubsection{Diagramme de cas d'utilisation}
+
+La figure~\ref{fig:ct-usecase} présente les cas d'utilisation de la plateforme. Le
+visiteur-apprenant dispose de huit cas d'utilisation, tous accessibles sans
+authentification. Deux d'entre eux~--- l'exécution du pipeline de classification et
+la génération d'une phrase de test~--- sont liés par une relation
+\code{<<extend>>}~: la traduction française~$\rightarrow$~mooré est une commodité
+optionnelle offerte au sein de la page du pipeline, et non une étape obligatoire.
+La transcription phonémique, en revanche, est incluse (\code{<<include>>}) dans
+l'exécution du pipeline, puisque la séquence hybride ne peut être construite sans
+la sortie du module G2P.
+
+Le mainteneur scientifique n'accède à aucune interface d'administration~: il met à
+jour le contenu par le dépôt versionné et peut déclencher la veille. L'ordonnanceur
+partage ce dernier cas d'utilisation, ce qui traduit un choix de conception
+important~: le rafraîchissement automatique et le rafraîchissement manuel empruntent
+exactement le même chemin d'exécution, et donc les mêmes garde-fous.
+
+% -------------------------------------------------------------------
+% FIGURE — Diagramme de cas d'utilisation
+% -------------------------------------------------------------------
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[x=1cm, y=1cm]
+
+		\tikzset{
+			uc/.style={ellipse, draw=black!60, fill=gray!5, align=center,
+				font=\scriptsize, text width=2.9cm, inner sep=2.5pt, minimum height=0.95cm},
+			lien/.style={draw=black!60, thick},
+			rel/.style={-{Stealth[length=4pt, width=3pt]}, thick, draw=black!60, dashed},
+		}
+
+		% ---- Cas d'utilisation du visiteur (colonne 1) ----
+		\node[uc] (u1) at (0,   0.00) {Suivre le parcours d'apprentissage};
+		\node[uc] (u2) at (0,  -1.45) {Consulter la base de connaissance};
+		\node[uc] (u3) at (0,  -2.90) {Rechercher dans le portail};
+		\node[uc] (u4) at (0,  -4.35) {Consulter les résultats expérimentaux};
+		\node[uc] (u5) at (0,  -5.80) {Transcrire un texte en IPA (G2P)};
+		\node[uc] (u6) at (0,  -7.25) {Exécuter le pipeline de classification};
+		\node[uc] (u7) at (0,  -8.70) {Interroger l'assistant};
+		\node[uc] (u8) at (0, -10.15) {Consulter la veille d'actualité};
+
+		% ---- Cas d'utilisation liés / administration (colonne 2) ----
+		\node[uc] (u9)  at (5.2,  -7.25) {Générer une phrase de test en mooré};
+		\node[uc] (u10) at (5.2,  -9.60) {Rafraîchir la veille d'actualité};
+		\node[uc] (u11) at (5.2, -11.00) {Mettre à jour la base éditoriale};
+
+		% ---- Frontière du système ----
+		\begin{scope}[on background layer]
+			\node[draw=black!55, rounded corners=2pt, fill=gray!2, inner sep=12pt,
+			fit=(u1)(u8)(u9)(u11)] (sys) {};
+		\end{scope}
+		\node[font=\footnotesize\bfseries, anchor=north west] at ($(sys.north west)+(0.25,-0.12)$)
+		{Plateforme FasoTALN};
+
+		% ---- Acteur : visiteur-apprenant ----
+		\begin{scope}[shift={(-4.2,-5.10)}]
+			\draw[lien] (0,0.42) circle (0.19);
+			\draw[lien] (0,0.23) -- (0,-0.32);
+			\draw[lien] (-0.30,0.02) -- (0.30,0.02);
+			\draw[lien] (0,-0.32) -- (-0.25,-0.78);
+			\draw[lien] (0,-0.32) -- (0.25,-0.78);
+			\node[font=\scriptsize, align=center, anchor=north] at (0,-0.90) {Visiteur-\\apprenant};
+		\end{scope}
+		\coordinate (V) at (-3.9,-5.10);
+
+		% ---- Acteur : ordonnanceur ----
+		\begin{scope}[shift={(9.6,-8.40)}]
+			\draw[lien] (0,0.42) circle (0.19);
+			\draw[lien] (0,0.23) -- (0,-0.32);
+			\draw[lien] (-0.30,0.02) -- (0.30,0.02);
+			\draw[lien] (0,-0.32) -- (-0.25,-0.78);
+			\draw[lien] (0,-0.32) -- (0.25,-0.78);
+			\node[font=\scriptsize, align=center, anchor=north] at (0,-0.90) {Ordonnanceur};
+		\end{scope}
+		\coordinate (O) at (9.3,-8.40);
+
+		% ---- Acteur : mainteneur scientifique ----
+		\begin{scope}[shift={(9.6,-10.60)}]
+			\draw[lien] (0,0.42) circle (0.19);
+			\draw[lien] (0,0.23) -- (0,-0.32);
+			\draw[lien] (-0.30,0.02) -- (0.30,0.02);
+			\draw[lien] (0,-0.32) -- (-0.25,-0.78);
+			\draw[lien] (0,-0.32) -- (0.25,-0.78);
+			\node[font=\scriptsize, align=center, anchor=north] at (0,-0.90) {Mainteneur\\scientifique};
+		\end{scope}
+		\coordinate (M) at (9.3,-10.60);
+
+		% ---- Associations du visiteur ----
+		\foreach \n in {u1,u2,u3,u4,u5,u6,u7,u8}{
+			\draw[lien] (V) -- (\n.west);
+		}
+
+		% ---- Associations des acteurs secondaires ----
+		\draw[lien] (O) -- (u10.east);
+		\draw[lien] (M) -- (u10.east);
+		\draw[lien] (M) -- (u11.east);
+
+		% ---- Relations entre cas d'utilisation ----
+		\draw[rel] (u1.east) to[bend left=55] node[right, font=\scriptsize, xshift=1pt]
+		{$\ll$include$\gg$} (u2.east);
+		\draw[rel] (u6.north east) to[bend left=55] node[right, font=\scriptsize, xshift=1pt]
+		{$\ll$include$\gg$} (u5.south east);
+		\draw[rel] (u9.west) -- node[above, font=\scriptsize] {$\ll$extend$\gg$} (u6.east);
+
+	\end{tikzpicture}
+	\caption{Diagramme de cas d'utilisation de la plateforme FasoTALN.}
+	\label{fig:ct-usecase}
+\end{figure}
+
+\subsubsection{Diagrammes de séquence}
+
+Trois scénarios méritent d'être détaillés, parce qu'ils portent chacun une décision
+de conception non triviale.
+
+\paragraph{Scénario 1~— Exécution du pipeline de classification.}
+La figure~\ref{fig:ct-seq-pipeline} décrit le scénario nominal. Le point notable est
+la boucle de génération~: le module G2P ne transcrit pas la phrase en une passe, mais
+mot par mot, chaque mot étant préfixé par le code de langue avant d'être soumis au
+modèle. Ce découpage n'est pas un détail d'optimisation, c'est une contrainte de
+fidélité au format vu par le modèle pendant son entraînement, détaillée en
+section~\ref{sec:ct-realisation}. Le service renvoie ensuite au client non seulement la classe
+prédite, mais aussi la transcription IPA intermédiaire et la séquence hybride
+textuelle complète, afin que l'interface puisse rendre visible chaque étape du
+raisonnement.
+
+\figurefull{figures/uml_sequence_pipeline.png}{0.86}
+{Diagramme de séquence~: exécution du pipeline de classification.}{ct-seq-pipeline}
+
+\paragraph{Scénario 2~— Interrogation de l'assistant conversationnel.}
+La figure~\ref{fig:ct-seq-chat} présente le scénario alternatif de l'assistant. Trois
+issues sont possibles, matérialisées par un fragment \code{alt}~: la réponse est
+contenue dans la base de connaissance injectée au démarrage~; la question porte sur un
+fait récent absent de cette base, et l'agent recourt alors à une recherche web
+restreinte à une liste de domaines de confiance, en citant sa source~; ou bien rien
+de fiable n'est trouvé, et l'agent le déclare explicitement plutôt que de produire
+une réponse plausible mais invérifiable. Le contrôle de débit intervient en amont de
+tout appel externe, de sorte qu'une requête rejetée ne consomme aucun crédit d'API.
+
+\figurefull{figures/uml_sequence_chat.png}{0.97}
+{Diagramme de séquence~: assistant conversationnel, ancrage documentaire et repli
+	de recherche web.}{ct-seq-chat}
+
+\paragraph{Scénario 3~— Mise à jour de la veille d'actualité.}
+La figure~\ref{fig:ct-seq-news} décrit le scénario le plus sensible de la plateforme,
+puisque du contenu y est publié sans relecture humaine. Deux mécanismes de rejet y
+apparaissent~: si la réponse du modèle n'est pas un document JSON exploitable, la
+mise à jour est abandonnée et le contenu existant est conservé intact~; et chaque
+élément est ensuite filtré individuellement selon le domaine de sa source. Le
+principe directeur est qu'aucune défaillance ne doit pouvoir dégrader l'état
+existant~: dans le pire des cas, la page n'est pas rafraîchie.
+
+\figurefull{figures/uml_sequence_news.png}{0.82}
+{Diagramme de séquence~: mise à jour de la veille d'actualité et filtrage des
+	sources.}{ct-seq-news}
+
+\section{Conception}
+\label{sec:ct-conception}
+
+\subsection{Conception globale}
+
+\subsubsection{Architecture physique}
+
+L'architecture physique retenue, présentée en figure~\ref{fig:ct-archi-physique},
+s'écarte volontairement du modèle trois-tiers classique. Elle ne comporte que
+\textbf{deux tiers}~: un client léger (le navigateur du visiteur, exécutant une
+application monopage) et un serveur d'application unique qui héberge à la fois
+l'interface compilée, l'API et les deux modèles chargés en mémoire.
+
+L'absence du troisième tiers~--- le serveur de données~--- est un choix assumé et non
+une omission. La plateforme ne collecte aucune donnée utilisateur~: ni compte, ni
+historique de conversation persistant, ni enregistrement audio, ni journal des textes
+soumis aux démonstrations. Il n'y a donc rien à stocker durablement, et par
+conséquent aucune base de données à administrer, à sauvegarder ni à sécuriser. Ce
+choix a trois conséquences favorables~: le service est \textit{sans état} et peut être
+redémarré ou redéployé sans procédure de migration~; la surface d'exposition en
+matière de données personnelles est nulle~; et l'ensemble tient dans un conteneur
+unique, ce qui rend le déploiement sur un hébergement gratuit réaliste.
+
+Le contenu éditorial, qui pourrait justifier une base de données dans une application
+comparable, est traité comme du \textbf{code}~: il vit dans des fichiers versionnés
+avec le reste du projet, ce qui lui confère un historique de modification, une
+possibilité de relecture avant intégration et une reproductibilité que ne donnerait
+pas une base administrée par une interface.
+
+% -------------------------------------------------------------------
+% FIGURE — Architecture physique
+% -------------------------------------------------------------------
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[x=1cm, y=1cm]
+
+		% ---- Client ----
+		\node[Bl, minimum width=4.0cm, minimum height=3.6cm] (cli) at (-5.4, 0) {};
+		\node[font=\small\bfseries, anchor=north] at (-5.4, 2.05) {Client léger};
+		\node[Bn, text width=3.2cm] at (-5.4, 0.45)
+		{Navigateur\\[2pt]\footnotesize Application monopage};
+		\node[font=\footnotesize, text width=3.4cm, align=center] at (-5.4, -1.15)
+		{Rendu, navigation\\et état local};
+
+		% ---- Serveur d'application ----
+		\node[Bl, minimum width=5.8cm, minimum height=5.4cm] (srv) at (0.6, -0.5) {};
+		\node[font=\small\bfseries, anchor=north, text width=6.4cm, align=center]
+		at (0.6, 3.45) {Serveur d'application\\(conteneur unique)};
+		\node[Bn, text width=4.6cm] at (0.6, 1.4) {Interface compilée\\[2pt]\footnotesize Fichiers statiques};
+		\node[Bn, text width=4.6cm] at (0.6, -0.1) {API REST\\[2pt]\footnotesize FastAPI};
+		\node[Bh, text width=4.6cm] at (0.6, -1.7) {Modèles en mémoire\\[2pt]\footnotesize ByT5 G2P~+~AfroXLM-R};
+
+		% ---- Services externes ----
+		\node[Bl, minimum width=4.0cm, minimum height=3.6cm] (ext) at (6.6, 0) {};
+		\node[font=\small\bfseries, anchor=north] at (6.6, 2.05) {Services externes};
+		\node[Bn, text width=3.2cm] at (6.6, 0.55) {\footnotesize API Mistral};
+		\node[Bn, text width=3.2cm] at (6.6, -0.75) {\footnotesize API CITADEL};
+
+		% ---- Absence de serveur de données ----
+		\node[rectangle, rounded corners=3pt, draw=black!35, dashed, fill=none,
+		text width=6.4cm, align=center, font=\footnotesize, inner sep=6pt]
+		(nodb) at (0.6, -4.3)
+		{\textit{Aucun serveur de données~:}\\aucune donnée utilisateur persistée};
+
+		% ---- Flèches ----
+		\draw[flb] (-3.4, 0) -- (-2.3, 0);
+		\node[font=\footnotesize, anchor=south] at (-2.85, 0.12) {HTTP};
+		\draw[flb] (3.5, 0) -- (4.6, 0);
+		\node[font=\footnotesize, anchor=south] at (4.05, 0.12) {HTTPS};
+		\draw[black!35, dashed] (0.6, -3.2) -- (0.6, -3.85);
+
+	\end{tikzpicture}
+	\caption{Architecture physique~: deux tiers, sans serveur de données.}
+	\label{fig:ct-archi-physique}
+\end{figure}
+
+\subsubsection{Architecture logique}
+
+Les composants sont organisés en trois couches (figure~\ref{fig:ct-archi-logique}),
+chacune n'adressant que la couche immédiatement inférieure.
+
+La \textbf{couche présentation} regroupe les pages de contenu, les composants
+d'interface réutilisables et les gabarits de mise en page. Elle est pilotée par un
+\textbf{descripteur de navigation unique}~: un fichier de configuration qui déclare
+les groupes thématiques et l'ordre curriculaire des pages. La barre de navigation, le
+plan latéral, le fil d'Ariane, la navigation séquentielle \og{}précédent/suivant\fg{},
+le décompte des étapes affiché sur la page d'accueil et l'index du moteur de recherche
+en sont tous dérivés. C'est la réponse concrète à l'exigence d'évolutivité éditoriale~:
+déclarer une page dans ce descripteur suffit à l'insérer dans l'ensemble des
+mécanismes de navigation du site.
+
+La \textbf{couche applicative} expose les points d'entrée de l'API et héberge six
+composants métier indépendants~: les deux moteurs d'inférence, le moteur
+conversationnel, le moteur de traduction, l'agent de veille et le chargeur de contenu.
+Chacun encapsule intégralement sa dépendance externe et signale son indisponibilité
+par une erreur typée, ce qui permet à la couche API de la traduire en réponse
+\code{503} ciblée~--- mécanisme par lequel l'exigence de dégradation gracieuse est
+satisfaite.
+
+La \textbf{couche contenu} est constituée des fichiers JSON éditoriaux. Elle est en
+lecture seule pour l'ensemble du système, à une exception près~: le fichier des
+actualités, seul artefact écrit à l'exécution, et uniquement par l'agent de veille.
+
+% -------------------------------------------------------------------
+% FIGURE — Architecture logique
+% -------------------------------------------------------------------
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[x=1cm, y=1cm]
+
+		% ---- Couche présentation ----
+		\node[Bl, minimum width=14.2cm, minimum height=2.9cm] at (0, 3.4) {};
+		\node[font=\small\bfseries, anchor=west] at (-6.9, 4.45) {Couche présentation};
+		\node[Bn, text width=2.8cm] at (-4.95, 2.9) {\scriptsize Pages de contenu};
+		\node[Bn, text width=2.8cm] at (-1.65, 2.9) {\scriptsize Gabarit\\documentaire};
+		\node[Bh, text width=2.8cm] at (1.65, 2.9) {\scriptsize Descripteur\\de navigation};
+		\node[Bn, text width=2.8cm] at (4.95, 2.9) {\scriptsize Assistant (widget)};
+
+		% ---- Couche applicative ----
+		\node[Bl, minimum width=14.2cm, minimum height=4.1cm] at (0, -0.8) {};
+		\node[font=\small\bfseries, anchor=west] at (-6.9, 0.95) {Couche applicative};
+		\node[Bn, text width=12.6cm] at (0, 0.0) {\scriptsize Points d'entrée de l'API (FastAPI)};
+		\node[Bh, text width=2.8cm] at (-4.95, -1.7) {\scriptsize Moteur G2P};
+		\node[Bh, text width=2.8cm] at (-1.65, -1.7) {\scriptsize Classifieur hybride};
+		\node[Bn, text width=2.8cm] at (1.65, -1.7) {\scriptsize Moteur\\conversationnel};
+		\node[Bn, text width=2.8cm] at (4.95, -1.7) {\scriptsize Agent de veille};
+
+		% ---- Couche contenu ----
+		\node[Bl, minimum width=14.2cm, minimum height=2.0cm] at (0, -4.35) {};
+		\node[font=\small\bfseries, anchor=west] at (-6.9, -3.65) {Couche contenu};
+		\node[Bf, text width=12.6cm] at (0, -4.6)
+		{\scriptsize Base de connaissance éditoriale~--- fichiers JSON versionnés (lecture seule)};
+
+		% ---- Flèches inter-couches ----
+		\draw[fl] (0, 1.95) -- (0, 1.25);
+		\node[font=\footnotesize, anchor=west] at (0.15, 1.6) {HTTP / JSON};
+		\draw[fl] (0, -2.85) -- (0, -3.35);
+
+	\end{tikzpicture}
+	\caption{Architecture logique en trois couches.}
+	\label{fig:ct-archi-logique}
+\end{figure}
+
+\subsection{Conception détaillée}
+
+\subsubsection{Aspect statique}
+
+\paragraph{Structure des composants métier.}
+Les composants de la couche applicative se répartissent en deux familles, présentées
+séparément pour la lisibilité~: les composants d'\textbf{inférence}
+(figure~\ref{fig:ct-classes-inf}), qui exécutent les modèles localement, et les
+composants de \textbf{service et de contenu} (figure~\ref{fig:ct-classes-srv}), qui
+encapsulent les dépendances externes et l'accès à la base éditoriale.
+
+\figurefull{figures/uml_classes_inference.png}{0.62}
+{Diagramme de classes~: composants d'inférence.}{ct-classes-inf}
+
+Deux principes structurent la première famille. D'une part, les deux moteurs
+d'inférence chargent leur modèle \textbf{une seule fois}, à l'instanciation~: le coût
+de chargement (téléchargement initial, désérialisation des poids) est ainsi payé au
+démarrage du service et non à chaque requête. D'autre part, les deux moteurs
+s'ignorent mutuellement~: c'est la couche API qui compose le pipeline en enchaînant le
+moteur G2P puis le classifieur. Cette absence de couplage permet d'exposer la
+transcription phonémique comme fonctionnalité autonome, et de faire évoluer chaque
+modèle indépendamment. Les méthodes privées \code{word\_to\_ipa} et
+\code{build\_hybrid\_inputs} concentrent à elles seules les contraintes de fidélité au
+format d'entraînement, détaillées en section~\ref{sec:ct-realisation}.
+
+\figurefull{figures/uml_classes_services.png}{0.74}
+{Diagramme de classes~: composants de service et de contenu.}{ct-classes-srv}
+
+Dans la seconde famille, deux dépendances méritent d'être relevées. Le moteur
+conversationnel dépend du chargeur de contenu, dont il sérialise la totalité au
+démarrage pour constituer son ancrage documentaire~; et il importe de l'agent de
+veille la liste des domaines de confiance, de sorte que les deux composants ne
+puissent pas diverger sur ce qui constitue une source acceptable.
+
+\paragraph{Modèle de contenu éditorial.}
+En l'absence de base de données, le modèle de données du système est constitué de
+dix documents JSON, décrits dans le tableau~\ref{tab:ct-contenu}. Chaque document
+correspond à une catégorie servie par un même point d'entrée paramétré. Deux formes
+coexistent~: la plupart des catégories sont des \textit{listes} d'entités homogènes,
+tandis que deux d'entre elles~--- le panorama linguistique et l'écosystème~--- sont
+des \textit{objets} structurés en sections, leur contenu étant de nature narrative
+plutôt qu'énumérative.
+
+\begin{table}[H]
+	\centering
+	\caption{Base de connaissance éditoriale~: catégories et rôles}
+	\label{tab:ct-contenu}
+	\begin{tabularx}{\textwidth}{@{} L{3.4cm} L{1.9cm} X @{}}
+		\toprule
+		\textbf{Catégorie} & \textbf{Forme} & \textbf{Contenu} \\
+		\midrule
+		\code{languages}          & liste  & Fiches des langues nationales et du bambara \\
+		\code{languages\_context} & objet  & Panorama linguistique, familles de langues, cadre institutionnel \\
+		\code{glossaire}          & liste  & Vocabulaire du TALN par catégorie \\
+		\code{challenges}         & liste  & Défis scientifiques du domaine, avec sources \\
+		\code{approaches}         & liste  & Approches méthodologiques actuelles, avec sources \\
+		\code{resources}          & liste  & Corpus, jeux de données, modèles et outils recensés \\
+		\code{perspectives}       & liste  & Perspectives de recherche ouvertes par la contribution \\
+		\code{ecosysteme}         & objet  & Institutions, réseaux panafricains, parcours de spécialisation \\
+		\code{results}            & objet  & Résultats expérimentaux définitifs de la contribution \\
+		\code{news}               & liste  & Veille d'actualité (seul fichier écrit à l'exécution) \\
+		\bottomrule
+	\end{tabularx}
+\end{table}
+
+Trois de ces catégories~--- les défis, les approches et l'écosystème~--- portent un
+champ \code{sources} normalisé (titre, auteurs, année, lieu de publication, lien),
+rendu à l'écran par un composant dédié. Ce champ est le support technique de
+l'exigence de fiabilité scientifique~: il rend structurellement visible toute
+affirmation non sourcée, et interdit qu'une donnée externe soit ajoutée sans
+référence vérifiable.
+
+\paragraph{Points d'entrée de l'API.}
+Le tableau~\ref{tab:ct-api} récapitule l'interface de programmation exposée. Elle est
+volontairement réduite~: neuf points d'entrée, sans authentification, sans état de
+session.
+
+\begin{table}[H]
+	\centering
+	\caption{Points d'entrée de l'API}
+	\label{tab:ct-api}
+	\begin{tabularx}{\textwidth}{@{} L{1.3cm} L{4.5cm} X @{}}
+		\toprule
+		\textbf{Verbe} & \textbf{Route} & \textbf{Rôle} \\
+		\midrule
+		GET  & \code{/api/health}                & État du service et modèles chargés \\
+		POST & \code{/api/g2p}                   & Transcription phonémique d'un texte \\
+		POST & \code{/api/pipeline/classify}     & Pipeline complet~: IPA, séquence hybride, classe et probabilités \\
+		POST & \code{/api/translate}             & Traduction français~$\rightarrow$~mooré \\
+		POST & \code{/api/chat}                  & Assistant conversationnel (débit limité) \\
+		GET  & \code{/api/knowledge/\{cat\}}     & Contenu éditorial d'une catégorie \\
+		GET  & \code{/api/results}               & Résultats expérimentaux \\
+		GET  & \code{/api/news}                  & Veille d'actualité \\
+		POST & \code{/api/news/refresh}          & Déclenchement d'une mise à jour de la veille \\
+		\bottomrule
+	\end{tabularx}
+\end{table}
+
+Les deux points d'entrée d'inférence n'acceptent que les trois codes de langue pour
+lesquels un modèle existe (\code{mos}, \code{dyu}, \code{bam}). Le fulfuldé et le
+gourmantché, bien que documentés dans le contenu éditorial, sont explicitement
+signalés comme non couverts par les démonstrations~--- une manière d'exposer l'état
+réel de la couverture linguistique plutôt que de laisser croire à une généralité que
+les modèles n'ont pas.
+
+\subsubsection{Aspect dynamique}
+
+\paragraph{Exécution du pipeline.}
+La figure~\ref{fig:ct-act-pipeline} détaille le diagramme d'activités du pipeline de
+classification. Il fait apparaître la décomposition en mots de la phrase d'entrée, la
+boucle de transcription, la reconstruction manuelle de la séquence hybride puis la
+classification. Le plafonnement du nombre de mots traités y figure explicitement~: la
+génération étant séquentielle et exécutée sur processeur, le temps de réponse croît
+linéairement avec la longueur du texte, ce qui impose une borne pour préserver la
+réactivité du service.
+
+\figurefull{figures/uml_activite_pipeline.png}{0.42}
+{Diagramme d'activités~: exécution du pipeline de classification.}{ct-act-pipeline}
+
+\paragraph{Mise à jour de la veille.}
+La figure~\ref{fig:ct-act-news} présente le diagramme d'activités de l'agent de
+veille. Les deux points de décision correspondent aux deux garde-fous décrits plus
+loin (section~\ref{sec:ct-realisation})~: validité syntaxique de la réponse, puis
+appartenance de chaque source à la liste des domaines de confiance. La fusion avec
+l'historique existant est réalisée par déduplication sur le lien de la source, ce qui
+garantit qu'un même article annoncé plusieurs fois n'apparaît qu'une fois dans la
+liste publiée.
+
+\figurefull{figures/uml_activite_news.png}{0.78}
+{Diagramme d'activités~: mise à jour de la veille d'actualité.}{ct-act-news}
+
+\section{Réalisation}
+\label{sec:ct-realisation}
+
+\subsection{Environnement de travail}
+
+\subsubsection{Environnement matériel}
+
+Le développement de la plateforme et l'exécution locale des modèles ont été réalisés
+sur un poste de travail personnel. L'entraînement des modèles, décrit au
+chapitre~\ref{chap:conception}, a quant à lui été mené sur des accélérateurs
+graphiques infonuagiques et n'est pas repris ici. La cible de déploiement diffère
+sensiblement du poste de développement~: il s'agit d'un conteneur hébergé sans
+accélérateur graphique, ce qui impose que l'inférence soit viable sur processeur seul.
+
+\begin{table}[H]
+	\centering
+	\caption{Environnements matériels de développement et de déploiement}
+	\label{tab:ct-materiel}
+	\begin{tabularx}{\textwidth}{@{} L{4.2cm} X X @{}}
+		\toprule
+		 & \textbf{Développement} & \textbf{Déploiement} \\
+		\midrule
+		Type          & Poste de travail personnel & Conteneur hébergé (HuggingFace Spaces) \\
+		Calcul        & Processeur (inférence), GPU infonuagique pour l'entraînement & Processeur uniquement \\
+		Modèles chargés & ByT5 G2P + AfroXLM-R ($\approx$~1,5~Go) & Identiques \\
+		Persistance   & Aucune & Aucune (système de fichiers éphémère) \\
+		\bottomrule
+	\end{tabularx}
+\end{table}
+
+\subsubsection{Environnement logiciel}
+
+Les choix technologiques (tableau~\ref{tab:ct-logiciel}) répondent à trois critères~:
+continuité avec l'environnement d'expérimentation, aptitude à servir une application
+web publique, et compatibilité avec un hébergement gratuit.
+
+\begin{table}[H]
+	\centering
+	\caption{Environnement logiciel de la plateforme}
+	\label{tab:ct-logiciel}
+	\begin{tabularx}{\textwidth}{@{} L{3.1cm} L{3.4cm} X @{}}
+		\toprule
+		\textbf{Catégorie} & \textbf{Outil} & \textbf{Rôle dans le projet} \\
+		\midrule
+		Serveur applicatif & FastAPI (Python)      & Exposition de l'API, validation des requêtes, cycle de vie des modèles \\
+		Inférence          & PyTorch, Transformers & Chargement et exécution des deux modèles, sur processeur \\
+		Interface          & React, Vite           & Application monopage, rendu du contenu et des démonstrations \\
+		Mise en forme      & Tailwind CSS          & Système de styles fondé sur des variables de conception \\
+		Animation          & Framer Motion         & Transitions et animations des démonstrations \\
+		Iconographie       & Lucide React          & Jeu d'icônes vectorielles (aucun émoji dans l'interface) \\
+		Services externes  & API Mistral, API CITADEL & Assistant conversationnel, veille, traduction \\
+		Conteneurisation   & Docker                & Image unique interface~+~API \\
+		Hébergement        & HuggingFace Spaces    & Déploiement public du portail \\
+		Versionnement      & Git / GitHub          & Historique du code et du contenu éditorial \\
+		\bottomrule
+	\end{tabularx}
+\end{table}
+
+Le choix de FastAPI plutôt qu'un serveur applicatif généraliste tient à un point
+précis~: son mécanisme de cycle de vie permet d'initialiser les modèles au démarrage
+du processus et de les conserver en mémoire pour toute la durée de vie du service, ce
+qui est la condition d'un temps de réponse acceptable pour une inférence sur
+processeur.
+
+\subsection{Travail réalisé}
+
+\subsubsection{Industrialisation du module G2P en service d'inférence}
+\label{ssec:ct-g2p}
+
+Cette première tâche consistait à faire passer le module G2P du notebook
+d'expérimentation au service exécuté en continu. L'enjeu n'était pas la performance
+mais la \textbf{fidélité}~: obtenir en production exactement les transcriptions
+observées à l'évaluation. Trois contraintes se sont révélées déterminantes.
+
+\paragraph{Chargement du modèle avec tête de sortie non liée.}
+Le modèle G2P a été affiné avec une tête de sortie \code{lm\_head} indépendante des
+embeddings d'entrée. Or l'implémentation de référence de l'architecture T5 lie ces
+deux jeux de poids par défaut au chargement~: sans instruction contraire, la tête de
+sortie entraînée est silencieusement écrasée par les poids d'embedding. Le modèle se
+charge alors sans erreur, mais produit une sortie proche du hasard. Le chargement
+force donc explicitement la dissociation des poids.
+
+\paragraph{Tokenizer natif plutôt que tokenizer du dépôt.}
+Le service instancie le tokenizer depuis le modèle de base et non depuis le dépôt du
+modèle affiné. Cette précaution répond à des divergences de segmentation constatées
+lors des mises au point, qui se traduisaient par des transcriptions dégradées sans
+qu'aucune erreur ne soit levée.
+
+\paragraph{Génération mot à mot avec préfixe de langue.}
+Le modèle n'a jamais vu, pendant son entraînement, ni phrase complète ni entrée non
+préfixée. Le service reproduit donc strictement le format d'entraînement~: chaque mot
+est mis en minuscules, préfixé du code de langue, soumis individuellement, et les
+transcriptions obtenues sont réassemblées avec un séparateur explicite. Les
+paramètres de génération reprennent ceux de l'évaluation. Une version antérieure de ce
+composant introduisait des pénalités de répétition~: elles ont été retirées après
+analyse, car elles ne faisaient que masquer les répétitions provoquées par un format
+d'entrée incorrect, au lieu de corriger la cause.
+
+Un post-traitement phonologique (nasalisation, affriquées), transposé depuis le dépôt
+du modèle, est appliqué au \langueafr{Dioula} et au \langueafr{Bambara}~; le
+\langueafr{Mooré} n'en requiert pas. La page de démonstration correspondante
+(figure~\ref{fig:ct-capture-g2p}) permet de saisir un texte, de choisir la langue et
+d'obtenir la transcription phonémique.
+
+\captureareserver{figures/captures/demo\_g2p.png}
+{Page de démonstration de la transcription phonémique (G2P).}{ct-capture-g2p}
+
+\subsubsection{Intégration du classifieur hybride}
+\label{ssec:ct-classifieur}
+
+La seconde tâche portait sur l'intégration du classifieur. Elle a mis au jour la
+difficulté d'implémentation la plus coûteuse du projet~: la \textbf{construction de la
+séquence d'entrée hybride}.
+
+Le format attendu par le modèle est \code{[CLS] texte [SEP] IPA [SEP]}, avec un
+séparateur \textbf{unique} entre les deux segments. L'appel standard du tokenizer pour
+une paire de segments produit en revanche le format de paire hérité de RoBERTa, qui
+insère \textbf{deux} séparateurs consécutifs. Ce format ne correspond pas à celui vu
+par le modèle pendant l'affinage, et dégrade fortement les prédictions~--- là encore
+sans qu'aucune erreur ne soit signalée.
+
+La séquence est donc construite manuellement~: chaque segment est encodé séparément,
+sans tokens spéciaux et tronqué à la moitié de la longueur maximale, puis les
+identifiants sont assemblés dans l'ordre voulu avec les séparateurs explicites. La
+troncature symétrique garantit qu'un texte long ne peut évincer la transcription
+phonémique de la fenêtre du modèle~--- ce qui reviendrait à annuler silencieusement
+l'apport que le pipeline cherche précisément à exploiter.
+
+L'interface correspondante (figure~\ref{fig:ct-capture-pipeline}) rend visible chaque
+état intermédiaire~: texte saisi, transcription IPA produite, séquence hybride
+assemblée, puis classe prédite accompagnée de la distribution de probabilités sur les
+cinq catégories. Ce parti pris pédagogique est la raison pour laquelle le service
+renvoie la séquence assemblée en clair~: elle n'a aucune utilité fonctionnelle pour le
+client, mais elle donne à voir ce qui est habituellement invisible dans une
+démonstration de classification.
+
+\captureareserver{figures/captures/pipeline.png}
+{Page du pipeline de classification~: états intermédiaires et distribution de
+	probabilités.}{ct-capture-pipeline}
+
+\subsubsection{Construction du portail pédagogique}
+\label{ssec:ct-portail}
+
+La troisième tâche a consisté à concevoir le portail lui-même~: douze pages de contenu
+organisées en cinq groupes thématiques, formant un parcours ordonné qui va des langues
+nationales aux perspectives de recherche.
+
+Le principe de réalisation est la \textbf{source de vérité unique} décrite en
+conception~: l'ordre curriculaire est déclaré une fois, et six mécanismes distincts en
+sont dérivés~--- menu de navigation, plan latéral, fil d'Ariane, navigation
+séquentielle, décompte des étapes de la page d'accueil et index de recherche. Ajouter
+une page se réduit ainsi à deux gestes~: créer le composant et déclarer son entrée dans
+le descripteur.
+
+Toutes les pages de contenu partagent un gabarit de type documentation, qui fournit un
+en-tête, un plan latéral, un sommaire de page synchronisé avec le défilement et une
+navigation \og{}précédent/suivant\fg{}. Le sommaire est construit par observation
+dynamique du contenu affiché, ce qui lui permet de fonctionner identiquement pour les
+pages statiques et pour celles dont le contenu est chargé de façon asynchrone depuis
+l'API.
+
+Une révision complète de l'identité visuelle a par ailleurs été menée en cours de
+projet. La palette initiale, héritée d'un produit antérieur à vocation
+culturelle et touristique, évoquait l'artisanat plus que la science~; elle a été
+remplacée par une palette claire de type plateforme d'apprentissage, tout en
+conservant les noms des variables de conception afin de ne pas invalider les usages
+existants dans les composants. Une signature graphique discrète, inspirée des motifs
+géométriques du bogolan, a été conservée comme unique élément d'ancrage culturel.
+
+\captureareserver{figures/captures/accueil.png}
+{Page d'accueil~: parcours d'apprentissage numéroté.}{ct-capture-accueil}
+
+\captureareserver{figures/captures/page\_contenu.png}
+{Gabarit documentaire d'une page de contenu~: plan latéral, sommaire et navigation
+	séquentielle.}{ct-capture-contenu}
+
+\subsubsection{Assistant conversationnel ancré}
+\label{ssec:ct-chat}
+
+La quatrième tâche répondait à un besoin observé~: un visiteur qui découvre le domaine
+ne sait pas toujours dans quelle page chercher sa réponse. Un assistant
+conversationnel a donc été intégré, sous forme de bulle flottante accessible depuis
+toutes les pages.
+
+La difficulté n'est pas de faire répondre un modèle de langue, mais de l'empêcher de
+répondre \textit{n'importe quoi} sur un sujet où les faits vérifiables sont rares et
+où une erreur serait reprise de bonne foi. Trois mécanismes y concourent.
+
+\textbf{Ancrage documentaire.} L'intégralité de la base de connaissance éditoriale,
+résultats expérimentaux et veille compris, est sérialisée \textbf{une seule fois au
+	démarrage} et injectée dans les instructions de l'agent. Le corpus étant de taille
+modérée et entièrement maîtrisé, cette approche évite la complexité d'une recherche
+sémantique par vectorisation tout en garantissant que l'agent dispose de la totalité
+du contenu du site, et non d'un extrait sélectionné par une heuristique de similarité.
+
+\textbf{Périmètre explicite.} L'agent est instruit de refuser poliment toute question
+hors du champ du TALN et des langues africaines, plutôt que d'y répondre avec
+l'assurance d'un modèle généraliste.
+
+\textbf{Repli de recherche sourcé.} Pour une question portant sur un fait récent absent
+de la base, l'agent peut effectuer une recherche web, restreinte aux mêmes domaines de
+confiance que l'agent de veille~--- la liste est importée depuis ce dernier, de sorte
+que les deux composants ne peuvent pas diverger. La source est alors systématiquement
+ajoutée à la réponse. Si rien de fiable n'est trouvé, l'agent déclare son ignorance.
+
+Deux protections complètent le dispositif~: une limitation de débit par adresse IP,
+évaluée avant tout appel externe, et un plafonnement de l'historique de conversation
+transmis, qui borne la taille des requêtes. Enfin, en l'absence de clé d'API,
+l'assistant signale son indisponibilité sans affecter le reste du portail.
+
+\captureareserver{figures/captures/assistant.png}
+{Assistant conversationnel~: réponse ancrée sur la base de connaissance.}{ct-capture-chat}
+
+\subsubsection{Veille d'actualité automatisée}
+\label{ssec:ct-news}
+
+La cinquième tâche visait à maintenir le portail vivant entre deux contributions
+éditoriales, en recensant l'actualité du TALN africain. La contrainte est frontale~:
+il s'agit de \textbf{publier du contenu sans relecture humaine} sur un portail dont la
+crédibilité scientifique est l'exigence première.
+
+La solution retenue est un \textbf{agent unique}~--- et non un système multi-agents~---
+qui effectue en une passe la recherche et la synthèse, au moyen d'un connecteur de
+recherche web. Deux garde-fous indépendants encadrent sa production.
+
+Le premier est \textbf{déclaratif}~: des instructions strictes interdisent l'usage de
+connaissances internes non vérifiées, imposent que chaque lien soit une URL réellement
+retournée par la recherche, exigent une valeur nulle plutôt qu'une date inventée, et
+énumèrent une liste de domaines de confiance (archives de prépublications, actes de
+conférences, réseaux de recherche africains, institutions de financement, ministères
+burkinabè).
+
+Le second est \textbf{impératif}~: le serveur vérifie lui-même, avant toute écriture,
+que le domaine de chaque source appartient à cette liste. Tout élément non conforme
+est écarté. Ce doublon est délibéré~: un prompt est une consigne, pas une garantie~;
+la conformité ne pouvait pas reposer sur la seule obéissance du modèle.
+
+Le comportement en cas d'échec obéit au même principe de prudence~: si la réponse
+n'est pas exploitable ou si tous les éléments sont rejetés, le contenu existant est
+conservé intact. La liste publiée est fusionnée avec l'historique par déduplication
+sur le lien de la source, triée par date décroissante et plafonnée.
+
+Le déclenchement est double~: une boucle interne rafraîchit la veille toutes les
+24~heures, et un point d'entrée dédié permet un déclenchement externe. Cette
+redondance répond à une limite concrète de l'hébergement gratuit~: un conteneur mis en
+veille faute de trafic n'exécute plus sa boucle interne, et un déclencheur externe
+périodique devient alors le mécanisme fiable.
+
+\captureareserver{figures/captures/nouvelles.png}
+{Page \og{}Nouvelles du jour\fg{}~: actualités avec catégorie, date et lien
+	source.}{ct-capture-news}
+
+\subsubsection{Réintroduction maîtrisée de la traduction}
+
+La sixième tâche répond à un obstacle d'usage~: la démonstration du pipeline suppose de
+saisir une phrase en mooré, en dioula ou en bambara, ce dont la majorité des visiteurs
+est incapable. Une traduction français~$\rightarrow$~mooré a donc été intégrée à la
+page du pipeline, afin de produire une phrase de test.
+
+Ce composant est le seul élément réemployé du produit antérieur, et son périmètre a
+été délibérément restreint~: uniquement du texte, uniquement vers le mooré, sans
+synthèse vocale ni sens inverse, et sans identifiants inscrits dans le code~--- ceux-ci
+proviennent exclusivement de l'environnement d'exécution. Les limites du service
+externe sous-jacent (absence de prise en charge du dioula et du bambara) sont
+affichées explicitement dans l'interface plutôt que masquées.
+
+\subsubsection{Conteneurisation et déploiement}
+
+La dernière tâche a porté sur la mise en ligne. Le déploiement s'appuie sur une image
+Docker construite en deux étapes~: la première compile l'interface, la seconde
+installe l'environnement Python et n'y recopie que le résultat de la compilation. Ce
+découpage évite d'embarquer la chaîne d'outils front-end dans l'image finale.
+
+Deux ajustements ont été nécessaires pour la cible d'hébergement. D'une part, la
+variante processeur seul de la bibliothèque de calcul est installée explicitement, ce
+qui évite d'embarquer plusieurs gigaoctets de dépendances graphiques inutilisables sur
+la cible. D'autre part, le répertoire de cache des modèles est redirigé vers un
+emplacement inscriptible, l'hébergeur exécutant le conteneur sous un utilisateur non
+privilégié.
+
+En production, l'API sert également l'interface compilée~: les deux composants
+partagent la même origine, ce qui supprime la nécessité d'une configuration de partage
+de ressources entre origines. Un mécanisme de repli renvoie le document d'entrée de
+l'application pour toute route inconnue, de manière à ce que le routage côté client
+fonctionne lors d'un accès direct à une adresse profonde.
+
+\subsubsection{Difficultés rencontrées et enseignements}
+
+Trois difficultés ont marqué cette phase de réalisation. Elles partagent une
+caractéristique qui mérite d'être soulignée~: \textbf{aucune ne provoquait d'erreur}.
+Le service démarrait, répondait, et produisait des résultats plausibles mais faux.
+
+La première est le déliement de la tête de sortie du modèle G2P~: un chargement
+apparemment nominal produisait des transcriptions aberrantes. La deuxième est le
+double séparateur inséré par l'appel standard du tokenizer pour une paire de
+segments~: les prédictions restaient syntaxiquement valides, mais nettement moins
+bonnes qu'à l'évaluation. La troisième, plus insidieuse, est l'ajout de pénalités de
+répétition à la génération~: introduites pour corriger un symptôme, elles masquaient
+la cause réelle, à savoir un format d'entrée non conforme.
+
+L'enseignement méthodologique est le suivant~: pour un composant issu d'un travail
+expérimental, \textbf{le notebook d'entraînement et d'évaluation est la spécification},
+et la seule validation recevable d'une modification est la comparaison des sorties du
+service avec celles observées dans ce notebook. Une modification jugée équivalente par
+raisonnement ne l'est pas nécessairement pour le modèle. Cette règle a été inscrite
+dans la documentation du projet, afin qu'elle survive à son auteur.
+
+\section{Conclusion}
+
+Ce chapitre a présenté la contribution technique du travail~: la plateforme FasoTALN.
+L'analyse des besoins a identifié ses acteurs et ses exigences, au premier rang
+desquelles la fiabilité scientifique du contenu et la dégradation gracieuse face à
+l'indisponibilité des services externes. La conception a établi une architecture à
+deux tiers, sans base de données, organisée en trois couches et pilotée par une source
+de vérité unique pour la navigation. La réalisation a détaillé sept tâches, de
+l'industrialisation des modèles de recherche au déploiement conteneurisé.
+
+La contribution propre de ce volet est double. D'une part, elle rend accessible sans
+installation un pipeline de recherche jusque-là confiné à des notebooks, en exposant
+non seulement son résultat mais chacun de ses états intermédiaires, ce qui en fait un
+support d'enseignement autant qu'une démonstration. D'autre part, elle documente les
+conditions de fidélité d'un service d'inférence à son modèle d'origine~--- un ensemble
+de contraintes qui, si elles ne sont pas respectées, dégradent silencieusement les
+performances mesurées en laboratoire.

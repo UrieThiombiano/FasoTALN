@@ -1,0 +1,57 @@
+@startuml uml_sequence_news
+' Diagramme de séquence — mise à jour de la veille d'actualité
+' Rendu : java -jar plantuml.jar -charset UTF-8 -tpng -Sdpi=150 uml_sequence_news.puml
+skinparam monochrome true
+skinparam shadowing false
+skinparam defaultFontName Sans
+skinparam defaultFontSize 17
+skinparam maxMessageSize 200
+skinparam wrapWidth 200
+skinparam sequenceMessageAlign center
+skinparam participantPadding 6
+
+actor "Ordonnanceur" as O
+participant "API" as API
+participant "Agent\nde veille" as NA
+participant "API Mistral" as MI
+database "news.json" as DB
+
+O -> API : déclenchement\n(24 h ou manuel)
+activate API
+API -> NA : refresh()
+activate NA
+NA -> NA : vérifier la clé d'API
+
+alt clé absente
+  NA --> API : indisponible (503)
+else clé présente
+  NA -> MI : recherche + synthèse\n(sortie JSON attendue)
+  activate MI
+  MI -> MI : recherche web réelle
+  MI --> NA : texte de réponse
+  deactivate MI
+
+  alt JSON invalide
+    NA --> API : erreur\n(contenu existant conservé)
+  else JSON exploitable
+    loop pour chaque élément
+      NA -> NA : vérifier le domaine\nde la source
+      alt domaine autorisé
+        NA -> NA : conserver
+      else
+        NA -> NA : rejeter
+      end
+    end
+    NA -> DB : lire l'historique
+    activate DB
+    DB --> NA : éléments précédents
+    deactivate DB
+    NA -> NA : fusionner, trier,\nplafonner
+    NA -> DB : écrire la liste
+    NA --> API : liste publiée
+  end
+end
+deactivate NA
+API --> O : résultat
+deactivate API
+@enduml

@@ -1,6 +1,6 @@
 ---
-title: FasoXplore
-emoji: 🌍
+title: FasoTALN
+emoji: 🗣️
 colorFrom: yellow
 colorTo: red
 sdk: docker
@@ -8,18 +8,25 @@ app_port: 7860
 pinned: false
 ---
 
-# FasoXplore
+# FasoTALN
 
-Plateforme de découverte du Burkina Faso : histoire, culture, patrimoine,
-langues nationales — avec des outils NLP souverains pour le mooré
-(ASR fine-tuné [Uriath/mms-mos-finetuned](https://huggingface.co/Uriath/mms-mos-finetuned),
-WER 13,7 %, traduction et synthèse vocale via les API CITADEL).
+Portail scientifique et pédagogique de référence sur le Traitement
+Automatique des Langues Naturelles (TALN) appliqué aux langues africaines —
+né à CITADEL (Burkina Faso) autour du mooré, du dioula et du bambara, et
+conçu pour s'élargir progressivement à d'autres langues du continent.
 
-- **Découvrir** — histoire, lieux, culture, gastronomie, festivals
-- **Communiquer** — traduction vocale français ↔ mooré, phrasebook
-- **FasoGuide** — agent conversationnel sur le Burkina Faso
+- **Les langues africaines** — mooré, dioula, bambara : familles, écritures, tons
+- **Les défis du TALN** — faibles ressources, orthographes variables, tons, diacritiques
+- **Ressources** — jeux de données, corpus, outils, modèles, articles
+- **Approches actuelles** — TALN multilingue et cross-lingue
+- **Notre contribution** — *Leveraging Phonemic Features for Cross-lingual
+  NLP in African Languages*, avec démonstrations interactives (G2P, pipeline
+  complète) et résultats
 
-Backend FastAPI + frontend React servis par le même conteneur.
-Le premier démarrage télécharge le modèle ASR (~4 Go) : patience au réveil du Space.
+Backend FastAPI + frontend React servis par le même conteneur. Le premier
+démarrage télécharge les deux modèles de recherche
+([byt5-small-g2p-african](https://huggingface.co/Uriath/byt5-small-g2p-african),
+[afro-xlmr-hybrid-sib200-masakhanews-5class-byt5](https://huggingface.co/Uriath/afro-xlmr-hybrid-sib200-masakhanews-5class-byt5)) :
+patience au réveil du Space.
 
 Code source : [github.com/UrieThiombiano/fasoXplore](https://github.com/UrieThiombiano/fasoXplore)

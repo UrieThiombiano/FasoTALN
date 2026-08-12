@@ -1,16 +1,32 @@
 """
-KnowledgeBase — charge et interroge les fichiers JSON éditoriaux.
+KnowledgeBase — charge et sert les fichiers JSON éditoriaux de FasoTALN.
 
 Structure attendue dans data/knowledge/ :
-  histoire.json    — liste de faits/périodes historiques
-  lieux.json       — sites et villes à découvrir
-  culture.json     — ethnies, traditions, arts
-  gastronomie.json — plats et boissons
-  festivals.json   — événements culturels
-  phrasebook.json  — phrases par situation
+  languages.json         — cinq langues africaines prioritaires de FasoTALN, point de départ
+                            d'une ambition continentale (mooré, dioula, fulfuldé, gourmantché,
+                            bambara)
+  languages_context.json — panorama panafricain des familles de langues (Niger-Congo,
+                            afro-asiatique, nilo-saharien, langues à clics) et de la
+                            fracture numérique en TALN (objet unique, pas une liste —
+                            cf. `KnowledgeBase.get_category`). Le panorama linguistique
+                            propre au Burkina Faso (59 langues SIL, langues véhiculaires
+                            de 1974) est dans ecosysteme.json, pas ici.
+  challenges.json        — défis scientifiques du TALN pour ces langues
+  resources.json         — jeux de données, corpus, outils, modèles, articles
+  approaches.json        — approches actuelles du TALN multilingue/cross-lingue
+  perspectives.json      — pistes de recherche futures de la contribution FasoTALN
+  glossaire.json          — glossaire de vocabulaire TALN, groupé par catégorie
+  ecosysteme.json         — écosystème TALN/IA du Burkina Faso : institutions, contexte
+                            linguistique national, réseau panafricain, feuilles de route,
+                            pistes pour se spécialiser (objet unique, pas une liste)
+
+`results.json` a une structure différente (tableaux de métriques) et est
+servi séparément par l'endpoint `/api/results`, pas via cette classe.
 """
 import json
 from pathlib import Path
+
+CATEGORIES = ["languages", "languages_context", "challenges", "resources", "approaches", "perspectives", "glossaire", "ecosysteme"]
 
 
 class KnowledgeBase:
@@ -20,8 +36,7 @@ class KnowledgeBase:
         self._load_all()
 
     def _load_all(self):
-        categories = ["histoire", "lieux", "culture", "gastronomie", "festivals", "phrasebook"]
-        for cat in categories:
+        for cat in CATEGORIES:
             path = self._dir / f"{cat}.json"
             if path.exists():
                 with open(path, encoding="utf-8") as f:
@@ -32,41 +47,3 @@ class KnowledgeBase:
 
     def get_category(self, category: str) -> list | None:
         return self._data.get(category)
-
-    def get_phrasebook(self, situation: str) -> list:
-        phrases = self._data.get("phrasebook", [])
-        if isinstance(phrases, list):
-            return [p for p in phrases if p.get("situation") == situation]
-        # Format alternatif : dict {situation: [phrases]}
-        if isinstance(phrases, dict):
-            return phrases.get(situation, [])
-        return []
-
-    def search(self, query: str, category: str = "general") -> list:
-        """
-        Recherche simple par mots-clés dans les JSONs éditoriaux.
-        """
-        query_lower = query.lower()
-        results = []
-
-        cats = (
-            list(self._data.keys())
-            if category == "general"
-            else [category] if category in self._data
-            else list(self._data.keys())
-        )
-
-        for cat in cats:
-            items = self._data.get(cat, [])
-            if not isinstance(items, list):
-                continue
-            for item in items:
-                if not isinstance(item, dict):
-                    continue
-                text = " ".join(str(v) for v in item.values()).lower()
-                if query_lower in text:
-                    results.append({"category": cat, **item})
-                if len(results) >= 6:
-                    break
-
-        return results

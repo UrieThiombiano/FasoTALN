@@ -1,0 +1,60 @@
+@startuml uml_sequence_pipeline
+' Diagramme de séquence — exécution du pipeline de classification
+' Rendu : java -jar plantuml.jar -charset UTF-8 -tpng -Sdpi=150 uml_sequence_pipeline.puml
+skinparam monochrome true
+skinparam shadowing false
+skinparam defaultFontName Sans
+skinparam defaultFontSize 17
+skinparam maxMessageSize 200
+skinparam wrapWidth 200
+skinparam sequenceMessageAlign center
+skinparam participantPadding 6
+skinparam boxPadding 6
+
+actor "Visiteur" as V
+participant "Interface" as UI
+participant "API" as API
+participant "Moteur G2P" as G2P
+participant "Classifieur" as CLF
+
+V -> UI : saisit un texte,\nchoisit la langue
+activate UI
+
+opt ne lit pas la langue cible
+  UI -> API : POST /api/translate
+  activate API
+  API --> UI : phrase en mooré
+  deactivate API
+end
+
+UI -> API : POST /api/pipeline/classify
+activate API
+API -> API : valider texte\net code de langue
+
+API -> G2P : transcribe()
+activate G2P
+G2P -> G2P : découper en mots\n(borne : 200)
+
+loop pour chaque mot
+  G2P -> G2P : préfixer\n« langue: mot »
+  G2P -> G2P : générer\n(num_beams = 4)
+end
+
+G2P -> G2P : joindre les mots
+G2P -> G2P : post-traitement\n(dyu, bam)
+G2P --> API : séquence IPA
+deactivate G2P
+
+API -> CLF : classify()
+activate CLF
+CLF -> CLF : encoder chaque segment\n(tronqué à MAX_LEN/2)
+CLF -> CLF : assembler\n[CLS] texte [SEP] IPA [SEP]
+CLF -> CLF : inférence, softmax
+CLF --> API : classe + probabilités
+deactivate CLF
+
+API --> UI : IPA, séquence hybride,\nclasse, probabilités
+deactivate API
+UI -> V : affiche chaque\nétat intermédiaire
+deactivate UI
+@enduml
