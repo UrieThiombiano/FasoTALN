@@ -27,6 +27,13 @@
       "lien": "https://burkimbia.com/"
     },
     {
+      "nom": "BurkinaNLP",
+      "description": "Communauté burkinabè de sensibilisation et de vulgarisation autour du traitement automatique des langues et de l'intelligence artificielle, qui organise des présentations pédagogiques ouvertes sur le domaine.",
+      "details": [
+        "Présentation « NLP — Que comprendre de ce domaine de l'IA ? » animée par Go Issa Traoré le 5 juillet 2025 (définitions, approches, tâches et défis du TALN)"
+      ]
+    },
+    {
       "nom": "MEBAPLN",
       "nom_complet": "Ministère de l'Éducation Nationale, de l'Alphabétisation et de la Promotion des Langues Nationales",
       "description": "Le ministère responsable de la promotion des langues nationales dans l'éducation, pilote de guides orthographiques et d'un ensemble de chantiers à horizon 2030.",

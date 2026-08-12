@@ -2,42 +2,53 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import {
-  ArrowRight, Languages, BookOpen, AlertCircle, Layers, Database,
-  FlaskConical, Wand2, PlayCircle, BarChart3, Compass, Building2,
-  FileCode, Github, Cpu, Quote, Newspaper,
+  ArrowRight, Languages, Layers, Wand2, Building2, Newspaper,
+  FileCode, Github, Cpu, Quote,
 } from 'lucide-react'
 import BogolonDivider from '../components/ui/BogolonDivider'
 import RevealOnScroll from '../components/ui/RevealOnScroll'
-import { FLAT_PAGES } from '../config/nav'
+import { NAV, FLAT_PAGES } from '../config/nav'
 
-const STEP_ICONS = {
-  '/langues': Languages,
-  '/glossaire': BookOpen,
-  '/defis': AlertCircle,
-  '/approches': Layers,
-  '/ressources': Database,
-  '/contribution': FlaskConical,
-  '/demo-g2p': Wand2,
-  '/pipeline': PlayCircle,
-  '/resultats': BarChart3,
-  '/perspectives': Compass,
-  '/ecosysteme': Building2,
-  '/nouvelles': Newspaper,
-}
+const GROUP_META = [
+  {
+    group: 'Langues',
+    icon: Languages,
+    entry: '/langues',
+    description: 'La diversité linguistique du continent, et les cinq langues prioritaires de FasoTALN.',
+  },
+  {
+    group: 'TALN africain',
+    icon: Layers,
+    entry: '/defis',
+    description: 'Défis scientifiques, approches actuelles, ressources et glossaire du domaine.',
+  },
+  {
+    group: 'Approche phonémique',
+    icon: Wand2,
+    entry: '/demo-g2p',
+    description: 'Testez la transcription phonétique et la classification thématique en direct.',
+  },
+  {
+    group: 'Écosystème TALN-BF',
+    icon: Building2,
+    entry: '/ecosysteme',
+    description: 'Institutions, initiatives et communautés qui font vivre le TALN au Burkina Faso.',
+  },
+  {
+    group: 'Actualités',
+    icon: Newspaper,
+    entry: '/nouvelles',
+    description: "L'actualité du TALN en Afrique, mise à jour automatiquement.",
+  },
+]
 
 export default function Home() {
   const [resourceCount, setResourceCount] = useState(27)
-  const [results, setResults] = useState(null)
 
   useEffect(() => {
     fetch('/api/knowledge/resources')
       .then((r) => r.json())
       .then((data) => { if (Array.isArray(data)) setResourceCount(data.length) })
-      .catch(() => {})
-
-    fetch('/api/results')
-      .then((r) => r.json())
-      .then(setResults)
       .catch(() => {})
   }, [])
 
@@ -290,149 +301,65 @@ export default function Home() {
           </RevealOnScroll>
 
           <RevealOnScroll>
-            <div className="text-center mb-16 max-w-2xl mx-auto">
-              <span className="badge badge-or mb-4">Parcours d'apprentissage</span>
+            <div className="text-center mb-12 max-w-2xl mx-auto">
+              <span className="badge badge-or mb-4">Explorer</span>
               <h2
                 className="font-display text-3xl md:text-4xl font-bold mb-4"
                 style={{ color: 'var(--indigo)' }}
               >
-                Du concept à la démonstration
+                Trouvez rapidement ce que vous cherchez
               </h2>
               <p style={{ color: 'var(--text-muted)' }}>
-                {FLAT_PAGES.length} étapes, des langues elles-mêmes jusqu'à un
-                pipeline de recherche que vous pouvez tester en direct.
+                {FLAT_PAGES.length} pages réparties en cinq univers — choisissez
+                votre point d'entrée.
               </p>
             </div>
           </RevealOnScroll>
 
-          <div className="max-w-2xl mx-auto relative">
-            <div
-              className="absolute left-6 top-6 bottom-6 w-px hidden sm:block"
-              style={{ background: 'var(--border)' }}
-              aria-hidden
-            />
-            <div className="flex flex-col gap-2">
-              {FLAT_PAGES.map((page, i) => {
-                const Icon = STEP_ICONS[page.to] || Compass
-                return (
-                  <RevealOnScroll key={page.to} delay={Math.min(i * 0.05, 0.4)}>
-                    <Link
-                      to={page.to}
-                      className="relative flex items-center gap-4 p-3 rounded-xl group no-underline transition-colors hover:bg-black/[0.03]"
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-4xl mx-auto">
+            {GROUP_META.map((meta, i) => {
+              const count = NAV.find((g) => g.group === meta.group)?.items.length || 0
+              const Icon = meta.icon
+              return (
+                <RevealOnScroll key={meta.group} delay={Math.min(i * 0.08, 0.3)}>
+                  <Link
+                    to={meta.entry}
+                    className="card-fx p-6 flex flex-col gap-3 h-full no-underline group transition-transform hover:-translate-y-1"
+                    style={{ background: 'var(--blanc)' }}
+                  >
+                    <div
+                      className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
+                      style={{ background: 'rgba(109,91,208,0.12)' }}
                     >
-                      <div
-                        className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 font-ui font-bold z-10"
-                        style={{ background: 'var(--or)', color: '#FFFFFF' }}
-                      >
-                        {i + 1}
+                      <Icon size={20} color="var(--or-dark)" strokeWidth={1.8} />
+                    </div>
+                    <div className="flex-1">
+                      <div className="font-display text-lg font-bold mb-1.5" style={{ color: 'var(--indigo)' }}>
+                        {meta.group}
                       </div>
-                      <Icon size={18} className="flex-shrink-0" color="var(--or-dark)" strokeWidth={1.8} />
-                      <div className="flex-1 min-w-0">
-                        <div className="font-ui text-xs font-semibold uppercase tracking-wide" style={{ color: 'var(--text-muted)' }}>
-                          {page.group}
-                        </div>
-                        <div className="font-display text-lg font-bold" style={{ color: 'var(--indigo)' }}>
-                          {page.label}
-                        </div>
-                      </div>
+                      <p className="text-sm leading-relaxed" style={{ color: 'var(--text-muted)' }}>
+                        {meta.description}
+                      </p>
+                    </div>
+                    <div className="flex items-center justify-between pt-2">
+                      <span className="font-ui text-xs font-medium" style={{ color: 'var(--text-muted)' }}>
+                        {count} page{count > 1 ? 's' : ''}
+                      </span>
                       <ArrowRight
                         size={16}
                         className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"
                         style={{ color: 'var(--or)' }}
                       />
-                    </Link>
-                  </RevealOnScroll>
-                )
-              })}
-            </div>
+                    </div>
+                  </Link>
+                </RevealOnScroll>
+              )
+            })}
           </div>
         </div>
       </section>
 
       <BogolonDivider />
-
-      {/* ── RÉSULTATS ────────────────────────────────────────────────── */}
-      {results && (
-        <section className="py-24" style={{ background: 'var(--sable)' }}>
-          <div className="container-fx">
-            <RevealOnScroll>
-              <div className="text-center mb-16 max-w-2xl mx-auto">
-                <span className="badge badge-or mb-4">Résultats</span>
-                <h2
-                  className="font-display text-3xl md:text-4xl font-bold mb-4"
-                  style={{ color: 'var(--indigo)' }}
-                >
-                  L'hybride texte + phonèmes, ça marche
-                </h2>
-                <p style={{ color: 'var(--text-muted)' }}>
-                  Comparaison en {results.metrique}, entre un classifieur
-                  entraîné sur le texte orthographique seul et le même modèle
-                  entraîné sur l'entrée hybride texte + IPA.
-                </p>
-              </div>
-            </RevealOnScroll>
-
-            <RevealOnScroll>
-              <div className="card-fx p-8 max-w-2xl mx-auto mb-10" style={{ background: 'var(--blanc)' }}>
-                <div className="flex items-center justify-between mb-5">
-                  <span className="font-ui text-sm font-semibold" style={{ color: 'var(--text-muted)' }}>
-                    {results.global.label}
-                  </span>
-                  <span className="badge" style={{ background: 'rgba(22,163,74,0.12)', color: 'var(--mil)' }}>
-                    +{results.global.gain_pp.toFixed(1)} pts
-                  </span>
-                </div>
-                {[
-                  ['Hybride (texte + IPA)', results.global.hybride_f1, 'var(--or)'],
-                  ['Texte seul', results.global.ortho_f1, 'var(--text-muted)'],
-                ].map(([label, val, color], i) => (
-                  <div key={label} className="mb-4 last:mb-0">
-                    <div className="flex justify-between font-ui text-xs mb-1.5" style={{ color: 'var(--text-muted)' }}>
-                      <span>{label}</span>
-                      <span className="font-mono font-semibold" style={{ color: 'var(--text-primary)' }}>
-                        {(val * 100).toFixed(1)}%
-                      </span>
-                    </div>
-                    <div className="rounded-full overflow-hidden" style={{ height: 10, background: 'var(--sable-dark)' }}>
-                      <motion.div
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${val * 100}%` }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8, delay: i * 0.15, ease: [0.22, 1, 0.36, 1] }}
-                        style={{ height: '100%', background: color, borderRadius: 999 }}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </RevealOnScroll>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto mb-10">
-              {results.par_langue.map((l, i) => (
-                <RevealOnScroll key={l.langue} delay={Math.min(i * 0.08, 0.3)}>
-                  <div className="card-fx p-5 text-center h-full" style={{ background: 'var(--blanc)' }}>
-                    <div className="font-display font-bold mb-2" style={{ color: 'var(--indigo)' }}>
-                      {l.langue}
-                    </div>
-                    <div className="font-mono text-2xl font-bold mb-1" style={{ color: 'var(--or-dark)' }}>
-                      {(l.hybride_f1 * 100).toFixed(1)}%
-                    </div>
-                    <div className="font-ui text-xs" style={{ color: l.gain_pp >= 0 ? 'var(--mil)' : 'var(--argile)' }}>
-                      {l.gain_pp >= 0 ? '+' : ''}{l.gain_pp.toFixed(2)} pts vs texte seul
-                    </div>
-                  </div>
-                </RevealOnScroll>
-              ))}
-            </div>
-
-            <div className="text-center">
-              <Link to="/resultats" className="btn-outline text-base">
-                Voir la méthodologie complète <ArrowRight size={16} />
-              </Link>
-            </div>
-          </div>
-        </section>
-      )}
 
       {/* ── ÉCOSYSTÈME ───────────────────────────────────────────────── */}
       <section className="py-24" style={{ background: 'var(--blanc)' }}>
