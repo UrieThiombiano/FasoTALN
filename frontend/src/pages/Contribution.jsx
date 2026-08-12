@@ -37,7 +37,7 @@ export default function Contribution() {
             Les modèles multilingues comme AfroXLMR apprennent des
             représentations à partir du texte orthographique. Or, comme
             détaillé dans <Link to="/defis" style={{ color: 'var(--or)' }}>les défis du TALN</Link>,
-            les langues prioritaires de FasoTALN présentent des
+            les langues africaines couvertes par FasoTALN présentent des
             orthographes encore peu standardisées : un même mot peut s'écrire de
             plusieurs façons selon le locuteur, le support ou le contexte.
             Cette variabilité dégrade la qualité des représentations

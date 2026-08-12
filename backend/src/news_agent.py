@@ -45,8 +45,8 @@ ALLOWED_DOMAINS = [
 
 INSTRUCTIONS = f"""Tu es un agent qui recherche puis résume des actualités récentes et \
 vérifiables sur le traitement automatique des langues naturelles (TALN/NLP) en Afrique, \
-avec un intérêt particulier pour les langues du Burkina Faso (mooré, dioula, fulfuldé, \
-gourmantché) et les langues africaines à faibles ressources.
+avec un intérêt particulier pour les langues africaines à faibles ressources, notamment le \
+mooré, le dioula, le fulfuldé, le gourmantché et le bambara, sans s'y limiter.
 
 Sujets d'intérêt : nouvelles approches ou modèles de TALN, nouveaux jeux de données, \
 publications scientifiques marquantes, conférences ou ateliers (Deep Learning Indaba, \
@@ -71,8 +71,9 @@ n'invente jamais un article pour combler.
 
 QUERY = (
     "Cherche les actualités les plus récentes et pertinentes en traitement automatique "
-    "des langues naturelles pour l'Afrique, en particulier pour les langues du Burkina Faso "
-    "et les langues africaines à faibles ressources, à la date d'aujourd'hui."
+    "des langues naturelles pour l'Afrique, en particulier pour les langues africaines à "
+    "faibles ressources (dont le mooré, le dioula, le fulfuldé, le gourmantché et le bambara), "
+    "à la date d'aujourd'hui."
 )
 
 

@@ -150,7 +150,7 @@ export default function Langues() {
   return (
     <DocsLayout
       title="Les langues africaines"
-      description="Un panorama de la diversité linguistique du continent africain et de la fracture numérique qui la traverse en TALN, et cinq langues prioritaires de FasoTALN — mooré, dioula, fulfuldé, gourmantché et bambara — point de départ d'une ambition panafricaine appelée à s'élargir. Le contexte institutionnel propre au Burkina Faso (réforme constitutionnelle, recensement) est traité sur la page Écosystème TALN-BF."
+      description="Un panorama de la diversité linguistique du continent africain et de la fracture numérique qui la traverse en TALN, et des langues africaines déjà couvertes par FasoTALN — mooré, dioula, fulfuldé, gourmantché et bambara — un point de départ appelé à s'élargir à d'autres langues du continent. Le contexte institutionnel propre au Burkina Faso (réforme constitutionnelle, recensement) est traité sur la page Écosystème TALN-BF."
     >
       {loading && <LoadingBlock />}
       {!loading && error && <ErrorBlock message={error} label="les langues" />}
@@ -165,7 +165,7 @@ export default function Langues() {
                 <StatTile value="1 500-3 000" label="langues parlées en Afrique (UNESCO)" />
                 <StatTile value="1/3" label="des langues du monde sont africaines" />
                 <StatTile value="4" label="grands ensembles linguistiques" />
-                <StatTile value="5" label="langues prioritaires, point de départ de FasoTALN" />
+                <StatTile value="5" label="langues couvertes, point de départ de FasoTALN" />
               </div>
               <SourceList sources={ctx.vue_ensemble.sources} />
             </div>
@@ -203,8 +203,8 @@ export default function Langues() {
           )}
 
           <div className="lesson-content mt-10">
-            <h2 data-toc>Cinq langues prioritaires, un point de départ</h2>
-            {ctx?.langues_prioritaires_intro && <p>{ctx.langues_prioritaires_intro.texte}</p>}
+            <h2 data-toc>Cinq langues pour commencer</h2>
+            {ctx?.langues_couvertes_intro && <p>{ctx.langues_couvertes_intro.texte}</p>}
           </div>
           {langues.map((lang, i) => (
             <LanguageSection key={lang.id} lang={lang} index={i} />

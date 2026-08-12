@@ -33,6 +33,6 @@
     "id": "evaluation-standardisee",
     "titre": "Construire des benchmarks d'évaluation standardisés",
     "categorie": "Évaluation",
-    "description": "Développer des jeux de test annotés et des protocoles d'évaluation reproductibles pour les langues africaines à faibles ressources, à commencer par les cinq langues prioritaires de FasoTALN, pour permettre des comparaisons rigoureuses entre approches au fil du temps."
+    "description": "Développer des jeux de test annotés et des protocoles d'évaluation reproductibles pour les langues africaines à faibles ressources, à commencer par les langues actuellement couvertes par FasoTALN, pour permettre des comparaisons rigoureuses entre approches au fil du temps."
   }
 ]

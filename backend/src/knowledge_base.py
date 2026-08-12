@@ -2,9 +2,9 @@
 KnowledgeBase — charge et sert les fichiers JSON éditoriaux de FasoTALN.
 
 Structure attendue dans data/knowledge/ :
-  languages.json         — cinq langues africaines prioritaires de FasoTALN, point de départ
-                            d'une ambition continentale (mooré, dioula, fulfuldé, gourmantché,
-                            bambara)
+  languages.json         — cinq langues africaines actuellement couvertes par FasoTALN,
+                            point de départ d'une ambition continentale (mooré, dioula,
+                            fulfuldé, gourmantché, bambara)
   languages_context.json — panorama panafricain des familles de langues (Niger-Congo,
                             afro-asiatique, nilo-saharien, langues à clics) et de la
                             fracture numérique en TALN (objet unique, pas une liste —

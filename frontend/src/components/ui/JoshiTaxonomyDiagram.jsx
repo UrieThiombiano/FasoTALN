@@ -40,7 +40,7 @@ export default function JoshiTaxonomyDiagram() {
                       className="font-ui text-xs font-medium rounded-full px-2 py-0.5"
                       style={{ background: 'rgba(234,88,12,0.12)', color: 'var(--argile)' }}
                     >
-                      Langues prioritaires de FasoTALN
+                      Langues couvertes par FasoTALN
                     </span>
                   )}
                   {isHigh && (

@@ -10,9 +10,9 @@ Instructions pour Claude Code. Lire ce fichier entièrement avant toute modifica
 référence sur le **Traitement Automatique des Langues Naturelles (TALN/NLP)
 appliqué aux langues africaines**. Le projet est né dans le cadre de CITADEL
 (Centre d'Excellence Interdisciplinaire en IA pour le Développement,
-Ouagadougou, Burkina Faso), et s'ancre autour de cinq langues étudiées en
-priorité — mooré, dioula, fulfuldé, gourmantché (Burkina Faso) et bambara
-(langue malienne incluse pour ses ressources de TALN, cf.
+Ouagadougou, Burkina Faso), et couvre actuellement cinq langues, sans
+hiérarchie de priorité entre elles — mooré, dioula, fulfuldé, gourmantché
+(Burkina Faso) et bambara (langue malienne incluse pour ses ressources de TALN, cf.
 `data/knowledge/languages.json`) — avec la vocation de s'élargir
 progressivement à d'autres langues du continent. Le contenu institutionnel
 propre au Burkina Faso (institutions, contexte constitutionnel/administratif,
@@ -324,7 +324,7 @@ n'ont pas encore de modèle G2P/classification (`tester_g2p: false` dans
 
 ```
 /                Accueil (parcours d'apprentissage numéroté, dérivé de nav.js)
-/langues         Les langues africaines (panorama panafricain + 5 langues prioritaires de FasoTALN, point de départ d'une ambition continentale : mooré, dioula, fulfuldé, gourmantché, bambara)
+/langues         Les langues africaines (panorama panafricain + 5 langues actuellement couvertes par FasoTALN, point de départ d'une ambition continentale : mooré, dioula, fulfuldé, gourmantché, bambara)
 /glossaire       Glossaire du vocabulaire TALN
 /defis           Les défis du TALN (sourcé, littérature scientifique)
 /approches       Approches actuelles (sourcé, littérature scientifique)

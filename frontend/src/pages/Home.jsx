@@ -7,6 +7,7 @@ import {
 } from 'lucide-react'
 import BogolonDivider from '../components/ui/BogolonDivider'
 import RevealOnScroll from '../components/ui/RevealOnScroll'
+import Carousel from '../components/ui/Carousel'
 import { NAV, FLAT_PAGES } from '../config/nav'
 
 const GROUP_META = [
@@ -14,7 +15,7 @@ const GROUP_META = [
     group: 'Langues',
     icon: Languages,
     entry: '/langues',
-    description: 'La diversité linguistique du continent, et les cinq langues prioritaires de FasoTALN.',
+    description: 'La diversité linguistique du continent, et les langues africaines déjà couvertes par FasoTALN.',
   },
   {
     group: 'TALN africain',
@@ -53,7 +54,7 @@ export default function Home() {
   }, [])
 
   const stats = [
-    { value: '5',            label: 'langues africaines prioritaires' },
+    { value: '5',            label: 'langues africaines couvertes' },
     { value: `${resourceCount}`, label: 'ressources cataloguées' },
     { value: '5',            label: 'classes thématiques (pipeline)' },
     { value: '3',            label: 'langues avec modèle G2P + classification' },
@@ -123,13 +124,11 @@ export default function Home() {
               style={{ color: 'var(--text-muted)' }}
             >
               Les langues africaines restent largement absentes des grands
-              modèles de langue. FasoTALN est le portail de référence sur le
-              TALN appliqué aux langues africaines — né à CITADEL, à
-              Ouagadougou, autour de cinq langues d'ancrage (mooré, dioula,
-              fulfuldé, gourmantché, bambara), et conçu pour s'élargir
-              progressivement à d'autres langues du continent. Défis,
-              ressources, approches et contributions de recherche, dans une
-              seule plateforme qui évolue avec la communauté.
+              modèles de langue. Né à CITADEL, à Ouagadougou, FasoTALN est le
+              portail de référence sur le TALN appliqué aux langues du
+              continent — défis, ressources, approches et contributions de
+              recherche, réunis dans une seule plateforme pensée pour
+              grandir avec la communauté, à travers toute l'Afrique.
             </p>
 
             {/* CTA */}
@@ -137,9 +136,6 @@ export default function Home() {
               <Link to="/defis" className="btn-or text-base">
                 Découvrir les enjeux
                 <ArrowRight size={17} />
-              </Link>
-              <Link to="/pipeline" className="btn-outline text-base">
-                Tester le pipeline
               </Link>
             </div>
           </motion.div>
@@ -316,46 +312,49 @@ export default function Home() {
             </div>
           </RevealOnScroll>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-4xl mx-auto">
-            {GROUP_META.map((meta, i) => {
-              const count = NAV.find((g) => g.group === meta.group)?.items.length || 0
-              const Icon = meta.icon
-              return (
-                <RevealOnScroll key={meta.group} delay={Math.min(i * 0.08, 0.3)}>
-                  <Link
-                    to={meta.entry}
-                    className="card-fx p-6 flex flex-col gap-3 h-full no-underline group transition-transform hover:-translate-y-1"
-                    style={{ background: 'var(--blanc)' }}
-                  >
-                    <div
-                      className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
-                      style={{ background: 'rgba(109,91,208,0.12)' }}
+          <RevealOnScroll>
+            <div className="max-w-4xl mx-auto">
+              <Carousel>
+                {GROUP_META.map((meta) => {
+                  const count = NAV.find((g) => g.group === meta.group)?.items.length || 0
+                  const Icon = meta.icon
+                  return (
+                    <Link
+                      key={meta.group}
+                      to={meta.entry}
+                      className="card-fx p-6 flex flex-col gap-3 h-full no-underline group transition-transform hover:-translate-y-1"
+                      style={{ background: 'var(--blanc)' }}
                     >
-                      <Icon size={20} color="var(--or-dark)" strokeWidth={1.8} />
-                    </div>
-                    <div className="flex-1">
-                      <div className="font-display text-lg font-bold mb-1.5" style={{ color: 'var(--indigo)' }}>
-                        {meta.group}
+                      <div
+                        className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
+                        style={{ background: 'rgba(109,91,208,0.12)' }}
+                      >
+                        <Icon size={20} color="var(--or-dark)" strokeWidth={1.8} />
                       </div>
-                      <p className="text-sm leading-relaxed" style={{ color: 'var(--text-muted)' }}>
-                        {meta.description}
-                      </p>
-                    </div>
-                    <div className="flex items-center justify-between pt-2">
-                      <span className="font-ui text-xs font-medium" style={{ color: 'var(--text-muted)' }}>
-                        {count} page{count > 1 ? 's' : ''}
-                      </span>
-                      <ArrowRight
-                        size={16}
-                        className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"
-                        style={{ color: 'var(--or)' }}
-                      />
-                    </div>
-                  </Link>
-                </RevealOnScroll>
-              )
-            })}
-          </div>
+                      <div className="flex-1">
+                        <div className="font-display text-lg font-bold mb-1.5" style={{ color: 'var(--indigo)' }}>
+                          {meta.group}
+                        </div>
+                        <p className="text-sm leading-relaxed" style={{ color: 'var(--text-muted)' }}>
+                          {meta.description}
+                        </p>
+                      </div>
+                      <div className="flex items-center justify-between pt-2">
+                        <span className="font-ui text-xs font-medium" style={{ color: 'var(--text-muted)' }}>
+                          {count} page{count > 1 ? 's' : ''}
+                        </span>
+                        <ArrowRight
+                          size={16}
+                          className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                          style={{ color: 'var(--or)' }}
+                        />
+                      </div>
+                    </Link>
+                  )
+                })}
+              </Carousel>
+            </div>
+          </RevealOnScroll>
         </div>
       </section>
 
