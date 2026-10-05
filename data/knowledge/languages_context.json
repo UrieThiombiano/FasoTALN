@@ -1,6 +1,6 @@
 {
   "vue_ensemble": {
-    "texte": "Le continent africain compte entre 1 500 et 3 000 langues selon les estimations — à lui seul, environ un tiers des langues du monde. Cette diversité se répartit en quatre grands ensembles linguistiques très inégaux en taille : le Niger-Congo, de loin le plus vaste (plus de 1 500 langues, dont les cinq langues actuellement couvertes par FasoTALN), l'afro-asiatique, le nilo-saharien, et un regroupement de langues à clics d'Afrique australe parfois appelé « khoisan », qui n'est pas une famille génétique au sens strict. Le Burkina Faso, où est né FasoTALN, offre un microcosme représentatif de cette diversité : SIL International y documente à lui seul 59 langues nationales — un panorama détaillé sur la page Écosystème TALN-BF.",
+    "texte": "Le continent africain compte entre 1 500 et 3 000 langues selon les estimations, soit à lui seul environ un tiers des langues du monde. Cette diversité se répartit en quatre grands ensembles linguistiques très inégaux en taille : le Niger-Congo, de loin le plus vaste (plus de 1 500 langues), l'afro-asiatique, le nilo-saharien, et un regroupement de langues à clics d'Afrique australe parfois appelé « khoisan », qui n'est pas une famille génétique au sens strict. Le Burkina Faso, où est né FasoTALN, offre un microcosme représentatif de cette diversité : SIL International y documente à lui seul 59 langues nationales, avec un panorama détaillé sur la page Écosystème TALN-BF.",
     "sources": [
       {
         "titre": "UNESCO and the promotion of languages in Africa: cultural diversity and multilingualism",
@@ -10,7 +10,7 @@
         "lien": "https://www.unesco.org/en/articles/unesco-and-promotion-languages-africa-cultural-diversity-and-multilingualism"
       },
       {
-        "titre": "Niger–Congo languages",
+        "titre": "Niger-Congo languages",
         "auteurs": "Wikipédia, d'après Ethnologue",
         "annee": 2026,
         "venue": "Wikipedia",
@@ -24,7 +24,7 @@
       "phylum": "Niger-Congo",
       "nombre": 1540,
       "echantillon": true,
-      "description": "La plus vaste famille de langues d'Afrique, et l'une des plus vastes du monde par son nombre de langues — environ 600 millions de locuteurs, du Sénégal au Kenya jusqu'en Afrique australe. Elle regroupe notamment les branches mandé, gur, kwa, atlantique et bantoue (à elle seule environ la moitié des locuteurs du Niger-Congo). Le mooré (branche gur) et le dioula/bambara (branche mandé), étudiés par FasoTALN, en font partie.",
+      "description": "La plus vaste famille de langues d'Afrique, et l'une des plus vastes du monde par son nombre de langues, avec environ 600 millions de locuteurs, du Sénégal au Kenya jusqu'en Afrique australe. Elle regroupe notamment les branches mandé, gur, kwa, atlantique et bantoue (à elle seule environ la moitié des locuteurs du Niger-Congo). Le mooré (branche gur) et le dioula/bambara (branche mandé), étudiés par FasoTALN, en font partie.",
       "langues": ["Swahili", "Yoruba", "Zulu", "Wolof", "Igbo", "Mooré", "Dioula"]
     },
     {
@@ -40,7 +40,7 @@
       "phylum": "Nilo-saharien",
       "nombre": 210,
       "echantillon": true,
-      "description": "Environ 70 millions de locuteurs répartis autour du bassin du Nil et du Sahel central (Soudan, Tchad, zone des Grands Lacs). Contrairement au Niger-Congo ou à l'afro-asiatique, son unité généalogique n'est pas admise par l'ensemble des linguistes historiques — certains y voient un regroupement de commodité plutôt qu'une famille génétiquement démontrée.",
+      "description": "Environ 70 millions de locuteurs répartis autour du bassin du Nil et du Sahel central (Soudan, Tchad, zone des Grands Lacs). Contrairement au Niger-Congo ou à l'afro-asiatique, son unité généalogique n'est pas admise par l'ensemble des linguistes historiques : certains y voient un regroupement de commodité plutôt qu'une famille génétiquement démontrée.",
       "langues": ["Kanuri", "Luo", "Dinka", "Songhaï", "Zarma"]
     },
     {
@@ -48,14 +48,14 @@
       "phylum": "Regroupement typologique, pas une famille génétique",
       "nombre": 30,
       "echantillon": true,
-      "description": "Une trentaine de langues d'Afrique australe (Namibie, Botswana, Afrique du Sud) partageant des consonnes clics, longtemps regroupées sous l'étiquette « khoisan ». Les linguistes s'accordent aujourd'hui à y voir non pas une, mais trois familles distinctes et sans lien généalogique démontré entre elles — khoe-kwadi, tuu et kx'a —, la ressemblance tenant au contact géographique plutôt qu'à une origine commune. Langues à très faible nombre de locuteurs, parmi les plus menacées du continent.",
+      "description": "Une trentaine de langues d'Afrique australe (Namibie, Botswana, Afrique du Sud) partageant des consonnes clics, longtemps regroupées sous l'étiquette « khoisan ». Les linguistes s'accordent aujourd'hui à y voir non pas une, mais trois familles distinctes et sans lien généalogique démontré entre elles (khoe-kwadi, tuu et kx'a), la ressemblance tenant au contact géographique plutôt qu'à une origine commune. Langues à très faible nombre de locuteurs, parmi les plus menacées du continent.",
       "langues": ["Nama (khoekhoegowab)", "Taa (!Xóõ)", "Ju|'hoan"]
     }
   ],
-  "familles_source": "Ethnologue (cité par Wikipédia, « Niger–Congo languages », « Afroasiatic languages », « Nilo-Saharan languages ») ; Britannica et The Language Closet pour la classification khoe-kwadi/tuu/kx'a.",
+  "familles_source": "Ethnologue (cité par Wikipédia, « Niger-Congo languages », « Afroasiatic languages », « Nilo-Saharan languages ») ; Britannica et The Language Closet pour la classification khoe-kwadi/tuu/kx'a.",
   "fracture_numerique": {
     "titre": "Une fracture numérique très inégale selon les langues",
-    "texte": "Joshi et al. (2020) ont proposé une taxonomie des langues du monde selon leur dotation en ressources numériques et leur représentation dans la recherche en TALN, des classes 0-1 (« Left-Behinds », « Scraping-Bys ») à la classe 5 (langues comme l'anglais). La grande majorité des quelque 2 000 langues africaines se situe dans les classes les plus basses de cette échelle : très peu de texte numérisé, très peu de données annotées, quasi-absence dans les grandes conférences de TALN. Quelques langues font figure d'exception relative — l'arabe, le swahili, le haoussa, l'amharique, le yoruba ou l'igbo bénéficient d'un effort de recherche nettement plus soutenu que les autres, sans pour autant atteindre la dotation des langues les mieux desservies au monde.",
+    "texte": "Joshi et al. (2020) ont proposé une taxonomie des langues du monde selon leur dotation en ressources numériques et leur représentation dans la recherche en TALN, des classes 0-1 (« Left-Behinds », « Scraping-Bys ») à la classe 5 (langues comme l'anglais). La grande majorité des quelque 2 000 langues africaines se situe dans les classes les plus basses de cette échelle : très peu de texte numérisé, très peu de données annotées, quasi-absence dans les grandes conférences de TALN. Quelques langues font figure d'exception relative : l'arabe, le swahili, le haoussa, l'amharique, le yoruba ou l'igbo bénéficient d'un effort de recherche nettement plus soutenu que les autres, sans pour autant atteindre la dotation des langues les mieux desservies au monde.",
     "sources": [
       {
         "titre": "The State and Fate of Linguistic Diversity and Inclusion in the NLP World",
@@ -68,7 +68,7 @@
   },
   "couverture_taln": {
     "titre": "Ce que couvrent (et ne couvrent pas) les grands jeux de données panafricains",
-    "texte": "Le mouvement communautaire Masakhane a construit, ces dernières années, les principaux benchmarks ouverts de TALN pour les langues africaines : MasakhaNER (reconnaissance d'entités nommées, passé de 10 à 20 langues), MasakhaNEWS (classification d'actualités, 16 langues) et SIB-200 (classification de sujets, plus de 200 langues à l'échelle mondiale dont une part significative de langues africaines, dérivé des traductions professionnelles FLORES-200 — c'est ce dernier qui sert à entraîner le classifieur de la contribution FasoTALN). Ensemble, ces jeux de données couvrent une vingtaine à une quarantaine de langues africaines selon la tâche — une avancée réelle, mais qui reste loin des quelque 2 000 langues du continent. Aucun ne couvre directement le mooré, le dioula ou le fulfuldé du Burkina Faso : c'est tout l'enjeu du travail de transfert cross-lingue au cœur de la contribution FasoTALN.",
+    "texte": "Le mouvement communautaire Masakhane a construit, ces dernières années, les principaux benchmarks ouverts de TALN pour les langues africaines : MasakhaNER (reconnaissance d'entités nommées, passé de 10 à 20 langues), MasakhaNEWS (classification d'actualités, 16 langues) et SIB-200 (classification de sujets, plus de 200 langues à l'échelle mondiale dont une part significative de langues africaines, dérivé des traductions professionnelles FLORES-200 ; c'est ce dernier qui sert à entraîner le classifieur de la contribution FasoTALN). Ensemble, ces jeux de données couvrent une vingtaine à une quarantaine de langues africaines selon la tâche, une avancée réelle, mais qui reste loin des quelque 2 000 langues du continent. Aucun ne couvre directement le mooré, le dioula ou le fulfuldé du Burkina Faso : c'est tout l'enjeu du travail de transfert cross-lingue au cœur de la contribution FasoTALN.",
     "sources": [
       {
         "titre": "MasakhaNER: Named Entity Recognition for African Languages",
@@ -94,6 +94,6 @@
     ]
   },
   "langues_couvertes_intro": {
-    "texte": "FasoTALN a un positionnement panafricain, sans hiérarchie de priorité entre les langues : la vocation du projet est de couvrir, à terme, des langues bien au-delà de celles présentées ici. Il fallait néanmoins un point de départ concret plutôt qu'une ambition abstraite — cinq langues actuellement couvertes, choisies pour leur poids démographique et leur proximité avec le terrain d'origine du projet (CITADEL, Ouagadougou) : le mooré, le dioula et le fulfuldé, trois des langues nationales véhiculaires du Burkina Faso, le gourmantché pour son poids démographique, et le bambara, langue nationale du Mali très proche du dioula, inclus pour ses ressources de TALN plus développées et exploitables par transfert cross-lingue. Chaque nouvelle langue couverte par FasoTALN s'ajoutera à cette liste, à égalité avec les précédentes. Le détail institutionnel propre au Burkina Faso — statut constitutionnel des langues nationales, recensement, feuille de route nationale sur l'IA — est traité sur la page Écosystème TALN-BF plutôt que diffusé ici, pour garder à cette page un cadrage panafricain."
+    "texte": "FasoTALN a un positionnement panafricain, sans hiérarchie de priorité entre les langues : la vocation du projet est de couvrir, à terme, des langues bien au-delà de celles présentées ici. Il fallait néanmoins un point de départ concret plutôt qu'une ambition abstraite. Ce sont donc cinq langues qui sont actuellement couvertes, choisies pour leur poids démographique et leur proximité avec le terrain d'origine du projet (CITADEL, Ouagadougou) : le mooré, le dioula et le fulfuldé, trois des langues nationales véhiculaires du Burkina Faso, le gourmantché pour son poids démographique, et le bambara, langue nationale du Mali très proche du dioula, inclus pour ses ressources de TALN plus développées et exploitables par transfert cross-lingue. Chaque nouvelle langue couverte par FasoTALN s'ajoutera à cette liste, à égalité avec les précédentes. Le détail institutionnel propre au Burkina Faso (statut constitutionnel des langues nationales, recensement, feuille de route nationale sur l'IA) est traité sur la page Écosystème TALN-BF plutôt que diffusé ici, pour garder à cette page un cadrage panafricain."
   }
 }

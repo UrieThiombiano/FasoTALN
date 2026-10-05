@@ -1,5 +1,5 @@
 """
-TranslateEngine — traduction français -> mooré via l'API CITADEL (NLLB).
+TranslateEngine : traduction français -> mooré via l'API CITADEL (NLLB).
 
 Portée volontairement restreinte : uniquement français -> mooré, en texte,
 pour permettre à quelqu'un qui ne lit pas le mooré de générer une phrase à

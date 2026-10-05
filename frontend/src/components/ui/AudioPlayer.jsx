@@ -3,7 +3,7 @@ import { Play, Pause, Volume2 } from 'lucide-react'
 import { motion } from 'framer-motion'
 
 /**
- * AudioPlayer — lecteur audio sur mesure, design FasoXplore.
+ * AudioPlayer : lecteur audio sur mesure, design FasoXplore.
  * Props :
  *   src       : URL ou blob URL du fichier audio
  *   label     : texte affiché à côté du bouton (optionnel)

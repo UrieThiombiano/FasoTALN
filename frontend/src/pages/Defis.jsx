@@ -63,7 +63,7 @@ export default function Defis() {
   return (
     <DocsLayout
       title="Les défis du TALN"
-      description="Pourquoi le traitement automatique des langues nationales reste un problème de recherche ouvert — revue de littérature sourcée, avec liens vers les publications originales."
+      description="Pourquoi le traitement automatique des langues nationales reste un problème de recherche ouvert. Revue de littérature sourcée, avec liens vers les publications originales."
     >
       {loading && (
         <div

@@ -95,7 +95,7 @@ export default function Perspectives() {
                 Voir plus large
               </div>
               <div className="font-display font-bold" style={{ color: 'var(--indigo)' }}>
-                L'écosystème du TALN au Burkina Faso — institutions, feuilles de route, comment s'y engager
+                L'écosystème du TALN au Burkina Faso : institutions, feuilles de route, comment s'y engager
               </div>
             </div>
             <ArrowRight size={20} className="flex-shrink-0" color="var(--or)" />

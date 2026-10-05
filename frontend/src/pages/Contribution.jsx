@@ -27,7 +27,7 @@ export default function Contribution() {
   return (
     <DocsLayout
       title="Notre contribution"
-      description="Leveraging Phonemic Features for Cross-lingual NLP in African Languages — exploiter les traits phonémiques pour rendre le TALN plus robuste aux variations orthographiques des langues nationales."
+      description="Leveraging Phonemic Features for Cross-lingual NLP in African Languages : exploiter les traits phonémiques pour rendre le TALN plus robuste aux variations orthographiques des langues nationales."
     >
       <div className="lesson-content">
         <RevealOnScroll>
@@ -46,7 +46,7 @@ export default function Contribution() {
           <Callout variant="definition" title="Notre hypothèse">
             La transcription phonémique (IPA) d'un mot est plus stable que
             son orthographe, car elle capture sa prononciation réelle
-            indépendamment des conventions d'écriture — elle peut donc
+            indépendamment des conventions d'écriture. Elle peut donc
             servir de signal complémentaire au texte pour les tâches de
             classification cross-lingue.
           </Callout>
@@ -74,7 +74,7 @@ export default function Contribution() {
         <RevealOnScroll>
           <h3 className="flex items-center gap-2">
             <Waves size={18} color="var(--mil)" strokeWidth={1.8} />
-            ByT5 — Graphème vers Phonème
+            ByT5 : graphème vers phonème
           </h3>
           <p>
             Un ByT5-small fine-tuné, byte-level (sans tokenisation par mot),
@@ -111,7 +111,7 @@ export default function Contribution() {
               className="font-ui font-semibold text-sm inline-flex items-center gap-2 rounded-full px-7 py-3"
               style={{ border: '1.5px solid rgba(255,255,255,0.5)', color: '#FFFFFF' }}
             >
-              Transcription phonétique (G2P)
+              Transcription en IPA (G2P)
             </Link>
             <Link
               to="/pipeline"

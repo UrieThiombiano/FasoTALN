@@ -21,7 +21,7 @@
     "id": "afro-xlmr-hybrid",
     "nom": "Uriath/afro-xlmr-hybrid-sib200-masakhanews-5class-byt5",
     "type": "modele",
-    "description": "Modèle de classification thématique (5 classes) fondé sur AfroXLMR, entraîné sur une entrée hybride combinant texte brut et transcription IPA générée par le modèle G2P — la contribution centrale de FasoTALN.",
+    "description": "Modèle de classification thématique (5 classes) fondé sur AfroXLMR, entraîné sur une entrée hybride combinant texte brut et transcription IPA générée par le modèle G2P : la contribution centrale de FasoTALN.",
     "langues": ["Multilingue (langues africaines couvertes par SIB-200 et MasakhaNEWS)"],
     "lien": "https://huggingface.co/Uriath/afro-xlmr-hybrid-sib200-masakhanews-5class-byt5",
     "licence": "Voir la fiche du modèle"
@@ -66,7 +66,7 @@
     "id": "nllb",
     "nom": "No Language Left Behind (NLLB-200)",
     "type": "modele",
-    "description": "Modèle de traduction automatique multilingue de Meta AI couvrant 200 langues, dont le mooré, le dioula et le bambara — utilisé notamment par l'API de traduction CITADEL pour le couple français-mooré.",
+    "description": "Modèle de traduction automatique multilingue de Meta AI couvrant 200 langues, dont le mooré, le dioula et le bambara ; utilisé notamment par l'API de traduction CITADEL pour le couple français-mooré.",
     "langues": ["200 langues, dont Mooré, Dioula, Bambara"],
     "lien": "https://github.com/facebookresearch/fairseq/tree/nllb",
     "licence": "CC-BY-NC-4.0"
@@ -129,7 +129,7 @@
     "id": "flores200",
     "nom": "FLORES-200",
     "type": "corpus",
-    "description": "Jeu d'évaluation de traduction automatique many-to-many avec traductions alignées et révisées par des humains pour 204 langues (3001 phrases, 842 articles web) — sert de base à SIB-200 et au projet NLLB-200.",
+    "description": "Jeu d'évaluation de traduction automatique many-to-many avec traductions alignées et révisées par des humains pour 204 langues (3001 phrases, 842 articles web) ; sert de base à SIB-200 et au projet NLLB-200.",
     "langues": ["204 langues"],
     "lien": "https://huggingface.co/datasets/facebook/flores",
     "licence": "CC-BY-SA-4.0"
@@ -138,7 +138,7 @@
     "id": "ebible",
     "nom": "eBible Corpus (JHU Bible Corpus)",
     "type": "corpus",
-    "description": "Corpus parallèle biblique couvrant plus de 1 600 langues — souvent la seule ressource parallèle disponible à grande échelle pour les langues les plus faiblement dotées, avec les limites de représentativité de registre que cela implique.",
+    "description": "Corpus parallèle biblique couvrant plus de 1 600 langues ; souvent la seule ressource parallèle disponible à grande échelle pour les langues les plus faiblement dotées, avec les limites de représentativité de registre que cela implique.",
     "langues": ["1600+ langues"],
     "lien": "https://arxiv.org/abs/2304.09919",
     "licence": "Licences variables selon la traduction"
@@ -228,7 +228,7 @@
     "id": "african-language-tax",
     "nom": "The African Language Tax",
     "type": "article",
-    "description": "Étude quantifiant le surcoût de tokenisation, de latence et de fenêtre de contexte imposé aux langues africaines par les tokenizers des LLM de pointe — jusqu'à 8,9× pour le N'Ko.",
+    "description": "Étude quantifiant le surcoût de tokenisation, de latence et de fenêtre de contexte imposé aux langues africaines par les tokenizers des LLM de pointe : jusqu'à 8,9× pour le N'Ko.",
     "langues": ["Langues africaines"],
     "lien": "https://arxiv.org/abs/2606.24460",
     "licence": "arXiv (libre accès)"

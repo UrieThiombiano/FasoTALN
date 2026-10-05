@@ -1,22 +1,22 @@
 """
-KnowledgeBase — charge et sert les fichiers JSON éditoriaux de FasoTALN.
+KnowledgeBase : charge et sert les fichiers JSON éditoriaux de FasoTALN.
 
 Structure attendue dans data/knowledge/ :
-  languages.json         — cinq langues africaines actuellement couvertes par FasoTALN,
+  languages.json         : cinq langues africaines actuellement couvertes par FasoTALN,
                             point de départ d'une ambition continentale (mooré, dioula,
                             fulfuldé, gourmantché, bambara)
-  languages_context.json — panorama panafricain des familles de langues (Niger-Congo,
+  languages_context.json : panorama panafricain des familles de langues (Niger-Congo,
                             afro-asiatique, nilo-saharien, langues à clics) et de la
-                            fracture numérique en TALN (objet unique, pas une liste —
+                            fracture numérique en TALN (objet unique, pas une liste,
                             cf. `KnowledgeBase.get_category`). Le panorama linguistique
                             propre au Burkina Faso (59 langues SIL, langues véhiculaires
                             de 1974) est dans ecosysteme.json, pas ici.
-  challenges.json        — défis scientifiques du TALN pour ces langues
-  resources.json         — jeux de données, corpus, outils, modèles, articles
-  approaches.json        — approches actuelles du TALN multilingue/cross-lingue
-  perspectives.json      — pistes de recherche futures de la contribution FasoTALN
-  glossaire.json          — glossaire de vocabulaire TALN, groupé par catégorie
-  ecosysteme.json         — écosystème TALN/IA du Burkina Faso : institutions, contexte
+  challenges.json        : défis scientifiques du TALN pour ces langues
+  resources.json         : jeux de données, corpus, outils, modèles, articles
+  approaches.json        : approches actuelles du TALN multilingue/cross-lingue
+  perspectives.json      : pistes de recherche futures de la contribution FasoTALN
+  glossaire.json          : glossaire de vocabulaire TALN, groupé par catégorie
+  ecosysteme.json         : écosystème TALN/IA du Burkina Faso : institutions, contexte
                             linguistique national, réseau panafricain, feuilles de route,
                             pistes pour se spécialiser (objet unique, pas une liste)
 

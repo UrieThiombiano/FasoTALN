@@ -330,7 +330,7 @@ n'ont pas encore de modèle G2P/classification (`tester_g2p: false` dans
 /approches       Approches actuelles (sourcé, littérature scientifique)
 /ressources      Ressources (datasets, corpus, outils, modèles, articles)
 /contribution    Notre contribution (pipeline explicatif statique)
-/demo-g2p        Transcription phonétique (G2P, texte → IPA, interactive)
+/demo-g2p        Transcription en IPA (G2P, texte → IPA, interactive)
 /pipeline        Pipeline de classification (texte + IPA, démo animée texte → IPA → classe)
 /resultats       Résultats (F1 hybride vs texte seul, définitifs)
 /perspectives    Perspectives de recherche (roadmap de la contribution FasoTALN)

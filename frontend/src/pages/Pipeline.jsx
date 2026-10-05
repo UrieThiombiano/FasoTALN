@@ -173,7 +173,7 @@ export default function Pipeline() {
             style={{ opacity: !text.trim() || busy ? 0.6 : 1, cursor: !text.trim() || busy ? 'default' : 'pointer' }}
           >
             {busy ? <Loader2 size={17} className="animate-spin" /> : <PlayCircle size={17} />}
-            {busy ? 'Calcul en cours…' : 'Lancer la démonstration'}
+            {busy ? 'Calcul en cours…' : 'Lancer la classification'}
           </button>
         </form>
 
@@ -193,13 +193,13 @@ export default function Pipeline() {
           {result && status === 'revealing' && (
             <div className="flex flex-col gap-4 mt-8">
               {revealStep >= 1 && (
-                <StepBlock title="Étape 1 — Transcription IPA (ByT5)">
-                  <IPADisplay ipa={result.ipa} label="" />
+                <StepBlock title="Étape 1 : transcription IPA (ByT5)">
+                  <IPADisplay ipa={result.ipa} label="" delimiters={false} />
                 </StepBlock>
               )}
 
               {revealStep >= 2 && (
-                <StepBlock title="Étape 2 — Construction de l'entrée">
+                <StepBlock title="Étape 2 : construction de l'entrée">
                   <div
                     className="font-mono text-sm rounded-xl p-4 break-words"
                     style={{ background: 'var(--sable)', color: 'var(--indigo)', border: '1px solid var(--border)' }}
@@ -210,7 +210,7 @@ export default function Pipeline() {
               )}
 
               {revealStep >= 3 && (
-                <StepBlock title="Étape 3 — Encodage AfroXLMR">
+                <StepBlock title="Étape 3 : encodage AfroXLMR">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(22,163,74,0.12)' }}>
                       <Network size={18} color="var(--mil)" />
@@ -223,7 +223,7 @@ export default function Pipeline() {
               )}
 
               {revealStep >= 4 && (
-                <StepBlock title="Étape 4 — Classe prédite et probabilités">
+                <StepBlock title="Étape 4 : classe prédite et probabilités">
                   <div className="flex items-center gap-2 mb-5">
                     <Cpu size={16} color="var(--or)" />
                     <span className="font-display text-lg font-bold" style={{ color: 'var(--indigo)' }}>

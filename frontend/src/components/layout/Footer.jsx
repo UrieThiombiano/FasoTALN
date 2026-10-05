@@ -106,7 +106,7 @@ export default function Footer() {
         className="container-fx py-5 border-t text-xs text-center font-ui"
         style={{ borderColor: 'var(--border)', color: 'var(--text-muted)' }}
       >
-        FasoTALN — Le TALN des langues africaines © 2026
+        FasoTALN · Le TALN des langues africaines · © 2026
       </div>
     </footer>
   )

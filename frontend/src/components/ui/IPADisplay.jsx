@@ -1,4 +1,4 @@
-export default function IPADisplay({ ipa, label = 'Transcription IPA' }) {
+export default function IPADisplay({ ipa, label = 'Transcription IPA', delimiters = true }) {
   return (
     <div>
       <div
@@ -11,7 +11,7 @@ export default function IPADisplay({ ipa, label = 'Transcription IPA' }) {
         className="font-mono text-lg sm:text-xl rounded-2xl px-5 py-4 break-words"
         style={{ background: 'var(--sable)', color: 'var(--indigo)', border: '1px solid var(--border)' }}
       >
-        {ipa || <span style={{ color: 'var(--text-muted)' }}>—</span>}
+        {ipa ? (delimiters ? `/${ipa}/` : ipa) : <span style={{ color: 'var(--text-muted)' }}>…</span>}
       </div>
     </div>
   )

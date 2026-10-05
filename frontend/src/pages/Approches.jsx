@@ -57,7 +57,7 @@ export default function Approches() {
   return (
     <DocsLayout
       title="Approches actuelles"
-      description="Comment le TALN multilingue et cross-lingue aborde aujourd'hui les langues à faibles ressources — revue de littérature sourcée, avec liens vers les publications originales."
+      description="Comment le TALN multilingue et cross-lingue aborde aujourd'hui les langues à faibles ressources. Revue de littérature sourcée, avec liens vers les publications originales."
     >
       {loading && (
         <div

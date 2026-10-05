@@ -1,13 +1,103 @@
 [
   {
+    "id": "afrisud-une-collection-de-treebanks-de-d-pendance-pour-value",
+    "titre": "AfriSUD : une collection de treebanks de dépendance pour évaluer les modèles sur les langues africaines",
+    "resume": "AfriSUD est la première collection à grande échelle de treebanks annotés syntaxiquement pour neuf langues africaines diversifiées, couvrant les principales familles linguistiques et régions d'Afrique subsaharienne. Ce travail communautaire propose des données de haute qualité, vérifiées par des locuteurs natifs, capturant des caractéristiques typologiques clés comme l'agglutination et le ton. L'évaluation de divers modèles sur AfriSUD révèle un écart syntaxique significatif, indiquant que les architectures actuelles ne capturent pas pleinement la diversité structurelle des langues africaines.",
+    "categorie": "Jeu de données",
+    "date": "2026-09-01",
+    "source_nom": "arXiv",
+    "source_lien": "https://arxiv.org/abs/2606.12708",
+    "ajoute_le": "2026-09-08T09:29:16.978252+00:00"
+  },
+  {
+    "id": "vers-un-alignement-culturel-valuation-centr-e-sur-l-humain-d",
+    "titre": "Vers un alignement culturel : évaluation centrée sur l'humain de récits IA multimodaux dans cinq communautés africaines",
+    "resume": "Cette étude évalue comment les récits multimodaux générés par l'IA s'alignent avec les pratiques, relations, langues, valeurs et attentes visuelles des communautés qu'ils représentent. Une évaluation mixte (quantitative et qualitative) avec 19 représentants culturels de cinq communautés africaines a permis de développer une taxonomie de l'alignement culturel. Les juges automatisés multimodaux montrent une fiabilité et un étalonnage variables selon les communautés, soulignant la nécessité de pipelines d'évaluation calibrés par la communauté.",
+    "categorie": "Recherche",
+    "date": "2026-08-29",
+    "source_nom": "arXiv",
+    "source_lien": "https://arxiv.org/abs/2608.29209",
+    "ajoute_le": "2026-09-06T15:39:50.478893+00:00"
+  },
+  {
+    "id": "la-g-om-trie-des-repr-sentations-des-langues-faibles-ressour",
+    "titre": "La géométrie des représentations des langues à faibles ressources",
+    "resume": "Cette recherche caractérise l'écart de performance entre langues à faibles et hautes ressources dans les grands modèles de langage (LLM) via la géométrie des représentations. L'étude montre que les langues à faibles ressources présentent une dégénérescence représentationnelle dans les couches finales. Une régularisation géométrique ciblée pendant le pré-entraînement continu (CPT) réduit cette dégénérescence et améliore les performances sur 10 langues africaines, offrant une stratégie viable pour améliorer le CPT des langues à faibles ressources.",
+    "categorie": "Recherche",
+    "date": "2026-08-24",
+    "source_nom": "arXiv",
+    "source_lien": "https://arxiv.org/abs/2608.23358",
+    "ajoute_le": "2026-09-08T09:29:16.978252+00:00"
+  },
+  {
+    "id": "opportunit-s-et-d-fis-du-taln-pour-les-langues-s-n-galaises-",
+    "titre": "Opportunités et défis du TALN pour les langues sénégalaises à faibles ressources dans la recherche en sciences sociales",
+    "resume": "Cet article offre une vue d'ensemble complète des progrès et défis du TALN pour les six langues nationales du Sénégal : Wolof, Pulaar (Fulfuldé), Sérère, Diola, Mandingue et Soninké. Il synthétise les facteurs linguistiques, sociotechniques et infrastructurels qui façonnent leur préparation numérique et identifie les lacunes en données, outils et benchmarks. Une attention particulière est accordée à l'application du TALN aux sciences sociales, où les pipelines multilingues de transcription, traduction et récupération peuvent améliorer l'efficacité et l'inclusivité de la recherche sur le terrain.",
+    "categorie": "Recherche",
+    "date": "2026-08-21",
+    "source_nom": "arXiv",
+    "source_lien": "https://arxiv.org/html/2601.09716v2",
+    "ajoute_le": "2026-09-08T05:20:45.211219+00:00"
+  },
+  {
+    "id": "language-diversity-evaluating-language-usage-and-ai-performa",
+    "titre": "Language Diversity: Evaluating Language Usage and AI Performance on African Languages in Digital Spaces",
+    "resume": "Cette étude, acceptée à Deep Learning Indaba 2026, évalue la représentation numérique des langues africaines (yoruba, kinyarwanda, amharique) et les défis pour les outils de détection de langue. Elle montre que les données des médias professionnels sont plus fiables que celles des plateformes conversationnelles comme Reddit pour entraîner des modèles de TALN performants.",
+    "categorie": "Recherche",
+    "date": null,
+    "source_nom": "arXiv",
+    "source_lien": "https://arxiv.org/html/2512.01557v3",
+    "ajoute_le": "2026-08-20T18:29:23.052484+00:00"
+  },
+  {
+    "id": "a-proposal-for-a-more-universal-annotation-of-relative-claus",
+    "titre": "A Proposal for a More Universal Annotation of Relative Clauses in Universal Dependencies",
+    "resume": "Cet article propose une nouvelle méthode d'annotation des propositions relatives dans le cadre Universal Dependencies, compatible avec des stratégies variées comme celles du bambara, du wolof, du mandarin, du japonais, du basque, du turc, du latin, du beja, du gbaya et de l'allemand. Il met en lumière les limites des directives actuelles pour les langues non européennes.",
+    "categorie": "Recherche",
+    "date": null,
+    "source_nom": "ACL Anthology (UDW 2026)",
+    "source_lien": "https://aclanthology.org/events/udw-2026/",
+    "ajoute_le": "2026-08-20T18:29:23.052484+00:00"
+  },
+  {
+    "id": "structure-association-et-valeur-d-cisionnelle-estimation-de-",
+    "titre": "Structure, association et valeur décisionnelle : estimation de la difficulté basée sur les représentations pour l'inférence adaptative en NLI africain",
+    "resume": "Cette étude explore si les statistiques de représentation interne peuvent fournir des signaux utiles de difficulté pour l'inférence adaptative dans le TALN multilingue africain. Les résultats montrent que les signaux de représentation ne sont pas fiables pour le routage adaptatif dans ce contexte. L'analyse porte sur 15 langues africaines et révèle que les modèles existants atteignent rapidement des limites, soulignant la nécessité de nouvelles approches pour améliorer les performances en langues à faibles ressources.",
+    "categorie": "Recherche",
+    "date": "2026-08-19",
+    "source_nom": "arXiv",
+    "source_lien": "https://arxiv.org/abs/2608.19003",
+    "ajoute_le": "2026-09-08T09:29:16.978252+00:00"
+  },
+  {
     "id": "north-africa-s-missing-framework-nlp-driven-mental-healthcar",
     "titre": "North Africa's Missing Framework: NLP-Driven Mental Healthcare in Algeria and Implications for Low-resource Settings",
-    "resume": "Cet article propose un cadre conceptuel pour l'utilisation du TALN dans le système de santé mentale en Algérie, identifiant quatre obstacles structurels : l'écart linguistique, les inégalités géographiques, la stigmatisation et le manque d'infrastructures numériques. Il souligne l'absence de ressources pour les langues africaines à faibles ressources et propose une feuille de route pour le développement de technologies linguistiques multilingues adaptées aux contextes postcoloniaux.",
+    "resume": "Cet article propose un cadre conceptuel pour l'utilisation du TALN dans le système de santé mentale en Algérie, en identifiant quatre barrières structurelles : l'écart linguistique, les inégalités géographiques, la stigmatisation et le manque d'infrastructures numériques. Il souligne l'importance des technologies multilingues et des ressources adaptées aux contextes à faibles ressources.",
     "categorie": "Recherche",
     "date": "2026-08-09",
     "source_nom": "arXiv",
     "source_lien": "https://arxiv.org/abs/2608.08607",
-    "ajoute_le": "2026-08-12T09:54:36.283086+00:00"
+    "ajoute_le": "2026-08-20T18:29:23.052484+00:00"
+  },
+  {
+    "id": "cadre-conceptuel-pour-le-taln-appliqu-la-sant-mentale-en-alg",
+    "titre": "Cadre conceptuel pour le TALN appliqué à la santé mentale en Algérie et implications pour les contextes à faibles ressources",
+    "resume": "Cet article présente le premier cadre conceptuel examinant le rôle potentiel du TALN dans le système de soins de santé mentale en Algérie. Il identifie quatre obstacles structurels : l'écart linguistique, les inégalités géographiques d'accès, les barrières liées à la stigmatisation et l'absence d'infrastructures numériques. Les auteurs proposent une feuille de route pour la recherche et les politiques, priorisant les ressources de données, les technologies linguistiques multilingues et les cadres d'évaluation.",
+    "categorie": "Recherche",
+    "date": "2026-08-09",
+    "source_nom": "arXiv",
+    "source_lien": "https://arxiv.org/abs/2608.08607v1",
+    "ajoute_le": "2026-09-08T05:20:45.211219+00:00"
+  },
+  {
+    "id": "l-inclusion-d-s-la-conception-rendre-les-langues-africaines-",
+    "titre": "L’inclusion dès la conception : Rendre les langues africaines visibles pour l’IA",
+    "resume": "L'initiative AfriCC, portée par le laboratoire DSFSI de l'Université de Pretoria et la communauté Masakhane, vise à rendre visibles les langues africaines dans les ensembles de données utilisés pour entraîner les grands modèles de langage. Grâce à la contribution de 700 URL de départ dans 34 langues africaines par des bénévoles de 19 pays, le projet a permis de recueillir environ 29 millions de pages web, dont 6 millions issues des URL soumises, et d'ajouter plus de 343 000 pages en langues africaines à Common Crawl (janvier 2026), soit une augmentation de 18 % par rapport à la mise à jour précédente.",
+    "categorie": "Financement",
+    "date": "2026-08-07",
+    "source_nom": "CRDI",
+    "source_lien": "https://idrc-crdi.ca/fr/recherche-en-action/linclusion-des-la-conception-rendre-les-langues-africaines-visibles-pour-lia",
+    "ajoute_le": "2026-09-08T09:29:16.978252+00:00"
   },
   {
     "id": "decolonizing-linguistic-policies-in-automated-speech-recogni",
@@ -37,16 +127,6 @@
     "date": "2026-07-31",
     "source_nom": "We Are Tech Africa",
     "source_lien": "https://www.wearetech.africa/fr/fils/actualites/tech/le-burkina-faso-pose-les-bases-de-lidentite-numerique-nationale",
-    "ajoute_le": "2026-08-12T09:54:36.283086+00:00"
-  },
-  {
-    "id": "language-diversity-evaluating-language-usage-and-ai-performa",
-    "titre": "Language Diversity: Evaluating Language Usage and AI Performance on African Languages in Digital Spaces",
-    "resume": "Cette étude acceptée à Deep Learning Indaba 2026 évalue la représentation numérique des langues africaines (Yoruba, Kinyarwanda, Amharic) et les défis pour les outils de détection de langue. Les données des médias locaux (BBC Yoruba, Fana Broadcasting, Rwanda Broadcasting Agency) offrent une source fiable de texte monolingue et propre, contrairement aux plateformes conversationnelles comme Reddit, où le code-switching avec l'anglais domine. Les modèles de détection de langue (GlotLID, AfroLID, Llama 3.3 70B) atteignent une précision quasi parfaite sur les données de médias, mais échouent sur les données conversationnelles en raison du mélange linguistique.",
-    "categorie": "Recherche",
-    "date": "2026-07-30",
-    "source_nom": "arXiv",
-    "source_lien": "https://arxiv.org/html/2512.01557v3",
     "ajoute_le": "2026-08-12T09:54:36.283086+00:00"
   },
   {

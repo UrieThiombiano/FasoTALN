@@ -19,7 +19,7 @@
     },
     {
       "nom": "BurkimbIA",
-      "description": "Une plateforme ouverte et gratuite — la première du genre au Burkina Faso — qui propose de la traduction intelligente entre le français, le mooré et le dioula, de la transcription vocale automatique, de la synthèse vocale naturelle et du clonage de voix en langues locales, ainsi que des agents conversationnels capables de comprendre et répondre dans ces langues.",
+      "description": "Une plateforme ouverte et gratuite, la première du genre au Burkina Faso, qui propose de la traduction intelligente entre le français, le mooré et le dioula, de la transcription vocale automatique, de la synthèse vocale naturelle et du clonage de voix en langues locales, ainsi que des agents conversationnels capables de comprendre et répondre dans ces langues.",
       "details": [
         "Accès libre et gratuit, positionnée comme la première plateforme ouverte du genre au Burkina Faso",
         "Mission affichée : que l'IA bénéficie à tous les Burkinabè et contribue au développement durable du pays"
@@ -30,7 +30,7 @@
       "nom": "BurkinaNLP",
       "description": "Communauté burkinabè de sensibilisation et de vulgarisation autour du traitement automatique des langues et de l'intelligence artificielle, qui organise des présentations pédagogiques ouvertes sur le domaine.",
       "details": [
-        "Présentation « NLP — Que comprendre de ce domaine de l'IA ? » animée par Go Issa Traoré le 5 juillet 2025 (définitions, approches, tâches et défis du TALN)"
+        "Présentation « NLP : que comprendre de ce domaine de l'IA ? » animée par Go Issa Traoré le 5 juillet 2025 (définitions, approches, tâches et défis du TALN)"
       ]
     },
     {
@@ -45,13 +45,13 @@
     }
   ],
   "contexte_national": {
-    "intro": "Le cadre linguistique du Burkina Faso a connu une évolution institutionnelle majeure ces dernières années, et la recherche en TALN qui lui est spécifiquement dédiée reste encore rare — trois éléments de contexte utiles pour situer le travail de FasoTALN.",
+    "intro": "Le cadre linguistique du Burkina Faso a connu une évolution institutionnelle majeure ces dernières années, et la recherche en TALN qui lui est spécifiquement dédiée reste encore rare. Voici trois éléments de contexte utiles pour situer le travail de FasoTALN.",
     "panorama_linguistique": {
       "titre": "Combien de langues nationales ?",
-      "texte": "SIL International (via l'Ethnologue) a documenté 59 langues nationales au Burkina Faso. La grande majorité appartiennent à la famille Niger-Congo — 46 langues gur (dont le mooré, le plus parlé) et 16 langues mandé (dont le dioula) représentent à elles seules la quasi-totalité du paysage linguistique du pays. S'y ajoutent une langue kru (le siamou), les langues ouest-atlantiques (le fulfuldé/peul) et les langues dogon. En dehors du Niger-Congo, deux langues appartiennent à la famille nilo-saharienne (le songhaï et le zarma) et deux à la famille afro-asiatique (le haoussa et le tamacheq).",
+      "texte": "SIL International (via l'Ethnologue) a documenté 59 langues nationales au Burkina Faso. La grande majorité appartiennent à la famille Niger-Congo : 46 langues gur (dont le mooré, le plus parlé) et 16 langues mandé (dont le dioula) représentent à elles seules la quasi-totalité du paysage linguistique du pays. S'y ajoutent une langue kru (le siamou), les langues ouest-atlantiques (le fulfuldé/peul) et les langues dogon. En dehors du Niger-Congo, deux langues appartiennent à la famille nilo-saharienne (le songhaï et le zarma) et deux à la famille afro-asiatique (le haoussa et le tamacheq).",
       "source": "SIL Burkina Faso, « Les langues du Burkina Faso » et « Langues gur » / « Langues mandé »",
       "carte": "/images/langues/carte-langues-burkina-faso.png",
-      "carte_credit": "Répartition des langues du Burkina Faso — Ewan ar Born, d'après une carte d'Aymeric78, CC BY-SA (carte de référence utilisée par les Wikipédia francophone et anglophone)",
+      "carte_credit": "Répartition des langues du Burkina Faso, par Ewan ar Born, d'après une carte d'Aymeric78, CC BY-SA (carte de référence utilisée par les Wikipédia francophone et anglophone)",
       "vehiculaires_texte": "En 1974, trois langues ont été retenues comme langues nationales véhiculaires du Burkina Faso, chargées de servir de langues de communication au-delà de leur groupe ethnique d'origine : le mooré (dominant au centre), le dioula (langue de commerce dans l'ouest et le long des axes commerciaux) et le fulfuldé/peul (langue de communication privilégiée dans le nord pastoral). Ce sont trois des langues couvertes par les modèles de recherche de FasoTALN, aux côtés du bambara (langue nationale du Mali, très proche du dioula, incluse pour ses ressources de TALN plus développées) et du gourmantché, présenté ici pour son poids démographique (plusieurs centaines de milliers de locuteurs à l'est du pays) bien qu'il ne fasse pas partie des trois langues véhiculaires de 1974.",
       "vehiculaires_source": "SIL Burkina Faso ; Pr Mamadou Lamine Sanogo (INSS-CNRST), Africa-Press Burkina Faso, « Officialisation des Langues Nationales au Burkina Faso », 29 octobre 2025 ; Wikipédia FR, modèle « Langues au Burkina Faso »",
       "familles": [
@@ -107,21 +107,21 @@
       "ancien_article_35_reference": "Constitution du Burkina Faso, 1991",
       "nouvel_article_35": "Les langues nationales officialisées par loi sont les langues officielles du Burkina Faso. [...] L'anglais et le français sont des langues de travail.",
       "nouvel_article_35_reference": "Constitution du Burkina Faso, réforme du 30 décembre 2023",
-      "texte": "Cette réforme inverse la hiérarchie linguistique héritée de la colonisation : les langues nationales deviennent la source de légitimité linguistique de l'État, tandis que le français — seule langue officielle depuis 1991 — est déclassé au rang de « langue de travail », au même titre que l'anglais, introduit pour la première fois à ce niveau institutionnel. La clause « officialisées par loi » signifie que la liste précise des langues concernées et les modalités pratiques dépendent d'une législation d'application encore à venir : l'officialisation est un cadre juridique, pas encore une réalité fonctionnelle complète (enseignement, administration, justice).",
+      "texte": "Cette réforme inverse la hiérarchie linguistique héritée de la colonisation : les langues nationales deviennent la source de légitimité linguistique de l'État, tandis que le français, seule langue officielle depuis 1991, est déclassé au rang de « langue de travail », au même titre que l'anglais, introduit pour la première fois à ce niveau institutionnel. La clause « officialisées par loi » signifie que la liste précise des langues concernées et les modalités pratiques dépendent d'une législation d'application encore à venir : l'officialisation est un cadre juridique, pas encore une réalité fonctionnelle complète (enseignement, administration, justice).",
       "source": "Pr Mamadou Lamine Sanogo (INSS-CNRST, Laboratoire LEAC), Africa-Press Burkina Faso, « Officialisation des Langues Nationales au Burkina Faso », 29 octobre 2025"
     },
     "recensement_et_biais": {
-      "texte": "Le Recensement Général de la Population et de l'Habitat (RGPH) crédite le mooré de 52,9 % de locuteurs, le dioula de 5,7 % et le français de 2,2 %. Ces chiffres sont contestés par les linguistes : la question posée (« quelle est la langue couramment parlée dans le ménage ? ») pousse à une réponse identitaire liée au groupe ethnique plutôt qu'à une description réelle des pratiques plurilingues — ce qui surestime le poids du mooré et sous-estime fortement celui de langues véhiculaires comme le dioula, largement utilisé comme langue de commerce sans être toujours déclaré comme langue du foyer.",
+      "texte": "Le Recensement Général de la Population et de l'Habitat (RGPH) crédite le mooré de 52,9 % de locuteurs, le dioula de 5,7 % et le français de 2,2 %. Ces chiffres sont contestés par les linguistes : la question posée (« quelle est la langue couramment parlée dans le ménage ? ») pousse à une réponse identitaire liée au groupe ethnique plutôt qu'à une description réelle des pratiques plurilingues, ce qui surestime le poids du mooré et sous-estime fortement celui de langues véhiculaires comme le dioula, largement utilisé comme langue de commerce sans être toujours déclaré comme langue du foyer.",
       "source": "Pr Mamadou Lamine Sanogo (INSS-CNRST), Africa-Press Burkina Faso, 2025"
     },
     "langues_coloniales": {
       "titre": "Français et anglais : langues de travail, pas langues premières",
-      "texte": "Le français a été introduit par la colonisation et est resté seule langue officielle du Burkina Faso de l'indépendance (1960) jusqu'à la réforme de 2023. Il reste dans les faits la langue de scolarisation et de l'administration, mais n'est parlé couramment que par une minorité de la population selon les estimations disponibles hors RGPH. Depuis le 30 décembre 2023, le français partage désormais le statut constitutionnel de « langue de travail » avec l'anglais, introduit pour la première fois à ce niveau — une évolution à situer dans le contexte de l'Alliance des États du Sahel (Burkina Faso, Mali, Niger), qui affiche une volonté de rupture avec l'héritage linguistique colonial. Le Mali a opéré une réforme constitutionnelle comparable en juin 2023.",
+      "texte": "Le français a été introduit par la colonisation et est resté seule langue officielle du Burkina Faso de l'indépendance (1960) jusqu'à la réforme de 2023. Il reste dans les faits la langue de scolarisation et de l'administration, mais n'est parlé couramment que par une minorité de la population selon les estimations disponibles hors RGPH. Depuis le 30 décembre 2023, le français partage désormais le statut constitutionnel de « langue de travail » avec l'anglais, introduit pour la première fois à ce niveau. Cette évolution est à situer dans le contexte de l'Alliance des États du Sahel (Burkina Faso, Mali, Niger), qui affiche une volonté de rupture avec l'héritage linguistique colonial. Le Mali a opéré une réforme constitutionnelle comparable en juin 2023.",
       "source": "Pr Mamadou Lamine Sanogo (INSS-CNRST), Africa-Press Burkina Faso, 2025 ; fr.wikipedia.org, « Langues du Burkina Faso »"
     },
     "etat_recherche": {
       "titre": "Une recherche encore rare spécifiquement dédiée aux langues du Burkina Faso",
-      "texte": "La recherche en TALN africain se concentre sur un nombre restreint de langues à plus grande visibilité académique (haoussa, swahili, yoruba, amharique...), portées par des communautés de recherche actives. Les langues nationales du Burkina Faso restent, elles, très peu documentées dans la littérature de TALN : les travaux identifiables se limitent le plus souvent à des mémoires ou thèses isolés plutôt qu'à des publications dans les venues de référence du domaine. À titre de comparaison, le bambara — linguistiquement très proche du dioula — bénéficie depuis peu d'un effort de recherche bien plus soutenu (projet African Next Voices : 612 heures de parole collectées, jeu de données Bayelemabaga de 47 000 phrases parallèles bambara-français).",
+      "texte": "La recherche en TALN africain se concentre sur un nombre restreint de langues à plus grande visibilité académique (haoussa, swahili, yoruba, amharique...), portées par des communautés de recherche actives. Les langues nationales du Burkina Faso restent, elles, très peu documentées dans la littérature de TALN : les travaux identifiables se limitent le plus souvent à des mémoires ou thèses isolés plutôt qu'à des publications dans les venues de référence du domaine. À titre de comparaison, le bambara, linguistiquement très proche du dioula, bénéficie depuis peu d'un effort de recherche bien plus soutenu (projet African Next Voices : 612 heures de parole collectées, jeu de données Bayelemabaga de 47 000 phrases parallèles bambara-français).",
       "exemple": "L'un des rares travaux dédiés au mooré identifiables dans la littérature est un mémoire de synthèse vocale (text-to-speech), et non une publication dans une conférence de TALN de référence.",
       "impact": "Ce déficit de recherche dédiée est une des raisons d'être de FasoTALN : documenter ce qui existe, et contribuer à combler l'écart entre les langues burkinabè et les langues africaines mieux dotées comme le bambara.",
       "sources": [
@@ -156,7 +156,7 @@
       "lien": "https://sil-burkina.org/"
     },
     {
-      "nom": "Lexilogos — Langues du Burkina Faso",
+      "nom": "Lexilogos : langues du Burkina Faso",
       "description": "Répertoire de dictionnaires et lexiques pour de nombreuses langues du Burkina Faso au-delà des langues véhiculaires : bisa, sissala, cerma, karaboro, dogon et d'autres, avec liens vers les ressources lexicographiques disponibles.",
       "lien": "https://www.lexilogos.com/burkina_langues.htm"
     }
@@ -175,7 +175,7 @@
     {
       "nom": "AI4D Africa",
       "nom_complet": "Artificial Intelligence for Development Africa",
-      "description": "Programme lancé en 2020 par le CRDI (Canada) et la Sida (Suède) — 20 millions de dollars canadiens sur cinq ans — pour bâtir un écosystème d'IA responsable en Afrique : hubs de recherche en politiques d'IA, laboratoires multidisciplinaires dans des universités publiques, près de 100 innovations locales soutenues. Partenaire de CITADEL.",
+      "description": "Programme lancé en 2020 par le CRDI (Canada) et la Sida (Suède), doté de 20 millions de dollars canadiens sur cinq ans, pour bâtir un écosystème d'IA responsable en Afrique : hubs de recherche en politiques d'IA, laboratoires multidisciplinaires dans des universités publiques, près de 100 innovations locales soutenues. Partenaire de CITADEL.",
       "details": [
         "Étendu en 2024 via un partenariat mondial CRDI / UK International Development de 100 millions de dollars canadiens sur cinq ans"
       ],
@@ -195,7 +195,7 @@
     {
       "titre": "Feuille de route nationale sur l'intelligence artificielle 2026-2030",
       "date": "Validée le 17 juin 2026",
-      "texte": "Le gouvernement burkinabè a validé une feuille de route nationale sur l'IA pour la période 2026-2030, élaborée avec des représentants de l'administration, du secteur privé, des universités, des centres de recherche, de la société civile et des partenaires techniques et financiers. Elle s'inscrit dans le Plan RELANCE 2026-2030 et l'initiative « IA pour tous ». Les secteurs prioritaires identifiés sont la santé, l'agriculture, l'éducation, l'administration publique, l'eau et l'énergie — avec des applications concrètes évoquées comme des outils d'aide au diagnostic médical, des solutions agricoles fondées sur les prévisions météorologiques, et des dispositifs pédagogiques adaptés aux réalités locales.",
+      "texte": "Le gouvernement burkinabè a validé une feuille de route nationale sur l'IA pour la période 2026-2030, élaborée avec des représentants de l'administration, du secteur privé, des universités, des centres de recherche, de la société civile et des partenaires techniques et financiers. Elle s'inscrit dans le Plan RELANCE 2026-2030 et l'initiative « IA pour tous ». Les secteurs prioritaires identifiés sont la santé, l'agriculture, l'éducation, l'administration publique, l'eau et l'énergie, avec des applications concrètes évoquées comme des outils d'aide au diagnostic médical, des solutions agricoles fondées sur les prévisions météorologiques, et des dispositifs pédagogiques adaptés aux réalités locales.",
       "sources": [
         { "titre": "Le Burkina Faso valide sa feuille de route nationale sur l'IA pour 2026-2030", "auteurs": "We Are Tech Africa", "annee": 2026, "venue": "We Are Tech", "lien": "https://www.wearetech.africa/fr/fils/actualites/tech/le-burkina-faso-valide-sa-feuille-de-route-nationale-sur-l-ia-pour-2026-2030" }
       ]
@@ -203,7 +203,7 @@
     {
       "titre": "Structurer les langues nationales pour l'intelligence artificielle",
       "date": "Atelier du 24 mars 2026",
-      "texte": "Piloté par le Ministère de la Transition Numérique, des Postes et des Communications Électroniques, ce chantier vise à « structurer les fondations linguistiques nécessaires au développement de solutions d'intelligence artificielle » pour quatre langues précisément ciblées : le mooré, le dioula, le fulfuldé et le gulmancema — les mêmes langues mises en avant sur FasoTALN, hors bambara. L'objectif affiché est de « démocratiser l'accès aux services numériques dans un pays marqué par une forte diversité linguistique », en développant des technologies de reconnaissance vocale, de traduction automatique et de synthèse vocale, avec une approche fondée sur la souveraineté des données plutôt que la dépendance aux seuls fournisseurs technologiques internationaux. Ce chantier fait partie des 12 grands projets de transformation numérique du pays à l'horizon 2030.",
+      "texte": "Piloté par le Ministère de la Transition Numérique, des Postes et des Communications Électroniques, ce chantier vise à « structurer les fondations linguistiques nécessaires au développement de solutions d'intelligence artificielle » pour quatre langues précisément ciblées : le mooré, le dioula, le fulfuldé et le gulmancema, soit les mêmes langues mises en avant sur FasoTALN, hors bambara. L'objectif affiché est de « démocratiser l'accès aux services numériques dans un pays marqué par une forte diversité linguistique », en développant des technologies de reconnaissance vocale, de traduction automatique et de synthèse vocale, avec une approche fondée sur la souveraineté des données plutôt que la dépendance aux seuls fournisseurs technologiques internationaux. Ce chantier fait partie des 12 grands projets de transformation numérique du pays à l'horizon 2030.",
       "sources": [
         { "titre": "Burkina Faso : vers une IA adaptée aux réalités linguistiques locales", "auteurs": "We Are Tech Africa", "annee": 2026, "venue": "We Are Tech", "lien": "https://www.wearetech.africa/fr/fils/actualites/tech/burkina-faso-vers-une-ia-adaptee-aux-realites-linguistiques-locales" }
       ]
@@ -213,8 +213,8 @@
     "texte": "Pour un informaticien qui souhaite se spécialiser dans le TALN au Burkina Faso, plusieurs portes d'entrée concrètes existent déjà :",
     "pistes": [
       { "titre": "Se former", "texte": "Le master en intelligence artificielle de CITADEL, hébergé à l'Université Virtuelle du Burkina Faso, est à ce jour le premier master accrédité en IA du pays." },
-      { "titre": "Pratiquer sur des outils réels", "texte": "Explorer et contribuer à des plateformes ouvertes comme BurkimbIA, ou tester les modèles et jeux de données catalogués sur la page Ressources de FasoTALN — dont plusieurs sont directement réutilisables (Hugging Face, GitHub)." },
-      { "titre": "Rejoindre une communauté de recherche", "texte": "Le mouvement panafricain Masakhane et des chercheurs comme le Pr Mamadou Lamine Sanogo (INSS-CNRST, cité dans les Défis du TALN) publient régulièrement sur les langues burkinabè et africaines — une littérature accessible pour qui veut contribuer." },
+      { "titre": "Pratiquer sur des outils réels", "texte": "Explorer et contribuer à des plateformes ouvertes comme BurkimbIA, ou tester les modèles et jeux de données catalogués sur la page Ressources de FasoTALN, dont plusieurs sont directement réutilisables (Hugging Face, GitHub)." },
+      { "titre": "Rejoindre une communauté de recherche", "texte": "Le mouvement panafricain Masakhane et des chercheurs comme le Pr Mamadou Lamine Sanogo (INSS-CNRST, cité dans les Défis du TALN) publient régulièrement sur les langues burkinabè et africaines : une littérature accessible pour qui veut contribuer." },
       { "titre": "Suivre les jalons publics", "texte": "Les guides orthographiques du MEBAPLN, les ateliers de structuration linguistique du Ministère de la Transition Numérique et la feuille de route nationale IA 2026-2030 fixent un calendrier concret à suivre pour qui veut s'aligner sur les priorités nationales." }
     ]
   }

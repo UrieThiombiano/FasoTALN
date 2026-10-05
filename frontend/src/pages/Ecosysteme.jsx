@@ -203,7 +203,7 @@ export default function Ecosysteme() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-6">
                     <div className="rounded-xl p-4" style={{ background: 'var(--sable)', border: '1px solid var(--border)' }}>
                       <div className="font-ui text-xs font-semibold uppercase tracking-wide mb-2" style={{ color: 'var(--text-muted)' }}>
-                        Article 35 — {data.contexte_national.reforme_constitutionnelle_2023.ancien_article_35_reference}
+                        Article 35 · {data.contexte_national.reforme_constitutionnelle_2023.ancien_article_35_reference}
                       </div>
                       <blockquote className="text-sm italic" style={{ color: 'var(--text-primary)' }}>
                         « {data.contexte_national.reforme_constitutionnelle_2023.ancien_article_35} »
@@ -211,7 +211,7 @@ export default function Ecosysteme() {
                     </div>
                     <div className="rounded-xl p-4" style={{ background: 'rgba(109,91,208,0.06)', border: '1px solid var(--border)' }}>
                       <div className="font-ui text-xs font-semibold uppercase tracking-wide mb-2" style={{ color: 'var(--or-dark)' }}>
-                        Article 35 — {data.contexte_national.reforme_constitutionnelle_2023.nouvel_article_35_reference}
+                        Article 35 · {data.contexte_national.reforme_constitutionnelle_2023.nouvel_article_35_reference}
                       </div>
                       <blockquote className="text-sm italic" style={{ color: 'var(--text-primary)' }}>
                         « {data.contexte_national.reforme_constitutionnelle_2023.nouvel_article_35} »

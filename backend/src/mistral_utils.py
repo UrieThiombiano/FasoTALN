@@ -1,6 +1,6 @@
 """
 Utilitaires partagés pour l'API Agents/Conversations de Mistral (connecteur
-web_search) — utilisé par ChatEngine et NewsAgent. Différente de l'API Chat
+web_search) : utilisé par ChatEngine et NewsAgent. Différente de l'API Chat
 Completions classique : seule l'API Agents/Conversations
 (`client.beta.conversations.start`) expose le connecteur `web_search`.
 """

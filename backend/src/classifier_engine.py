@@ -1,5 +1,5 @@
 """
-TopicClassifier — classification thématique hybride texte + IPA.
+TopicClassifier : classification thématique hybride texte + IPA.
 
 Modèle : Uriath/afro-xlmr-hybrid-sib200-masakhanews-5class-byt5
 (XLMRobertaForSequenceClassification, base Davlan/afro-xlmr-base, 5 classes :
@@ -8,7 +8,7 @@ politics, sports, health, entertainment, technology).
 Construction de la séquence reproduite à l'identique de `tokenize_hybrid`
 dans le notebook d'entraînement `12_sib200_masakhanews_5class_byt5_FINAL` :
 texte et IPA sont chacun tronqués à MAX_LEN/2 tokens (sans tokens spéciaux),
-puis assemblés manuellement en `[CLS] texte [SEP] IPA [SEP]` — un **seul**
+puis assemblés manuellement en `[CLS] texte [SEP] IPA [SEP]` : un **seul**
 [SEP] entre texte et IPA. C'est un point important : l'appel standard
 `tokenizer(texte, ipa)` de XLM-R (format de paire à la RoBERTa) insère
 **deux** [SEP] consécutifs entre les deux segments, ce qui ne correspond pas

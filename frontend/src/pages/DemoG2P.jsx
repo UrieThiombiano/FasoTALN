@@ -40,7 +40,7 @@ export default function DemoG2P() {
 
   return (
     <DocsLayout
-      title="Transcription phonétique (G2P)"
+      title="Transcription en IPA (G2P)"
       description="Transcrivez un texte en Alphabet Phonétique International (IPA) grâce à notre modèle ByT5 fine-tuné."
     >
       <div className="flex items-center justify-center gap-3 sm:gap-5 mb-8 flex-wrap">

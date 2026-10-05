@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import { motion, useInView, useAnimation } from 'framer-motion'
 
 /**
- * RevealOnScroll — enveloppe un enfant et l'anime en fondu+montée
+ * RevealOnScroll : enveloppe un enfant et l'anime en fondu+montée
  * dès qu'il entre dans le viewport.
  * Props :
  *   delay   : délai en secondes (défaut 0)

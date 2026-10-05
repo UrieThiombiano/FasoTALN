@@ -28,11 +28,11 @@ function useResults() {
 }
 
 function pct(v) {
-  return v === null || v === undefined ? '—' : `${(v * 100).toFixed(2)} %`
+  return v === null || v === undefined ? 'n/d' : `${(v * 100).toFixed(2)} %`
 }
 
 function pp(v) {
-  return v === null || v === undefined ? '—' : `${v > 0 ? '+' : ''}${v.toFixed(2)} pts`
+  return v === null || v === undefined ? 'n/d' : `${v > 0 ? '+' : ''}${v.toFixed(2)} pts`
 }
 
 function LanguageBar({ value, color }) {
@@ -178,8 +178,8 @@ export default function Resultats() {
           {data.global && (
             <RevealOnScroll>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                <StatTile value={pct(data.global.hybride_f1)} label="F1 hybride — résultat global" />
-                <StatTile value={pct(data.global.ortho_f1)} label="F1 texte seul — résultat global" />
+                <StatTile value={pct(data.global.hybride_f1)} label="F1 hybride (global)" />
+                <StatTile value={pct(data.global.ortho_f1)} label="F1 texte seul (global)" />
                 <StatTile value={pp(data.global.gain_pp)} label="Gain global de l'approche hybride" />
               </div>
             </RevealOnScroll>
@@ -208,8 +208,8 @@ export default function Resultats() {
             <Callout variant="note" title="Un résultat à nuancer pour le dioula">
               L'approche hybride améliore nettement les résultats pour le mooré
               (+4,57 pts) et surtout le bambara (+9,73 pts), mais fait
-              légèrement moins bien que le texte seul pour le dioula (−0,32
-              pt) — un écart faible, mais qui montre que le gain apporté par
+              légèrement moins bien que le texte seul pour le dioula (-0,32
+              pt), un écart faible, mais qui montre que le gain apporté par
               la transcription phonémique n'est pas uniforme selon la langue,
               et mérite d'être creusé plutôt que passé sous silence.
             </Callout>

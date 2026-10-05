@@ -1,65 +1,11 @@
-import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import {
-  ArrowRight, Languages, Layers, Wand2, Building2, Newspaper,
-  FileCode, Github, Cpu, Quote,
-} from 'lucide-react'
+import { ArrowRight, FileCode, Github, Cpu, Quote } from 'lucide-react'
 import BogolonDivider from '../components/ui/BogolonDivider'
 import RevealOnScroll from '../components/ui/RevealOnScroll'
-import Carousel from '../components/ui/Carousel'
-import { NAV, FLAT_PAGES } from '../config/nav'
-
-const GROUP_META = [
-  {
-    group: 'Langues',
-    icon: Languages,
-    entry: '/langues',
-    description: 'La diversité linguistique du continent, et les langues africaines déjà couvertes par FasoTALN.',
-  },
-  {
-    group: 'TALN africain',
-    icon: Layers,
-    entry: '/defis',
-    description: 'Défis scientifiques, approches actuelles, ressources et glossaire du domaine.',
-  },
-  {
-    group: 'Approche phonémique',
-    icon: Wand2,
-    entry: '/demo-g2p',
-    description: 'Testez la transcription phonétique et la classification thématique en direct.',
-  },
-  {
-    group: 'Écosystème TALN-BF',
-    icon: Building2,
-    entry: '/ecosysteme',
-    description: 'Institutions, initiatives et communautés qui font vivre le TALN au Burkina Faso.',
-  },
-  {
-    group: 'Actualités',
-    icon: Newspaper,
-    entry: '/nouvelles',
-    description: "L'actualité du TALN en Afrique, mise à jour automatiquement.",
-  },
-]
+import PlatformMap from '../components/ui/PlatformMap'
 
 export default function Home() {
-  const [resourceCount, setResourceCount] = useState(27)
-
-  useEffect(() => {
-    fetch('/api/knowledge/resources')
-      .then((r) => r.json())
-      .then((data) => { if (Array.isArray(data)) setResourceCount(data.length) })
-      .catch(() => {})
-  }, [])
-
-  const stats = [
-    { value: '5',            label: 'langues africaines couvertes' },
-    { value: `${resourceCount}`, label: 'ressources cataloguées' },
-    { value: '5',            label: 'classes thématiques (pipeline)' },
-    { value: '3',            label: 'langues avec modèle G2P + classification' },
-  ]
-
   return (
     <>
       {/* ── HERO ─────────────────────────────────────────────────────── */}
@@ -126,7 +72,7 @@ export default function Home() {
               Les langues africaines restent largement absentes des grands
               modèles de langue. Né à CITADEL, à Ouagadougou, FasoTALN est le
               portail de référence sur le TALN appliqué aux langues du
-              continent — défis, ressources, approches et contributions de
+              continent : défis, ressources, approches et contributions de
               recherche, réunis dans une seule plateforme pensée pour
               grandir avec la communauté, à travers toute l'Afrique.
             </p>
@@ -141,60 +87,25 @@ export default function Home() {
           </motion.div>
           </div>
 
-          {/* Photo + carte flottante : chercheurs africains en IA, aperçu du pipeline */}
-          <div className="hidden lg:flex lg:flex-col gap-5 flex-shrink-0">
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.8 }}
-              className="rounded-2xl overflow-hidden"
-              style={{ maxWidth: 340, boxShadow: '0 20px 48px rgba(31,33,41,0.10)' }}
-            >
-              <img
-                src="/images/home/citadel-1.jpg"
-                alt="Session de formation CITADEL, présentatrice au micro devant un tableau de notes sur l'éthique de l'IA"
-                className="w-full h-44 object-cover"
-              />
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.8 }}
+          {/* Carte-contour de l'Afrique : motif décoratif du hero */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.92 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.35, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            className="hidden lg:block flex-shrink-0"
+            aria-hidden
+          >
+            <img
+              src="/images/home/afrique-outline.jpg"
+              alt=""
+              className="w-full"
               style={{
-                background: 'var(--blanc)',
-                border: '1px solid var(--border)',
-                borderRadius: 20,
-                padding: '1.5rem',
-                maxWidth: 340,
-                boxShadow: '0 20px 48px rgba(31,33,41,0.08)',
+                maxWidth: 420,
+                mixBlendMode: 'multiply',
+                opacity: 0.85,
               }}
-            >
-              <div style={{ color: 'var(--or)', fontFamily: 'var(--font-ui)', fontSize: 12,
-                fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 16 }}>
-                Notre pipeline
-              </div>
-
-              <div className="font-mono" style={{ color: 'var(--text-primary)', fontSize: 12.5, lineHeight: 1.9 }}>
-                <div>"laafi bala"</div>
-                <div style={{ color: 'var(--or)' }}>↓ ByT5</div>
-                <div>[la.a.fi ba.la]</div>
-                <div style={{ color: 'var(--or)' }}>↓ AfroXLMR</div>
-                <div>classe : <span style={{ color: 'var(--mil)' }}>santé (0.81)</span></div>
-              </div>
-
-              <div style={{ display: 'flex', gap: 16, paddingTop: 16, marginTop: 16,
-                borderTop: '1px solid var(--border)' }}>
-                {[['3', 'Langues'], ['5', 'Classes'], ['2', 'Modèles']].map(([val, lbl]) => (
-                  <div key={lbl} style={{ textAlign: 'center', flex: 1 }}>
-                    <div style={{ color: 'var(--or)', fontFamily: 'var(--font-ui)',
-                      fontWeight: 700, fontSize: 16 }}>{val}</div>
-                    <div style={{ color: 'var(--text-muted)', fontSize: 10 }}>{lbl}</div>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          </div>
+            />
+          </motion.div>
           </div>
         </div>
 
@@ -206,35 +117,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── STATS ────────────────────────────────────────────────────── */}
-      <section style={{ background: 'var(--sable)' }} className="py-14">
-        <div className="container-fx">
-          <RevealOnScroll>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              {stats.map((s, i) => (
-                <motion.div
-                  key={s.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1, duration: 0.5 }}
-                  className="text-center"
-                >
-                  <div
-                    className="font-display text-4xl font-bold mb-1"
-                    style={{ color: 'var(--or)' }}
-                  >
-                    {s.value}
-                  </div>
-                  <div className="font-ui text-sm" style={{ color: 'var(--text-muted)' }}>
-                    {s.label}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </RevealOnScroll>
-        </div>
-      </section>
+      {/* ── PLAN DE LA PLATEFORME ─────────────────────────────────────── */}
+      <PlatformMap />
 
       <BogolonDivider />
 
@@ -242,7 +126,7 @@ export default function Home() {
       <section className="py-24" style={{ background: 'var(--blanc)' }}>
         <div className="container-fx">
           <RevealOnScroll>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
                 <span className="badge badge-or mb-4">Pourquoi FasoTALN</span>
                 <h2
@@ -262,7 +146,7 @@ export default function Home() {
                 <p style={{ color: 'var(--text-muted)', lineHeight: 1.8 }}>
                   FasoTALN rassemble en un seul endroit les enjeux, les
                   ressources, les approches et les contributions de recherche
-                  nécessaires pour combler cet écart — un point d'entrée
+                  nécessaires pour combler cet écart, un point d'entrée
                   pensé pour durer et s'enrichir avec la communauté.
                 </p>
               </div>
@@ -296,65 +180,6 @@ export default function Home() {
             </div>
           </RevealOnScroll>
 
-          <RevealOnScroll>
-            <div className="text-center mb-12 max-w-2xl mx-auto">
-              <span className="badge badge-or mb-4">Explorer</span>
-              <h2
-                className="font-display text-3xl md:text-4xl font-bold mb-4"
-                style={{ color: 'var(--indigo)' }}
-              >
-                Trouvez rapidement ce que vous cherchez
-              </h2>
-              <p style={{ color: 'var(--text-muted)' }}>
-                {FLAT_PAGES.length} pages réparties en cinq univers — choisissez
-                votre point d'entrée.
-              </p>
-            </div>
-          </RevealOnScroll>
-
-          <RevealOnScroll>
-            <div className="max-w-4xl mx-auto">
-              <Carousel>
-                {GROUP_META.map((meta) => {
-                  const count = NAV.find((g) => g.group === meta.group)?.items.length || 0
-                  const Icon = meta.icon
-                  return (
-                    <Link
-                      key={meta.group}
-                      to={meta.entry}
-                      className="card-fx p-6 flex flex-col gap-3 h-full no-underline group transition-transform hover:-translate-y-1"
-                      style={{ background: 'var(--blanc)' }}
-                    >
-                      <div
-                        className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
-                        style={{ background: 'rgba(109,91,208,0.12)' }}
-                      >
-                        <Icon size={20} color="var(--or-dark)" strokeWidth={1.8} />
-                      </div>
-                      <div className="flex-1">
-                        <div className="font-display text-lg font-bold mb-1.5" style={{ color: 'var(--indigo)' }}>
-                          {meta.group}
-                        </div>
-                        <p className="text-sm leading-relaxed" style={{ color: 'var(--text-muted)' }}>
-                          {meta.description}
-                        </p>
-                      </div>
-                      <div className="flex items-center justify-between pt-2">
-                        <span className="font-ui text-xs font-medium" style={{ color: 'var(--text-muted)' }}>
-                          {count} page{count > 1 ? 's' : ''}
-                        </span>
-                        <ArrowRight
-                          size={16}
-                          className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"
-                          style={{ color: 'var(--or)' }}
-                        />
-                      </div>
-                    </Link>
-                  )
-                })}
-              </Carousel>
-            </div>
-          </RevealOnScroll>
         </div>
       </section>
 
@@ -495,7 +320,7 @@ export default function Home() {
               className="font-display text-2xl md:text-3xl italic font-light leading-relaxed mb-6"
               style={{ color: 'rgba(255,255,255,0.92)' }}
             >
-              "Masakhane — nous construisons ensemble. Par les Africains,
+              "Masakhane : nous construisons ensemble. Par les Africains,
               pour les Africains."
             </blockquote>
             <p

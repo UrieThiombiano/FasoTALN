@@ -13,16 +13,16 @@
       },
       {
         "terme": "Corpus parallèle",
-        "definition": "Un corpus où chaque texte existe dans au moins deux langues, phrase par phrase alignées — la ressource de base pour entraîner un système de traduction automatique."
+        "definition": "Un corpus où chaque texte existe dans au moins deux langues, phrase par phrase alignées : la ressource de base pour entraîner un système de traduction automatique."
       },
       {
         "terme": "Langue à faibles ressources",
-        "definition": "Une langue disposant de peu de données numériques (texte, audio, annotations) et peu représentée dans la recherche en TALN — c'est le cas de la quasi-totalité des langues nationales du Burkina Faso.",
+        "definition": "Une langue disposant de peu de données numériques (texte, audio, annotations) et peu représentée dans la recherche en TALN : c'est le cas de la quasi-totalité des langues nationales du Burkina Faso.",
         "voir": "/defis"
       },
       {
         "terme": "Langue véhiculaire",
-        "definition": "Une langue utilisée comme moyen de communication commun entre locuteurs de langues maternelles différentes, au-delà de son groupe ethnique d'origine — au Burkina Faso, le mooré, le dioula et le fulfuldé jouent ce rôle.",
+        "definition": "Une langue utilisée comme moyen de communication commun entre locuteurs de langues maternelles différentes, au-delà de son groupe ethnique d'origine ; au Burkina Faso, le mooré, le dioula et le fulfuldé jouent ce rôle.",
         "voir": "/langues"
       },
       {
@@ -63,7 +63,7 @@
       },
       {
         "terme": "LLM",
-        "definition": "Grand modèle de langue (Large Language Model) : un modèle de langue de très grande taille (souvent des milliards de paramètres), typiquement capable de générer du texte fluide et de répondre à des instructions en langage naturel — par exemple GPT-4.",
+        "definition": "Grand modèle de langue (Large Language Model) : un modèle de langue de très grande taille (souvent des milliards de paramètres), typiquement capable de générer du texte fluide et de répondre à des instructions en langage naturel, par exemple GPT-4.",
         "voir": "/defis"
       },
       {
@@ -78,7 +78,7 @@
       },
       {
         "terme": "Byte-level",
-        "definition": "Une approche de tokenisation qui traite le texte octet par octet (au sens de l'encodage UTF-8) plutôt que mot par mot ou sous-mot par sous-mot — utilisée par ByT5, le modèle G2P de FasoTALN.",
+        "definition": "Une approche de tokenisation qui traite le texte octet par octet (au sens de l'encodage UTF-8) plutôt que mot par mot ou sous-mot par sous-mot ; c'est l'approche utilisée par ByT5, le modèle G2P de FasoTALN.",
         "voir": "/contribution"
       },
       {
@@ -126,7 +126,7 @@
     "termes": [
       {
         "terme": "Accuracy",
-        "definition": "La proportion de prédictions correctes sur l'ensemble des prédictions faites par un modèle — la métrique d'évaluation la plus simple, mais trompeuse quand les classes sont déséquilibrées."
+        "definition": "La proportion de prédictions correctes sur l'ensemble des prédictions faites par un modèle : la métrique d'évaluation la plus simple, mais trompeuse quand les classes sont déséquilibrées."
       },
       {
         "terme": "F1-score",

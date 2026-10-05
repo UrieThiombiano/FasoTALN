@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 
 /**
  * Visualise la taxonomie de dotation en ressources numériques des langues
- * (Joshi et al., 2020, ACL) — classes 0 (« The Left-Behinds ») à 5
+ * (Joshi et al., 2020, ACL) : classes 0 (« The Left-Behinds ») à 5
  * (« The Winners »). pct est une hauteur relative purement illustrative,
  * pas une métrique chiffrée par l'étude.
  */

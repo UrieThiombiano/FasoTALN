@@ -1,14 +1,14 @@
 """
-G2PEngine — modèle ByT5 fine-tuné pour la transcription phonémique (IPA)
+G2PEngine : modèle ByT5 fine-tuné pour la transcription phonémique (IPA)
 des langues africaines couvertes par le modèle G2P de FasoTALN (mooré, dioula, bambara).
 
 Modèle : Uriath/byt5-small-g2p-african (T5ForConditionalGeneration).
 
 Process reproduit à l'identique du notebook d'entraînement/évaluation
-`12_sib200_masakhanews_5class_byt5_FINAL` (section G2P — cellule "ByT5 pour
-mos/dyu/bam — format validé") :
+`12_sib200_masakhanews_5class_byt5_FINAL` (section G2P : cellule "ByT5 pour
+mos/dyu/bam : format validé") :
   - tokenizer natif `google/byt5-small` (PAS `AutoTokenizer.from_pretrained
-    (MODEL_REPO)` — un tokenizer custom avait été identifié comme source
+    (MODEL_REPO)` : un tokenizer custom avait été identifié comme source
     d'erreurs dans des sessions antérieures) ;
   - `tie_word_embeddings=False` au chargement du modèle : le modèle a été
     fine-tuné avec une tête de sortie (`lm_head`) *non liée* aux embeddings
@@ -18,7 +18,7 @@ mos/dyu/bam — format validé") :
     hasard ;
   - génération **mot par mot** (pas phrase entière), chaque mot en
     minuscules et préfixé par le code langue : `"lang_code: mot"`
-    (ex. `"mos: naam"`) — le modèle n'a jamais vu de phrases complètes ni de
+    (ex. `"mos: naam"`) : le modèle n'a jamais vu de phrases complètes ni de
     texte non préfixé pendant l'entraînement ;
   - `num_beams=4, max_length=128, early_stopping=True`, sans
     repetition_penalty ni no_repeat_ngram_size (ces paramètres, présents

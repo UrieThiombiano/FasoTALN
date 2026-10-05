@@ -6,14 +6,14 @@
     "code": "mos",
     "locuteurs": "8 millions et plus (52,9 % de la population se déclare locutrice au recensement RGPH, chiffre qui reflète surtout le poids démographique de l'ethnie mossi)",
     "famille": "Niger-Congo",
-    "sous_famille": "Gur (branche Oti-Volta centrale) — famille gur, 46 langues recensées par l'Ethnologue au Burkina Faso",
+    "sous_famille": "Gur (branche Oti-Volta centrale), famille gur, 46 langues recensées par l'Ethnologue au Burkina Faso",
     "ecriture": "Alphabet latin, orthographe nationale avec diacritiques tonaux et voyelles nasales (ẽ, ĩ, õ, ũ)",
     "tons": "Langue tonale (deux tons distinctifs, souvent non marqués à l'écrit courant)",
     "zone_geographique": "Plateau central et majorité du territoire burkinabè, région de Ouagadougou",
     "description": "Le mooré est la langue du peuple mossi, le plus grand groupe ethnique du Burkina Faso. C'est l'une des trois langues nationales retenues dès 1974 comme langues véhiculaires du pays (avec le dioula et le fulfuldé), et la langue la plus parlée du pays.",
     "image": "/images/langues/moore-mosquee-ouagadougou.jpg",
     "image_alt": "Marchands de rue devant la Grande Mosquée de Ouagadougou, en zone mooré",
-    "image_credit": "Grande Mosquée de Ouagadougou, marchands de rue au premier plan — C. Hugues, CC BY-SA 2.0",
+    "image_credit": "Grande Mosquée de Ouagadougou, marchands de rue au premier plan. Photo : C. Hugues, CC BY-SA 2.0",
     "particularites": [
       "Langue tonale à deux tons",
       "Système de voyelles nasales marquées à l'écrit",
@@ -35,14 +35,14 @@
     "code": "dyu",
     "locuteurs": "environ 12,5 millions (Burkina Faso ~3,6M, Côte d'Ivoire ~8,5M, Mali ~390 000) ; le RGPH ne crédite le dioula que de 5,7 % des locuteurs au Burkina Faso, un chiffre jugé très sous-estimé par les linguistes car la question du recensement capte l'appartenance ethnique plutôt que l'usage réel de cette langue de commerce",
     "famille": "Niger-Congo",
-    "sous_famille": "Mandé (groupe Manding, mutuellement intelligible avec le bambara et le malinké) — famille mandé, 16 langues recensées par l'Ethnologue au Burkina Faso",
+    "sous_famille": "Mandé (groupe Manding, mutuellement intelligible avec le bambara et le malinké), famille mandé, 16 langues recensées par l'Ethnologue au Burkina Faso",
     "ecriture": "Alphabet latin (usage courant), N'Ko occasionnellement pour les langues manding",
     "tons": "Langue tonale",
     "zone_geographique": "Ouest et sud-ouest du Burkina Faso (provinces du Kossi, du Houet, du Kénédougou dont Bobo-Dioulasso, la capitale économique), Côte d'Ivoire, sud du Mali",
     "description": "Le dioula (ou jula) est l'une des trois langues nationales retenues dès 1974 comme langues véhiculaires du Burkina Faso. Langue de commerce majeure de l'Afrique de l'Ouest, elle domine dans le Grand Ouest burkinabè et le long des axes commerciaux. Elle appartient au vaste continuum manding, ce qui la rend en grande partie intercompréhensible avec le bambara.",
     "image": "/images/langues/dioula-grande-mosquee-bobo-dioulasso.jpg",
     "image_alt": "Grande Mosquée de Bobo-Dioulasso, architecture soudano-sahélienne en banco",
-    "image_credit": "Grande Mosquée de Bobo-Dioulasso — Jurgen, CC BY 2.0",
+    "image_credit": "Grande Mosquée de Bobo-Dioulasso. Photo : Jurgen, CC BY 2.0",
     "particularites": [
       "Langue de commerce (lingua franca) parlée bien au-delà de sa zone d'origine",
       "Langue véhiculaire nationale désignée dès 1974",
@@ -66,12 +66,12 @@
     "description": "Le fulfuldé (peul) est la troisième langue nationale retenue dès 1974 comme langue véhiculaire du Burkina Faso, aux côtés du mooré et du dioula. C'est la langue de communication privilégiée dans le nord pastoral du pays, portée par les communautés peules dont le mode de vie reste largement pastoral et nomade.",
     "image": "/images/langues/fulfulde-peul-bomborokuy.jpg",
     "image_alt": "Homme peul debout dans un village de la province de Kossi, zone pastorale du Burkina Faso",
-    "image_credit": "Un Peul à Bomborokuy, province de Kossi, Burkina Faso, 1984 — Fred P. M. van der Kraaij / African Studies Centre Leiden, CC BY-SA 4.0",
+    "image_credit": "Un Peul à Bomborokuy, province de Kossi, Burkina Faso, 1984. Photo : Fred P. M. van der Kraaij / African Studies Centre Leiden, CC BY-SA 4.0",
     "particularites": [
       "Langue véhiculaire nationale désignée dès 1974, au même titre que le mooré et le dioula",
       "Seule langue ouest-atlantique parmi les langues véhiculaires du Burkina Faso (avec le dogon, non véhiculaire)",
       "Parlée dans plusieurs pays du Sahel et d'Afrique de l'Ouest par les communautés peules",
-      "Pas encore couverte par les modèles de recherche présentés sur cette plateforme (G2P/classification) — contrairement au mooré, au dioula et au bambara"
+      "Pas encore couverte par les modèles de recherche présentés sur cette plateforme (G2P/classification), contrairement au mooré, au dioula et au bambara"
     ],
     "exemples": [],
     "tester_g2p": false
@@ -81,16 +81,16 @@
     "nom": "Gourmantché",
     "nom_local": "Gulimancema",
     "code": null,
-    "locuteurs": "environ 813 000 au Burkina Faso selon Wikipédia FR (chiffre de 1999) ; jusqu'à 1,5 million toutes zones confondues (Burkina Faso, Togo, Bénin, Niger, Ghana, Nigeria) selon l'Ethnologue (édition 2023, chiffres 2012-2021) — les deux estimations, d'époques différentes, sont citées ici par souci de transparence",
+    "locuteurs": "environ 813 000 au Burkina Faso selon Wikipédia FR (chiffre de 1999) ; jusqu'à 1,5 million toutes zones confondues (Burkina Faso, Togo, Bénin, Niger, Ghana, Nigeria) selon l'Ethnologue (édition 2023, chiffres 2012-2021) ; les deux estimations, d'époques différentes, sont citées ici par souci de transparence",
     "famille": "Niger-Congo",
-    "sous_famille": "Gur, branche Oti-Volta, groupe gourma — famille gur, 46 langues recensées par l'Ethnologue au Burkina Faso",
+    "sous_famille": "Gur, branche Oti-Volta, groupe gourma ; famille gur, 46 langues recensées par l'Ethnologue au Burkina Faso",
     "ecriture": "Alphabet latin (alphabet gourmantché normalisé)",
     "tons": "Langue tonale (trois tons : haut, moyen, bas)",
     "zone_geographique": "Est du Burkina Faso, région du Gulmu (environ un sixième du territoire national), autour de Fada N'Gourma ; aussi parlée au Togo, au Bénin et au Niger",
     "description": "Le gourmantché (ou gourmanchéma, gulimancema) est la langue des Gourmantché/Gulmancéba, qui occupent l'est du Burkina Faso autour de Fada N'Gourma. Ce n'est pas l'une des trois langues véhiculaires désignées en 1974 (mooré, dioula, fulfuldé), mais c'est l'une des langues nationales les plus parlées du pays par le nombre de locuteurs, et la langue dominante de toute une région administrative.",
     "image": "/images/langues/gourmantche-fada-ngourma-marche.jpg",
     "image_alt": "Marché principal de Fada N'Gourma, capitale du Gulmu, région gourmantché",
-    "image_credit": "Marché principal de Fada N'Gourma, Burkina Faso — Martin Wegmann Baliola, CC BY-SA 3.0",
+    "image_credit": "Marché principal de Fada N'Gourma, Burkina Faso. Photo : Martin Wegmann Baliola, CC BY-SA 3.0",
     "particularites": [
       "Langue majoritaire de l'est du Burkina Faso (région du Gulmu), pas une langue véhiculaire nationale au sens de la désignation de 1974",
       "Système à trois tons (haut, moyen, bas)",
@@ -111,12 +111,12 @@
     "ecriture": "Alphabet latin (orthographe officielle au Mali), N'Ko et graphie ajami encore en usage",
     "tons": "Langue tonale",
     "zone_geographique": "Mali (langue nationale la plus parlée), diffusion régionale au Sénégal, en Guinée, en Côte d'Ivoire",
-    "description": "Le bambara est la langue nationale la plus répandue du Mali, comprise par environ 80% de la population comme langue première ou seconde — ce n'est pas une des langues véhiculaires historiques du Burkina Faso. Elle figure sur cette plateforme parce qu'elle appartient au même continuum manding que le dioula, en est très proche linguistiquement, et bénéficie de corpus et de modèles de TALN plus développés que le dioula — un atout exploité par les modèles de recherche présentés ici.",
+    "description": "Le bambara est la langue nationale la plus répandue du Mali, comprise par environ 80% de la population comme langue première ou seconde ; ce n'est pas une des langues véhiculaires historiques du Burkina Faso. Elle figure sur cette plateforme parce qu'elle appartient au même continuum manding que le dioula, en est très proche linguistiquement, et bénéficie de corpus et de modèles de TALN plus développés que le dioula, un atout exploité par les modèles de recherche présentés ici.",
     "particularites": [
       "Langue nationale du Mali, pas une langue véhiculaire historique du Burkina Faso",
       "Coexistence de trois systèmes d'écriture (latin officiel, N'Ko, ajami)",
       "Très proche du dioula au sein du continuum manding, en partie intercompréhensible",
-      "Corpus et outils TALN plus développés que pour le dioula — exploités ici pour le transfert cross-lingue vers le dioula"
+      "Corpus et outils TALN plus développés que pour le dioula, exploités ici pour le transfert cross-lingue vers le dioula"
     ],
     "exemples": [],
     "tester_g2p": true

@@ -1,5 +1,5 @@
 """
-FasoTALN — Backend FastAPI
+FasoTALN : Backend FastAPI
 Sert le contenu éditorial du portail TALN et les deux modèles de recherche :
 ByT5 G2P (texte → IPA) et AfroXLMR hybride (classification texte+IPA).
 
@@ -22,7 +22,7 @@ load_dotenv()
 
 # ── Limite de débit basique (en mémoire, par IP) ─────────────────────────
 # Protège /api/chat contre le spam/l'abus (coût API Mistral) : pas de
-# persistance, remise à zéro au redémarrage — suffisant pour ce volume.
+# persistance, remise à zéro au redémarrage : suffisant pour ce volume.
 _RATE_LIMIT_WINDOW_S = 300
 _RATE_LIMIT_MAX_REQUESTS = 15
 _rate_limit_buckets: dict[str, deque] = defaultdict(deque)
@@ -70,7 +70,7 @@ print("[FasoTALN] Prêt.")
 async def _news_refresh_loop():
     """Rafraîchit les actualités au démarrage puis toutes les 24h.
     Best-effort : un HF Space en veille ne fera pas tourner cette boucle
-    en continu — voir POST /api/news/refresh pour un déclenchement externe
+    en continu : voir POST /api/news/refresh pour un déclenchement externe
     (ex. cron GitHub Actions)."""
     while True:
         try:
@@ -216,7 +216,7 @@ def chat_endpoint(req: ChatRequest, request: Request):
     avec repli web_search (domaines de confiance uniquement, source toujours
     citée) si l'information demandée n'est pas dans la base éditoriale.
     Ne répond que sur le TALN, les langues africaines et la contribution
-    FasoTALN — hors périmètre, il refuse plutôt que d'inventer.
+    FasoTALN : hors périmètre, il refuse plutôt que d'inventer.
     """
     _check_rate_limit(request.client.host if request.client else "unknown")
     message = req.message.strip()

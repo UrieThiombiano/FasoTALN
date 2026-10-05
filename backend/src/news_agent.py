@@ -1,5 +1,5 @@
 """
-NewsAgent — agent unique (Mistral, connecteur web_search) qui recherche puis
+NewsAgent : agent unique (Mistral, connecteur web_search) qui recherche puis
 résume des actualités récentes sur le TALN en Afrique pour la page
 « Nouvelles du jour ». Pas de validation humaine avant publication : la
 fiabilité repose sur (1) des instructions strictes anti-hallucination et
@@ -57,7 +57,7 @@ RÈGLES STRICTES (anti-hallucination) :
 - N'utilise QUE des informations trouvées via ta recherche web réelle à l'instant présent, \
 jamais des connaissances internes non vérifiées ni des suppositions.
 - Ne retiens QUE des informations provenant de ces domaines de confiance : {', '.join(ALLOWED_DOMAINS)}. \
-Si tu ne trouves rien de vérifiable dans ces domaines, renvoie un tableau plus court, y compris vide — \
+Si tu ne trouves rien de vérifiable dans ces domaines, renvoie un tableau plus court, y compris vide ; \
 n'invente jamais un article pour combler.
 - Chaque "source_lien" doit être l'URL exacte renvoyée par ta recherche, jamais reconstituée ou devinée.
 - Si la date exacte d'un fait n'est pas trouvée, mets `null` plutôt que d'inventer une date.

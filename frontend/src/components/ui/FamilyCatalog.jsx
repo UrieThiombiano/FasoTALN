@@ -10,7 +10,7 @@ export default function FamilyCatalog({ familles, source }) {
             </h3>
             <span className="font-ui text-xs" style={{ color: 'var(--text-muted)' }}>
               {f.phylum} · {f.nombre} langue{f.nombre > 1 ? 's' : ''}
-              {f.echantillon ? ' au total — exemples :' : ''}
+              {f.echantillon ? ' au total, exemples :' : ''}
             </span>
           </div>
           {f.description && (

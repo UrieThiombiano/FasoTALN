@@ -1,5 +1,5 @@
 /**
- * BogolonDivider — séparateur de sections inspiré du bogolan burkinabè.
+ * BogolonDivider : séparateur de sections inspiré du bogolan burkinabè.
  * Motif géométrique SVG (losanges, croix et points aux couleurs du pays),
  * signature visuelle de FasoXplore. Utilisé entre chaque grande section.
  */

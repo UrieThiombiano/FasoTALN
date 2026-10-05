@@ -1,5 +1,5 @@
 """
-ChatEngine — assistant conversationnel de FasoTALN (Mistral, RAG statique +
+ChatEngine : assistant conversationnel de FasoTALN (Mistral, RAG statique +
 repli web_search).
 
 Répond aux questions sur le TALN appliqué aux langues africaines et sur la
@@ -8,7 +8,7 @@ le prompt système est entièrement dérivé de data/knowledge/*.json (chargé u
 seule fois au démarrage). Si une information n'y figure pas mais reste dans
 le périmètre TALN Afrique (ex. actualité récente), l'agent peut chercher sur
 le web via le connecteur `web_search` de l'API Agents/Conversations Mistral
-(client.beta.conversations.start — différente de l'API Chat Completions,
+(client.beta.conversations.start : différente de l'API Chat Completions,
 seule à exposer ce connecteur), restreint aux mêmes domaines de confiance
 que NewsAgent, et cite toujours sa source dans la réponse.
 
@@ -48,12 +48,12 @@ actualités récentes du TALN en Afrique. Le projet est développé dans le cadr
 SYSTEM_PROMPT_HEADER = """Tu es l'assistant de FasoTALN, portail scientifique et \
 pédagogique sur le Traitement Automatique des Langues Naturelles (TALN/NLP) appliqué aux langues \
 africaines, au positionnement panafricain. Né à CITADEL (Burkina Faso), le projet couvre \
-actuellement cinq langues, sans hiérarchie de priorité entre elles — mooré, dioula, fulfuldé, \
-gourmantché et bambara —, point de départ appelé à s'élargir à d'autres langues du continent.
+actuellement cinq langues, sans hiérarchie de priorité entre elles (mooré, dioula, fulfuldé, \
+gourmantché et bambara), point de départ appelé à s'élargir à d'autres langues du continent.
 
 Règles strictes :
 - Tu réponds uniquement aux questions sur : le TALN/NLP et les langues africaines \
-(pas seulement les langues actuellement couvertes par FasoTALN — le positionnement du projet \
+(pas seulement les langues actuellement couvertes par FasoTALN, car le positionnement du projet \
 est panafricain), et la contribution de recherche FasoTALN décrite ci-dessous.
 - Pour toute question hors de ce périmètre (sujets personnels, actualité sans lien avec \
 le TALN, etc.), tu réponds poliment que ça sort du périmètre de FasoTALN, sans tenter \
@@ -126,7 +126,7 @@ class ChatEngine:
             raise RuntimeError("Réponse vide de l'assistant.")
 
         if citations and not any(c["url"] in text for c in citations):
-            text += "\n\nSource : " + citations[0]["title"] + " — " + citations[0]["url"]
+            text += "\n\nSource : " + citations[0]["title"] + " (" + citations[0]["url"] + ")"
 
         return text
 

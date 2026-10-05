@@ -108,7 +108,7 @@ export default function Nouvelles() {
   return (
     <DocsLayout
       title="Nouvelles du jour"
-      description="Actualités récentes du TALN en Afrique — nouvelles approches, modèles, jeux de données, conférences — recherchées et résumées automatiquement, sourcées à chaque fois."
+      description="Actualités récentes du TALN en Afrique (nouvelles approches, modèles, jeux de données, conférences), recherchées et résumées automatiquement, sourcées à chaque fois."
     >
       {loading && (
         <div
@@ -140,7 +140,7 @@ export default function Nouvelles() {
           style={{ background: 'var(--sable)', color: 'var(--text-muted)' }}
         >
           <Newspaper size={28} color="var(--or)" />
-          <p className="font-ui text-sm">Pas encore d'actualités — revenez bientôt.</p>
+          <p className="font-ui text-sm">Pas encore d'actualités, revenez bientôt.</p>
         </div>
       )}
 

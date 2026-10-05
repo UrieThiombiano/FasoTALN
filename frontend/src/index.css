@@ -2,9 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── Design Tokens FasoTALN — inspirés d'un SaaS éducatif clair (OpenClassrooms) ── */
+/* Design Tokens FasoTALN : inspirés d'un SaaS éducatif clair (OpenClassrooms) */
 :root {
-  /* Palette — violet de marque sur fond clair, accents sémantiques */
+  /* Palette : violet de marque sur fond clair, accents sémantiques */
   --indigo:       #1F2129;
   --indigo-light: #3A3C4A;
   --indigo-faint: #9CA3AF;

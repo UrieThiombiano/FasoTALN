@@ -19,7 +19,7 @@ const groups = [
     label: 'Approche phonémique',
     items: [
       { to: '/contribution', label: 'Notre contribution' },
-      { to: '/demo-g2p', label: 'Transcription phonétique (G2P)' },
+      { to: '/demo-g2p', label: 'Transcription en IPA (G2P)' },
       { to: '/pipeline', label: 'Pipeline de classification (texte + IPA)' },
       { to: '/resultats', label: 'Résultats' },
       { to: '/perspectives', label: 'Perspectives de recherche' },
